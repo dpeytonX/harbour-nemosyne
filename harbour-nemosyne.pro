@@ -24,7 +24,8 @@ OTHER_FILES += qml/harbour-nemosyne.qml \
     translations/*.ts \
     harbour/nemosyne/* \
     harbour-nemosyne.desktop \
-    qml/pages/Main.qml
+    qml/pages/Main.qml \
+    qml/pages/SettingsPage.qml
 
 QML_IMPORT_PATH = .
 nemosyne.files = harbour
