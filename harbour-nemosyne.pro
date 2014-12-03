@@ -18,14 +18,13 @@ SOURCES += src/harbour-nemosyne.cpp
 
 OTHER_FILES += qml/harbour-nemosyne.qml \
     qml/cover/CoverPage.qml \
-    qml/pages/FirstPage.qml \
-    qml/pages/SecondPage.qml \
     rpm/harbour-nemosyne.changes.in \
     rpm/harbour-nemosyne.spec \
     rpm/harbour-nemosyne.yaml \
     translations/*.ts \
     harbour/nemosyne/* \
-    harbour-nemosyne.desktop
+    harbour-nemosyne.desktop \
+    qml/pages/Main.qml
 
 QML_IMPORT_PATH = .
 nemosyne.files = harbour
