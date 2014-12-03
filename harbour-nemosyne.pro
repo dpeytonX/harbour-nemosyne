@@ -24,7 +24,13 @@ OTHER_FILES += qml/harbour-nemosyne.qml \
     rpm/harbour-nemosyne.spec \
     rpm/harbour-nemosyne.yaml \
     translations/*.ts \
+    harbour/nemosyne/* \
     harbour-nemosyne.desktop
+
+QML_IMPORT_PATH = .
+nemosyne.files = harbour
+nemosyne.path = /usr/share/$${TARGET}
+INSTALLS += nemosyne
 
 # to disable building translations every time, comment out the
 # following CONFIG line
@@ -33,4 +39,3 @@ TRANSLATIONS += translations/harbour-nemosyne-de.ts
 
 RESOURCES += \
     images.qrc
-
