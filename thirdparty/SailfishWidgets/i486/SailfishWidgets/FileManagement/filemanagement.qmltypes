@@ -1,0 +1,222 @@
+import QtQuick.tooling 1.1
+
+// There always is a single Module object that contains all
+// Component objects.
+Module {
+    // A Component object directly corresponds to a type exported
+    // in a plugin with a call to qmlRegisterType.
+    Component {
+
+        // The name is a unique identifier used to refer to this type.
+        // It is recommended you simply use the C++ type name.
+        name: "Dir"
+
+        // The name of the prototype Component.
+        prototype: "QObject"
+
+        // The list of exports determines how a type can be imported.
+        // Each string has the format "URI/Name version" and matches the
+        // arguments to qmlRegisterType. Usually types are only exported
+        // once, if at all.
+        // If the "URI/" part of the string is missing that means the
+        // type should be put into the package defined by the URI the
+        // module was imported with.
+        // For example if this module was imported with 'import Foo 4.8'
+        // the Animation object would be found in the package Foo and
+        // QtQuick.
+        exports: [
+            "FileManagement 1.2",
+            "SailfishWidgets/FileManagement 1.2"
+        ]
+
+        // The meta object revisions for the exports specified in 'exports'.
+        // Describes with revisioned properties will be visible in an export.
+        // The list must have exactly the same length as the 'exports' list.
+        // For example the 'animations' propery described below will only be
+        // available through the QtQuick/Animation 1.0 export.
+
+        //In other words, the package import version will receive all features up to and including the
+        //specified revision
+        exportMetaObjectRevisions: [0, 0]
+
+        Property {
+            name: "root"
+            type: "bool"
+        }
+
+        Property {
+            name: "filter"
+            type: "int"
+        }
+
+        Property {
+            name: "sort"
+            type: "int"
+        }
+
+        Property {
+            name: "files"
+            type: "list<File>"
+        }
+
+        Property {
+            name: "dirName"
+            type: "string"
+        }
+
+        Property {
+            name: "path"
+            type: "string"
+        }
+
+        Property {
+            name: "XdgCache"
+            type: "string"
+        }
+
+        Property {
+            name: "XdgConfig"
+            type: "string"
+        }
+
+        Property {
+            name: "XdgData"
+            type: "string"
+        }
+
+        Property {
+            name: "XdgHome"
+            type: "string"
+        }
+
+        Property {
+            name: "entries"
+            type: "list<string>"
+        }
+        
+        Signal { name: "pathChanged" }
+        Signal { name: "filterChanged" }
+        Signal { name: "filesChanged" }
+        Signal { name: "sortChanged" }
+
+        Method { name: "refresh" }
+
+        Enum {
+            name: "DirFilter"
+            values: {
+                  "Dirs" : 1,
+                  "Files" : 2,
+                  "Drives" : 4,
+                  "NoSymLinks" : 8,
+                  "AllEntries" : 7,
+                  "TypeMask" : 15,
+
+                  "Readable" : 17,
+                  "Writable" : 32,
+                  "Executable" : 64,
+                  "PermissionMask" : 112,
+
+                  "Modified" : 128,
+                  "Hidden" : 160,
+                  "System" : 320,
+
+                  "AccessMask" : 624,
+
+                  "AllDirs" : 640,
+                  "CaseSensitive" : 1280,
+                  "NoDot" : 3200,
+                  "NoDotDot" : 6400,
+                  "NoDotAndDotDot" : 9600,
+
+                  "NoFilter" : -1
+            }
+        }
+
+        Enum {
+            name: "DirSort"
+            values: {
+                    "Name" : 0,
+                    "Time" : 1,
+                    "Size" : 2,
+                    "Unsorted" : 3,
+                    "SortByMask" : 3,
+
+                    "DirsFirst" : 4,
+                    "Reversed" : 8,
+                    "IgnoreCase" : 16,
+                    "DirsLast" : 32,
+                    "LocaleAware" : 64,
+                    "Type" : 128,
+                    "NoSort" : -1
+            }
+        }
+    }
+
+    Component {
+        name: "File"
+
+        prototype: "QObject"
+        exports: [
+            "FileManagement 1.2",
+            "SailfishWidgets/FileManagement 1.2"
+        ]
+        exportMetaObjectRevisions: [0, 0]
+
+        Property {
+            name: "dir"
+            type: "bool"
+        }
+
+        Property {
+            name: "executable"
+            type: "bool"
+        }
+
+        Property {
+            name: "exists"
+            type: "bool"
+        }
+
+        Property {
+            name: "file"
+            type: "bool"
+        }
+
+        Property {
+            name: "hidden"
+            type: "bool"
+        }
+
+        Property {
+            name: "readable"
+            type: "bool"
+        }
+
+        Property {
+            name: "root"
+            type: "bool"
+        }
+
+        Property {
+            name: "symLink"
+            type: "bool"
+        }
+
+        Property {
+            name: "writable"
+            type: "bool"
+        }
+
+        Property {
+            name: "absoluteFilePath"
+            type: "string"
+        }
+
+        Property {
+            name: "fileName"
+            type: "string"
+        }
+        
+        Signal { name: "fileNameChanged" }
+    }
+}

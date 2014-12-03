@@ -1,0 +1,4 @@
+module harbour.nemosyne.SailfishWidgets.Settings
+versioner 1.2 version.qml
+plugin applicationsettings
+typeinfo settings.qmltypes

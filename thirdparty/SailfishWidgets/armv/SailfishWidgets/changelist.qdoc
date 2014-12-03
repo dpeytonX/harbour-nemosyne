@@ -1,0 +1,60 @@
+/*!
+  \page ChangeList.html
+  \title ChangeList 
+  \brief Change List
+
+  \legalese
+   This file is part of SailfishWidgets
+   
+   Copyright (c) 2014 Dametrious Peyton
+       
+   SailfishWidgets is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   SailfishWidgets is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with SailfishWidgets.  If not, see <http://www.gnu.org/licenses/>.
+  \endlegalese
+
+  \startpage
+  SailfishWidgets 1.2
+  \list
+  \li Updated \l {StandardListView} to remove PageHeader (makes it more useful in dialogs)
+  \li Added \l {Variant} for operations on variant types
+  \li Added \l {Dir}, \l {File}, and \l {FileSelector} inside the FileManagement package
+  \endlist
+
+  SailfishWidgets 1.1.2
+  \list
+  \li Added ApplicationSettings plugin
+  \li Added this Change List
+  \endlist
+
+  SailfishWidgets 1.1.1
+  \list
+  \li Added RadioGroup
+  \endlist
+
+  SailfishWidgets 1.1
+  \list
+  \li Modularized QML types into directories based on utility
+  \li Renamed DescriptiveText to Paragraph
+  \li Started QDoc documentation
+  \endlist
+
+  SailfishWidgets 1.0
+  \list
+  \li Initiial set of components
+  \endlist
+
+  Back to \l {Sailfish Widgets}
+
+  This is a library that aims to speed up Sailfish OS Development
+
+*/

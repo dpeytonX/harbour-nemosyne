@@ -1,0 +1,3 @@
+module harbour.nemosyne.SailfishWidgets.Utilities
+versioner 1.2 version.qml
+DynamicLoader 1.1 DynamicLoader.qml

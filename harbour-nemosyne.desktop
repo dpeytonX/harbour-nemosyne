@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=harbour-nemosyne
+Exec=harbour-nemosyne
+Name=harbour-nemosyne
+# translation example:
+# your app name in German locale (de)
+Name[de]=harbour-nemosyne
+

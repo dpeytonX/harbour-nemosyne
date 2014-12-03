@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="desktop.png">harbour-nemosyne.png</file>
+    </qresource>
+</RCC>
