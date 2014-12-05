@@ -5,33 +5,68 @@
     <name>CoverPage</name>
     <message>
         <source>My Cover</source>
-        <translation>Mein Cover</translation>
+        <translation type="vanished">Mein Cover</translation>
+    </message>
+    <message>
+        <source>Nemosyne</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>FirstPage</name>
     <message>
         <source>Show Page 2</source>
-        <translation>Zur Seite 2</translation>
+        <translation type="vanished">Zur Seite 2</translation>
     </message>
     <message>
         <source>UI Template</source>
-        <translation>UI-Vorlage</translation>
+        <translation type="vanished">UI-Vorlage</translation>
     </message>
     <message>
         <source>Hello Sailors</source>
-        <translation>Hallo Matrosen</translation>
+        <translation type="vanished">Hallo Matrosen</translation>
+    </message>
+</context>
+<context>
+    <name>Main</name>
+    <message>
+        <source>mobile flash cards</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mnemosyne 2.x compatible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>select database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deselect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>open existing database</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SecondPage</name>
     <message>
         <source>Nested Page</source>
-        <translation>Unterseite</translation>
+        <translation type="vanished">Unterseite</translation>
     </message>
     <message>
         <source>Item</source>
-        <translation>Element</translation>
+        <translation type="vanished">Element</translation>
     </message>
 </context>
 </TS>

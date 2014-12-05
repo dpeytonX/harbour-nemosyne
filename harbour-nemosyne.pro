@@ -14,7 +14,8 @@ TARGET = harbour-nemosyne
 
 CONFIG += sailfishapp
 
-SOURCES += src/harbour-nemosyne.cpp
+SOURCES += src/harbour-nemosyne.cpp \
+    src/manager.cpp
 
 OTHER_FILES += qml/harbour-nemosyne.qml \
     qml/cover/CoverPage.qml \
@@ -25,7 +26,10 @@ OTHER_FILES += qml/harbour-nemosyne.qml \
     harbour/nemosyne/* \
     harbour-nemosyne.desktop \
     qml/pages/Main.qml \
-    qml/pages/SettingsPage.qml
+    qml/pages/SettingsPage.qml \
+    qml/pages/Card.qml \
+    qml/pages/Question.qml \
+    qml/pages/Answer.qml
 
 QML_IMPORT_PATH = .
 nemosyne.files = harbour
@@ -38,4 +42,8 @@ CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/harbour-nemosyne-de.ts
 
 RESOURCES += \
-    images.qrc
+    images.qrc \
+    data.qrc
+
+HEADERS += \
+    src/manager.h

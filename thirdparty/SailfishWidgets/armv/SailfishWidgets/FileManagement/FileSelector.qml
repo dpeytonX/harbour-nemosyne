@@ -252,7 +252,8 @@ Dialog {
         if((selectionFilter & Dir.NoSymLinks) && file.symLink) return false
         if(!(selectionFilter & Dir.Hidden) && file.hidden) return false
 
-        if(selectionFilter & Dir.AllEntries) return true
+        //if(selectionFilter & Dir.AllEntries) return true
+        if(selectionFilter & Dir.AllDirs & Dir.Files) return true
         if(selectionFilter & Dir.Dirs & Dir.Files) return true
 
         if((selectionFilter & Dir.Dirs) && !file.dir) return false

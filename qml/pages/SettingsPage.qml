@@ -4,11 +4,6 @@ import harbour.nemosyne.SailfishWidgets.Settings 1.2
 
 Page {
     ApplicationSettings {
-        property bool autoSave: true
-        property bool autoSaveWhenDone: true
-        property bool autoOpenDb: true
-        property int  autoSaveAfterCard: 10
-
         applicationName: "harbour-nemosyne"
         fileName: "settings"
     }
