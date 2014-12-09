@@ -128,13 +128,10 @@ Page {
         id:manager
     }
 
-    Question {
-        id: question
-        card: Card {
-            id: card
-            question: "question"
-            answer: "answer"
-        }
+    Card {
+        id: card
+        question: "question"
+        answer: "answer"
     }
 
     onOpenDb: {
@@ -145,6 +142,7 @@ Page {
             //TODO: keep history tracking
             settings.recentFile = file.absoluteFilePath
             // push new card on page stack
+            pageStack.push("Question.qml", {"card": card})
             question.open()
         }
     }
