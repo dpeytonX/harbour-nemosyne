@@ -128,6 +128,15 @@ Page {
         id:manager
     }
 
+    Question {
+        id: question
+        card: Card {
+            id: card
+            question: "question"
+            answer: "answer"
+        }
+    }
+
     onOpenDb: {
         Console.info("Main::openDb: existing file selected " + file.fileName)
         var valid = manager.isValidDb(file.absoluteFilePath)
@@ -136,8 +145,7 @@ Page {
             //TODO: keep history tracking
             settings.recentFile = file.absoluteFilePath
             // push new card on page stack
-            pageStack.pop(this, PageStackAction.Immediate)
-            pageStack.push("Card.qml")
+            question.open()
         }
     }
 }
