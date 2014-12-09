@@ -1,10 +1,12 @@
 module harbour.nemosyne.SailfishWidgets.Components
 versioner 1.2 version.qml
-PageColumn 1.1 PageColumn.qml
-Paragraph 1.1 Paragraph.qml
 Heading 1.1 Heading.qml
 InformationalLabel 1.1 InformationalLabel.qml
+LabelButton 1.2 LabelButton.qml
+PageColumn 1.1 PageColumn.qml
+Paragraph 1.1 Paragraph.qml
 RadioGroup 1.1 RadioGroup.qml
+Spacer 1.2 Spacer.qml
 StandardCover 1.1 StandardCover.qml
 StandardListView 1.1 StandardListView_11.qml
 StandardListView 1.2 StandardListView.qml

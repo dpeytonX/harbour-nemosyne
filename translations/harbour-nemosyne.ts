@@ -38,5 +38,13 @@
         <source>open existing database</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>nemosyne</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>recently used</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

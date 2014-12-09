@@ -19,17 +19,14 @@ SOURCES += src/harbour-nemosyne.cpp \
 
 OTHER_FILES += qml/harbour-nemosyne.qml \
     qml/cover/CoverPage.qml \
+    qml/pages/* \
     rpm/harbour-nemosyne.changes.in \
     rpm/harbour-nemosyne.spec \
     rpm/harbour-nemosyne.yaml \
     translations/*.ts \
     harbour/nemosyne/* \
     harbour-nemosyne.desktop \
-    qml/pages/Main.qml \
-    qml/pages/SettingsPage.qml \
-    qml/pages/Card.qml \
-    qml/pages/Question.qml \
-    qml/pages/Answer.qml
+    qml/pages/LabelButton.qml
 
 QML_IMPORT_PATH = .
 nemosyne.files = harbour

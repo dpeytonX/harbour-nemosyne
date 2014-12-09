@@ -3,16 +3,37 @@ import Sailfish.Silica 1.0
 import harbour.nemosyne.Nemosyne 1.0
 import harbour.nemosyne.SailfishWidgets.Components 1.2
 import harbour.nemosyne.SailfishWidgets.FileManagement 1.2
+import harbour.nemosyne.SailfishWidgets.Settings 1.2
 import harbour.nemosyne.QmlLogger 2.0
 
 /**
   a) Open DB file
   b) If DB not available, show file search
-
-  //TODO: I need to add absolutePath as QPROPERTY of File in FileManagement
   **/
 Page {
     signal openDb(File file)
+
+    ApplicationSettings {
+        id: settings
+        applicationName: "harbour-nemosyne"
+        fileName: "settings"
+
+        property bool openRecent: true
+        property string recentFile: ""
+        property string recentFile1: ""
+        property string recentFile2: ""
+        property string recentFile3: ""
+    }
+
+    File {id: recentFile}
+    File {id: recentFile1}
+    File {id: recentFile2}
+    File {id: recentFile3}
+
+    Binding {target: recentFile; property: "fileName"; value: settings.recentFile}
+    Binding {target: recentFile1; property: "fileName"; value: settings.recentFile1}
+    Binding {target: recentFile2; property: "fileName"; value: settings.recentFile2}
+    Binding {target: recentFile3; property: "fileName"; value: settings.recentFile3}
 
     PageColumn {
         spacing: Theme.paddingSmall
@@ -23,20 +44,39 @@ Page {
             text: qsTr("mobile flash cards")
         }
 
-
-/*
         Heading {
-            id: myLabel
+            id: recentlyUsed
             text: qsTr("recently used")
+            visible: !!recentFile.fileName
         }
 
-        //TODO: use filemanagement
-        //clicking on recently used file will attempt to open it
+        LabelButton {
+            text: recentFile.fileName
+            visible: !!text
+            onClicked: openDb(recentFile)
+        }
 
-        InformationalLabel {text: "nemosyne.db"}
-        InformationalLabel {text: "nemosyne1.db"}
-*/
+        LabelButton {
+            text: recentFile1.fileName
+            visible: !!text
+            onClicked: openDb(recentFile1)
+        }
 
+        LabelButton {
+            text: recentFile2.fileName
+            visible: !!text
+            onClicked: openDb(recentFile2)
+        }
+
+        LabelButton {
+            text: recentFile3.fileName
+            visible: !!text
+            onClicked: openDb(recentFile3)
+        }
+
+        Spacer {
+            visible: recentlyUsed.visible
+        }
 
         Heading {
             text: qsTr("open existing database")
@@ -71,11 +111,13 @@ Page {
         selectText: qsTr("select")
         multiSelect: false
         selectionFilter: Dir.Files | Dir.Readable | Dir.Writable
+        selectedFiles: [recentFile]
 
         onAccepted: {
             if(referer == null || selectedFiles.length != 1)
                 return;
 
+            Console.info("Main::referer: " + selectedFiles[0].absoluteFilePath)
             if(referer == existingDb) {
                 openDb(selectedFiles[0])
             }
@@ -91,6 +133,8 @@ Page {
         var valid = manager.isValidDb(file.absoluteFilePath)
         Console.info("Main::openDb: db is valid " + valid)
         if(valid) {
+            //TODO: keep history tracking
+            settings.recentFile = file.absoluteFilePath
             // push new card on page stack
             pageStack.pop(this, PageStackAction.Immediate)
             pageStack.push("Card.qml")

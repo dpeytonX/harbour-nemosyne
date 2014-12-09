@@ -15,8 +15,7 @@ import harbour.nemosyne.SailfishWidgets.Utilities 1.2
   Will have a pull down setting menu
  */
 Page {
-    property bool isQuestion: false
-    signal next
+    /*signal next
 
     Component.onCompleted: next()
 
@@ -26,8 +25,14 @@ Page {
         } else {
             loader.create(Qt.createComponent(Qt.resolvedUrl("Question.qml")), this, {})
         }
+    }*/
+
+    Question {
+        anchors.fill: parent
     }
 
+
+    /*
     DynamicLoader {
         id: loader
 
@@ -39,5 +44,5 @@ Page {
         onError: {
             Console.error(errorString)
         }
-    }
+    }*/
 }

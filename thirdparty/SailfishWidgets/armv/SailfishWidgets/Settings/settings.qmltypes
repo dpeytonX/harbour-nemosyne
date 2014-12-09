@@ -49,7 +49,14 @@ Module {
             name: "fileName"
             type: "string"
         }
+
+        Method { name: "refresh" }
         
         Signal { name: "settingsInitialized" }
+
+        Signal { 
+            name: "settingsPropertyUpdated"
+            Parameter: {name: "name"; type: "string"}
+        }
     }
 }
