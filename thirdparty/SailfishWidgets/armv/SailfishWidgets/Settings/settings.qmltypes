@@ -56,7 +56,7 @@ Module {
 
         Signal { 
             name: "settingsPropertyUpdated"
-            Parameter: {name: "name"; type: "string"}
+            parameter: {name: "name"; type: "string"}
         }
     }
 }
