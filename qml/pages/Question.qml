@@ -4,15 +4,7 @@ import harbour.nemosyne.QmlLogger 2.0
 import harbour.nemosyne.SailfishWidgets.Components 1.2
 
 Dialog {
-    property Card card
-
-    acceptDestination: answer
-
-    Answer {
-        id: answer
-
-        answer: card.answer
-
+    acceptDestination: Answer {
         onRated: {
             card.question = "question2"
             card.answer = "answer2"
@@ -20,8 +12,21 @@ Dialog {
             pageStack.navigateBack()
         }
     }
+    acceptDestinationProperties: {"id": "answer", "answer": card.answer}
 
-    PageColumn {
+    Card {
+        id: card
+        question: "question"
+        answer: "answer"
+    }
+
+    PageHeader {id: header; title:""}
+
+    Column {
+        anchors.top: header.bottom
+        width: parent.width - Theme.paddingLarge * 2
+        x: Theme.paddingLarge
+
         Label {height: parent.height; width: parent.width; text: card.question}
     }
 }

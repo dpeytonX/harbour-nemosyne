@@ -7,36 +7,41 @@ Page {
 
     signal rated(int rating)
 
-    Component {
-        id: pushMenuItem
-        StandardMenuItem {
-            property int value
-            onClicked: rated(value)
-        }
-    }
-
     SilicaFlickable {
         anchors.fill: parent
 
-        PushUpMenu {
-            id: pushMenu
+        PageHeader {id: header; title:""}
 
-            StandardMenuItem {
-                text: qsTr("rating")
-            }
+        Column {
+            anchors.top: header.bottom
+            width: parent.width - Theme.paddingLarge * 2
+            x: Theme.paddingLarge
+            Label {height: parent.height; width: parent.width; text: answer}
 
-            Repeater {
-                model: 6
-                delegate: StandardMenuItem {
-                    property int value: index
-                    text: index
+            Component {
+                id: pushMenuItem
+                StandardMenuItem {
+                    property int value
                     onClicked: rated(value)
                 }
             }
-        }
 
-        PageColumn {
-            Label {height: parent.height; width: parent.width; text: answer}
+            PushUpMenu {
+                id: pushMenu
+
+                StandardMenuItem {
+                    text: qsTr("rating")
+                }
+
+                Repeater {
+                    model: 6
+                    delegate: StandardMenuItem {
+                        property int value: index
+                        text: index
+                        onClicked: rated(value)
+                    }
+                }
+            }
         }
     }
 }

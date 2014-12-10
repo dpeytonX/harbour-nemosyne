@@ -39,7 +39,7 @@ Page {
         spacing: Theme.paddingSmall
         title: qsTr("nemosyne")
 
-        InformationalLabel {
+        Subtext {
             anchors.right: parent.right
             text: qsTr("mobile flash cards")
         }
@@ -48,6 +48,7 @@ Page {
             id: recentlyUsed
             text: qsTr("recently used")
             visible: !!recentFile.fileName
+            font.underline: true
         }
 
         LabelButton {
@@ -74,16 +75,15 @@ Page {
             onClicked: openDb(recentFile3)
         }
 
-        Spacer {
-            visible: recentlyUsed.visible
-        }
+        Spacer {visible: recentlyUsed.visible}
 
         Heading {
             text: qsTr("open existing database")
+            font.underline: true
         }
-        Subtext {
-            text: qsTr("Mnemosyne 2.x compatible")
-        }
+
+        Subtext {text: qsTr("Mnemosyne 2.x compatible")}
+
         Button {
             id: existingDb
             text: qsTr("search")
@@ -92,14 +92,6 @@ Page {
                 fileSelector.open()
             }
         }
-
-        /*
-        InformationalLabel {
-            text: qsTr("new database")
-        }
-        Button {
-            text: qsTr("search...")
-        }*/
     }
 
     FileSelector {
@@ -128,12 +120,6 @@ Page {
         id:manager
     }
 
-    Card {
-        id: card
-        question: "question"
-        answer: "answer"
-    }
-
     onOpenDb: {
         Console.info("Main::openDb: existing file selected " + file.fileName)
         var valid = manager.isValidDb(file.absoluteFilePath)
@@ -142,8 +128,7 @@ Page {
             //TODO: keep history tracking
             settings.recentFile = file.absoluteFilePath
             // push new card on page stack
-            pageStack.push("Question.qml", {"card": card})
-            question.open()
+            pageStack.push("Question.qml")
         }
     }
 }
