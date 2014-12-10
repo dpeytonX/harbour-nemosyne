@@ -14,6 +14,8 @@ TARGET = harbour-nemosyne
 
 CONFIG += sailfishapp
 
+QT += sql
+
 SOURCES += src/harbour-nemosyne.cpp \
     src/manager.cpp
 

@@ -53,5 +53,9 @@
         <source>recently used</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>database could not be opened</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

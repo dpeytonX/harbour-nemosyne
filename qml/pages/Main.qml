@@ -92,6 +92,11 @@ Page {
                 fileSelector.open()
             }
         }
+
+        Label {
+            id: errorLabel
+            visible: !!text
+        }
     }
 
     FileSelector {
@@ -125,10 +130,13 @@ Page {
         var valid = manager.isValidDb(file.absoluteFilePath)
         Console.info("Main::openDb: db is valid " + valid)
         if(valid) {
+            errorLabel.text = ""
             //TODO: keep history tracking
             settings.recentFile = file.absoluteFilePath
             // push new card on page stack
             pageStack.push("Question.qml")
+        } else {
+            errorLabel.text = qsTr("database could not be opened")
         }
     }
 }
