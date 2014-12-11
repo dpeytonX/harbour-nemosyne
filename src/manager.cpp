@@ -52,9 +52,10 @@ void Manager::initTrackingValues() {
         qDebug() << "initTracking" << query.lastError().text();
         return;
     }
+    query.first();
 
     qDebug() << "initTracking" << query.record();
-    setActive(query.record().value("count").toInt());
+    setActive(query.value("count").toInt());
 
     //unmemorized
     query = QSqlQuery("SELECT count(*) AS count FROM cards WHERE grade < 2 AND active=1;", m_nemo);
@@ -62,8 +63,9 @@ void Manager::initTrackingValues() {
         qDebug() << "initTracking" << query.lastError().text();
         return;
     }
+    query.first();
 
     qDebug() << "initTracking" << query.record();
-    setUnmemorized(query.record().value("count").toInt());
+    setUnmemorized(query.value("count").toInt());
 
 }

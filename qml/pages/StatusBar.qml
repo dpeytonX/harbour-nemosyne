@@ -12,33 +12,44 @@ Row{
 
         Row {
             spacing: Theme.paddingMedium
+
+            Subtext {
+                text: qsTr("scheduled")
+                width: 200
+            }
+
             Subtext {
                 color: "white"
                 text: scheduled
             }
-
-            Subtext {text: qsTr("scheduled")}
         }
 
         Row {
             spacing: Theme.paddingMedium
+
+            Subtext {
+                text: qsTr("unmemorized")
+                width: 200
+            }
+
             Subtext {
                 color: "white"
                 text: unmemorized
             }
-
-
-            Subtext {text: qsTr("unmemorized")}
         }
 
         Row {
             spacing: Theme.paddingMedium
+
+            Subtext {
+                text: qsTr("active")
+                width: 200
+            }
+
             Subtext {
                 color: "white"
                 text: active
             }
-
-            Subtext {text: qsTr("active")}
         }
     }
 
