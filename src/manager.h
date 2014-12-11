@@ -22,7 +22,9 @@ public:
 
     void setActive(int value) {m_active = value; emit activeChanged();}
     void setScheduled(int value) {m_scheduled = value; emit scheduledChanged();}
-    void setUnmemorized(int value) {m_unmemorized = value; emit scheduledChanged();}
+    void setUnmemorized(int value) {m_unmemorized = value; emit unmemorizedChanged();}
+
+    void initTrackingValues();
 
 signals:
     void activeChanged();

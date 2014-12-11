@@ -1,11 +1,7 @@
 import QtQuick 2.0
+import Sailfish.Silica 1.0
 
-InformationalLabel {
-    signal clicked(variant mouse)
-
-    MouseArea {
-        id: mouse
-        anchors.fill: parent
-        onClicked: parent.clicked(mouse)
-    }
+BackgroundItem {
+  property alias text: lbl.text
+  InformationalLabel {id: lbl; text: item.text}
 }

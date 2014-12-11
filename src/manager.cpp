@@ -30,7 +30,40 @@ bool Manager::isValidDb(QString filePath) {
 
     qDebug() << "query was valid ";
 
-    return query.record().indexOf("value") != -1;
+    bool result = query.record().indexOf("value") != -1;
+    if(result) initTrackingValues();
+
+    return result;
 }
 
+void Manager::initTrackingValues() {
+    if(!m_nemo.isOpen()) return;
 
+    QSqlQuery query("SELECT * FROM cards", m_nemo);
+    if(!query.exec() || query.record().indexOf("count") == -1) {
+        qDebug() << "initTracking" << query.record();
+        qDebug() << "initTracking" << query.lastError().text();
+        return;
+    }
+
+    //active
+    query = QSqlQuery("SELECT count(*) AS count FROM cards WHERE active=1;", m_nemo);
+    if(!query.exec() || query.record().indexOf("count") == -1) {
+        qDebug() << "initTracking" << query.lastError().text();
+        return;
+    }
+
+    qDebug() << "initTracking" << query.record();
+    setActive(query.record().value("count").toInt());
+
+    //unmemorized
+    query = QSqlQuery("SELECT count(*) AS count FROM cards WHERE grade < 2 AND active=1;", m_nemo);
+    if(!query.exec() || query.record().indexOf("count") == -1) {
+        qDebug() << "initTracking" << query.lastError().text();
+        return;
+    }
+
+    qDebug() << "initTracking" << query.record();
+    setUnmemorized(query.record().value("count").toInt());
+
+}

@@ -134,7 +134,7 @@ Page {
             //TODO: keep history tracking
             settings.recentFile = file.absoluteFilePath
             // push new card on page stack
-            pageStack.push("Question.qml")
+            pageStack.push("Question.qml", {"manager": manager})
         } else {
             errorLabel.text = qsTr("database could not be opened")
         }

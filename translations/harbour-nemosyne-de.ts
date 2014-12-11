@@ -88,4 +88,19 @@
         <translation type="vanished">Element</translation>
     </message>
 </context>
+<context>
+    <name>StatusBar</name>
+    <message>
+        <source>scheduled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unmemorized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>active</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>
