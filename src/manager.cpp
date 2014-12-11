@@ -40,7 +40,7 @@ void Manager::initTrackingValues() {
     if(!m_nemo.isOpen()) return;
 
     QSqlQuery query("SELECT * FROM cards", m_nemo);
-    if(!query.exec() || query.record().indexOf("count") == -1) {
+    if(!query.exec()) {
         qDebug() << "initTracking" << query.record();
         qDebug() << "initTracking" << query.lastError().text();
         return;
