@@ -34,6 +34,9 @@ signals:
     void scheduledChanged();
     void unmemorizedChanged();
 private:
+    enum Timing : int;
+    void grade(int rating);
+
     int m_active;
     int m_scheduled;
     int m_unmemorized;

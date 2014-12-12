@@ -17,14 +17,30 @@ public:
 
     QString question() const {return m_question;}
     QString answer() const {return m_answer;}
+    qint64 nextRep() const {return m_nextRep;}
+    qint64 lastRep() const {return m_nextRep;}
+    int grade() const {return m_grade;}
+    double easiness() {return m_easiness;}
+    int acquisition() {return m_acquisition;}
+    int acquisitionRepsSinceLast() {return m_acquisitionRepsSinceLast;}
 
     void setQuestion(const QString& question) {m_question = question;}
     void setAnswer(const QString& answer) {m_answer = answer;}
+    void setLastRep(qint64 lastRep) {m_lastRep = lastRep;}
+    void setGrade(int grade) {m_grade = grade;}
+    void setEasiness(double easiness) {m_easiness = easiness;}
+    void setAcquisition(int acquisition) {m_acquisition = acquisition;}
+    void setAcquisitionRepsSinceLast(int acquisitionRepsSinceLast) {m_acquisitionRepsSinceLast = acquisitionRepsSinceLast;}
 
 private:
     QString m_question;
     QString m_answer;
-
+    qint64 m_nextRep;
+    qint64 m_lastRep;
+    int m_grade;
+    double m_easiness;
+    int m_acquisition;
+    int m_acquisitionRepsSinceLast;
 };
 
 #endif // CARD_H

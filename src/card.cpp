@@ -3,7 +3,7 @@
 
 Card::Card(QObject *parent) :
     QObject(parent),
-    m_question(""), m_answer("")
+    m_question(""), m_answer(""), m_nextRep(0l), m_lastRep(0l)
 {
 }
 

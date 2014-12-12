@@ -64,6 +64,11 @@ Page {
             id: errorLabel
             visible: !!text
         }
+    }
+
+    PageColumn {
+        title: null
+        anchors.bottom: parent.bottom
 
         Spacer {visible: recentlyUsed.visible}
 
