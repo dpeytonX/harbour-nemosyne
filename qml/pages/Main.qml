@@ -11,7 +11,7 @@ import harbour.nemosyne.QmlLogger 2.0
   b) If DB not available, show file search
   **/
 Page {
-    signal openDb(File file)
+    property File currentFile
 
     ApplicationSettings {
         id: settings
@@ -99,6 +99,13 @@ Page {
         }
     }
 
+    BusyPage {
+        id: loading
+        title: qsTr("opening database")
+        acceptDestination: Component{ Question {} }
+        acceptDestinationProperties: {"manager": manager}
+    }
+
     FileSelector {
         property variant referer
         id: fileSelector
@@ -125,17 +132,21 @@ Page {
         id:manager
     }
 
-    onOpenDb: {
-        Console.info("Main::openDb: existing file selected " + file.fileName)
-        var valid = manager.isValidDb(file.absoluteFilePath)
+    function openDb(file) {
+        currentFile = file
+
+        loading.open()
+        Console.info("Main::openDb: existing file selected " + currentFile.fileName)
+        var valid = manager.isValidDb(currentFile.absoluteFilePath)
         Console.info("Main::openDb: db is valid " + valid)
         if(valid) {
             errorLabel.text = ""
             //TODO: keep history tracking
-            settings.recentFile = file.absoluteFilePath
+            settings.recentFile = currentFile.absoluteFilePath
             // push new card on page stack
-            pageStack.push("Question.qml", {"manager": manager})
+            loading.finish()
         } else {
+            loading.close()
             errorLabel.text = qsTr("database could not be opened")
         }
     }

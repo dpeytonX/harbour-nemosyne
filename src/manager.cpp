@@ -40,7 +40,7 @@ void Manager::initTrackingValues() {
     if(!m_nemo.isOpen()) return;
 
     //scheduled
-    QSqlQuery query = QSqlQuery("SELECT count(*) AS count FROM cards WHERE grade>=2 and CURRENT_TIMESTAMP>=next_rep AND active=1;", m_nemo);
+    QSqlQuery query = QSqlQuery("SELECT count(*) AS count FROM cards WHERE grade>=2 AND CURRENT_TIMESTAMP>=next_rep AND active=1;", m_nemo);
     if(!query.exec() || query.record().indexOf("count") == -1) {
         qDebug() << "initTracking" << query.lastError().text();
         return;
@@ -71,5 +71,24 @@ void Manager::initTrackingValues() {
 
     qDebug() << "initTracking" << query.record();
     setUnmemorized(query.value("count").toInt());
+}
 
+Card* Manager::next(int rating) {
+    if(!m_nemo.isOpen()) return nullptr;
+
+    QSqlQuery query = QSqlQuery("SELECT question,answer FROM cards WHERE grade>=2 " \
+                                "AND CURRENT_TIMESTAMP>=next_rep AND active=1 " \
+                                "ORDER BY next_rep DESC LIMIT 1;", m_nemo);
+    if(!query.exec()) {
+        qDebug() << "next" << query.lastError().text();
+        return nullptr;
+    }
+    query.first();
+
+    qDebug() << "next" << query.record();
+    m_currentCard->deleteLater();
+    m_currentCard = new Card(this);
+    m_currentCard->setQuestion(query.value("question").toString());
+    m_currentCard->setAnswer(query.value("answer").toString());
+    return m_currentCard;
 }

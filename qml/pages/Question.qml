@@ -5,19 +5,22 @@ import harbour.nemosyne.SailfishWidgets.Components 1.2
 import harbour.nemosyne.Nemosyne 1.0
 
 Dialog {
+    property alias question: questionLabel.text
+    property alias answer: answerCard.answer
     property Manager manager;
+    property Card card;
 
     signal next(int rating)
 
     acceptDestination: Answer {
+        id: answerCard
         onRated: {
             next(rating)
             pageStack.navigateBack()
         }
-    }
-    acceptDestinationProperties: {"id": "answer", "answer": card.answer}
 
-    Card {id: card}
+        Component.onCompleted: next(-1)
+    }
 
     PageHeader {id: header; title:""}
 
@@ -26,28 +29,41 @@ Dialog {
         width: parent.width - Theme.paddingLarge * 2
         x: Theme.paddingLarge
 
-        Label {height: parent.height; width: parent.width; text: card.question}
+        Label {
+            id: questionLabel;
+            height: parent.height;
+            width: parent.width;
+        }
+    }
+
+    InformationalLabel {
+        anchors.centerIn: parent
+        visible: !canAccept
+        text: qsTr("No more cards")
     }
 
     StatusBar {
         anchors.bottom: parent.bottom
-        width: parent.width
+        anchors.bottomMargin: Theme.paddingLarge
+        anchors.left: parent.left
+        anchors.leftMargin: Theme.paddingLarge
+        width: parent.width - Theme.paddingLarge * 2
 
         scheduled: manager.scheduled
         active: manager.active
         unmemorized: manager.unmemorized
     }
 
-    Component.onCompleted: next(-1)
-
     onNext: {
-        if(rating !== -1) {
-            Console.log("Question: answer was rated: " + rating)
-            card.question = "question2"
-            card.answer = "answer2"
-        } else {
-            card.question = "question"
-            card.answer = "answer"
+        Console.log("Question: answer was rated: " + rating)
+        card = manager.next(rating);
+        if(card == null) {
+            canAccept = false
+            return
         }
+        canAccept = true
+
+        question = card.question
+        answer = card.answer
     }
 }

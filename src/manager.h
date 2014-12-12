@@ -5,6 +5,8 @@
 #include <QString>
 #include <QtSql/QSqlDatabase>
 
+#include "card.h"
+
 class Manager : public QObject
 {
     Q_OBJECT
@@ -15,6 +17,7 @@ public:
     Manager(QObject *parent=0);
 
     Q_INVOKABLE bool isValidDb(QString filePath);
+    Q_INVOKABLE Card* next(int rating);
 
     int active() const {return m_active;}
     int scheduled() const {return m_scheduled;}
@@ -36,6 +39,7 @@ private:
     int m_unmemorized;
 
     QSqlDatabase m_nemo;
+    Card* m_currentCard;
 };
 
 #endif // MANAGER_H

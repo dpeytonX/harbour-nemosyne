@@ -16,8 +16,11 @@ CONFIG += sailfishapp
 
 QT += sql
 
+QMAKE_CXXFLAGS += "-std=c++0x"
+
 SOURCES += src/harbour-nemosyne.cpp \
-    src/manager.cpp
+    src/manager.cpp \
+    src/card.cpp
 
 OTHER_FILES += qml/harbour-nemosyne.qml \
     qml/cover/CoverPage.qml \
@@ -45,4 +48,5 @@ RESOURCES += \
     data.qrc
 
 HEADERS += \
-    src/manager.h
+    src/manager.h \
+    src/card.h

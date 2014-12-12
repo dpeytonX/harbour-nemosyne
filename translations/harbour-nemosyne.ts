@@ -57,6 +57,17 @@
         <source>database could not be opened</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>opening database</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Question</name>
+    <message>
+        <source>No more cards</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>StatusBar</name>
