@@ -39,12 +39,16 @@ bool Manager::isValidDb(QString filePath) {
 void Manager::initTrackingValues() {
     if(!m_nemo.isOpen()) return;
 
-    QSqlQuery query("SELECT * FROM cards", m_nemo);
-    if(!query.exec()) {
-        qDebug() << "initTracking" << query.record();
+    //scheduled
+    QSqlQuery query = QSqlQuery("SELECT count(*) AS count FROM cards WHERE grade>=2 and CURRENT_TIMESTAMP>=next_rep AND active=1;", m_nemo);
+    if(!query.exec() || query.record().indexOf("count") == -1) {
         qDebug() << "initTracking" << query.lastError().text();
         return;
     }
+    query.first();
+
+    qDebug() << "initTracking" << query.record();
+    setScheduled(query.value("count").toInt());
 
     //active
     query = QSqlQuery("SELECT count(*) AS count FROM cards WHERE active=1;", m_nemo);
