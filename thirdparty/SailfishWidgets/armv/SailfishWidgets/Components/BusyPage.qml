@@ -2,15 +2,17 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 Dialog {
+    signal success()
+    signal failure()
+
     property alias running: busy.running
     property alias size: busy.size
     property alias title: heading.text
-    property variant previousPage: !!pageStack.find(function(p) { return p == this;}) ? pageStack.previousPage(this) : null
+    property bool moveForward: false
+    property variant navigatePage: !!pageStack.find(function(p) { return p == this;}) ? pageStack.previousPage(this) : null
 
-    signal finish()
-
+    acceptDestinationReplaceTarget: navigatePage
     acceptDestinationAction: PageStackAction.Replace
-    acceptDestinationReplaceTarget: previousPage
     canAccept: false
     showNavigationIndicator: false
 
@@ -29,8 +31,21 @@ Dialog {
     }
 
     onStatusChanged: {
-        if(status == PageStatus.Active) accept()
+        if(status == PageStatus.Active) {
+            if(moveForward) accept()
+            else reject()
+            moveForward = false
+            canAccept = false
+        }
     }
 
-    onFinish: canAccept = true
+    onSuccess: {
+        canAccept = true
+        moveForward = true
+    }
+
+    onFailure: {
+        canAccept = false
+        moveForward = false
+    }
 }

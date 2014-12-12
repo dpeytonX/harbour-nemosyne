@@ -45,6 +45,29 @@ Page {
         }
 
         Heading {
+            text: qsTr("open existing database")
+            font.underline: true
+        }
+
+        Subtext {text: qsTr("Mnemosyne 2.x compatible")}
+
+        Button {
+            id: existingDb
+            text: qsTr("search")
+            onClicked: {
+                fileSelector.referer = this
+                fileSelector.open()
+            }
+        }
+
+        Label {
+            id: errorLabel
+            visible: !!text
+        }
+
+        Spacer {visible: recentlyUsed.visible}
+
+        Heading {
             id: recentlyUsed
             text: qsTr("recently used")
             visible: !!recentFile.fileName
@@ -74,29 +97,6 @@ Page {
             visible: !!text
             onClicked: openDb(recentFile3)
         }
-
-        Spacer {visible: recentlyUsed.visible}
-
-        Heading {
-            text: qsTr("open existing database")
-            font.underline: true
-        }
-
-        Subtext {text: qsTr("Mnemosyne 2.x compatible")}
-
-        Button {
-            id: existingDb
-            text: qsTr("search")
-            onClicked: {
-                fileSelector.referer = this
-                fileSelector.open()
-            }
-        }
-
-        Label {
-            id: errorLabel
-            visible: !!text
-        }
     }
 
     BusyPage {
@@ -108,6 +108,9 @@ Page {
 
     FileSelector {
         property variant referer
+        property bool doOpen: false
+        signal closed
+
         id: fileSelector
 
         acceptText: qsTr("select database")
@@ -123,6 +126,19 @@ Page {
 
             Console.info("Main::referer: " + selectedFiles[0].absoluteFilePath)
             if(referer == existingDb) {
+                doOpen = true
+            }
+        }
+
+        Component.onCompleted: {
+            pageStack.busyChanged.connect(statusCheck)
+        }
+
+        function statusCheck() {
+            Console.log("mystats " + status + " " + DialogStatus.Closed)
+            if(status != DialogStatus.Closed || pageStack.busy) return
+            if(doOpen) {
+                doOpen = false
                 openDb(selectedFiles[0])
             }
         }
@@ -144,10 +160,10 @@ Page {
             //TODO: keep history tracking
             settings.recentFile = currentFile.absoluteFilePath
             // push new card on page stack
-            loading.finish()
+            loading.success()
         } else {
-            loading.close()
             errorLabel.text = qsTr("database could not be opened")
+            loading.failure()
         }
     }
 }
