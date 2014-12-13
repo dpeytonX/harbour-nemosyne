@@ -27,15 +27,16 @@ public:
     void setScheduled(int value) {m_scheduled = value; emit scheduledChanged();}
     void setUnmemorized(int value) {m_unmemorized = value; emit unmemorizedChanged();}
 
-    void initTrackingValues();
-
 signals:
     void activeChanged();
     void scheduledChanged();
     void unmemorizedChanged();
 private:
     enum Timing : int;
+    void initTrackingValues();
     void grade(int rating);
+    void saveCard();
+    qint64 calculateInitialInterval(int rating, Timing timing, qint64 actualInterval, qint64 scheduledInterval);
 
     int m_active;
     int m_scheduled;

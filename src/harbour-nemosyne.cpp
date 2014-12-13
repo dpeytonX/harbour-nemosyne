@@ -31,6 +31,9 @@
 #include <QtQuick>
 
 #include <sailfishapp.h>
+#include <stdlib.h>
+#include <time.h>
+
 #include "manager.h"
 #include "card.h"
 
@@ -45,6 +48,7 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
+    srand(time(NULL));
     qmlRegisterType<Manager>("harbour.nemosyne.Nemosyne", 1, 0, "Manager");
     qmlRegisterType<Card>("harbour.nemosyne.Nemosyne", 1, 0, "Card");
     return SailfishApp::main(argc, argv);

@@ -67,7 +67,7 @@ Page {
     }
 
     PageColumn {
-        title: null
+        title: ""
         anchors.bottom: parent.bottom
 
         Spacer {visible: recentlyUsed.visible}
