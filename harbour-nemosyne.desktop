@@ -3,8 +3,8 @@ Type=Application
 X-Nemo-Application-Type=silica-qt5
 Icon=harbour-nemosyne
 Exec=harbour-nemosyne
-Name=harbour-nemosyne
+Name=Nemosyne
 # translation example:
 # your app name in German locale (de)
-Name[de]=harbour-nemosyne
+Name[de]=Nemosyne
 

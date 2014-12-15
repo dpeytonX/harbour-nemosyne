@@ -8,8 +8,8 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-* Sun Apr 13 2014 Jack Tar <jack.tar@example.com> 0.0.1-1
-- Scrubbed the deck
-- Hoisted the sails
-
-
+* Sun Dec 14 2014 Dametrious Peyton <dametriouspeyton@countermail.com> 1.0.1-1
+- Read Only Mnemosyne Database
+- Can iterate through flash cards and rate from 0 through 5
+- Maintain a list of recently opened Mnemosyne Databases
+- Share progress with the Desktop Mnemosyne app to Nemosyne. Fully compatible

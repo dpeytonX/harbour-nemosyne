@@ -6,18 +6,19 @@
 Name:       harbour-nemosyne
 
 # >> macros
+%define __provides_exclude_from ^%{_datadir}/.*$
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
 %{!?qtc_qmake5:%define qtc_qmake5 %qmake5}
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
-Summary:    My SailfishOS Application
-Version:    0.1
+Summary:    Mobile Flash Cards
+Version:    1.0
 Release:    1
-Group:      Qt/Qt
-License:    LICENSE
-URL:        http://example.org/
+Group:      Applications/Productivity
+License:    GPLv3
+URL:        https://github.com/prplmnky/harbour-nemosyne
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-nemosyne.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
@@ -25,10 +26,11 @@ BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(Qt5Sql)
 BuildRequires:  desktop-file-utils
 
 %description
-Short description of my SailfishOS Application
+Mnemosyne Compatible Flash Card Application for SailfishOS
 
 
 %prep
