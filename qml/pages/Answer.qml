@@ -7,6 +7,8 @@ Page {
 
     signal rated(int rating)
 
+    objectName: "answer"
+
     SilicaFlickable {
         anchors.fill: parent
 
@@ -16,7 +18,12 @@ Page {
             anchors.top: header.bottom
             width: parent.width - Theme.paddingLarge * 2
             x: Theme.paddingLarge
-            Label {height: parent.height; width: parent.width; text: answer}
+            Paragraph {
+                color: Theme.primaryColor
+                //height: parent.height;
+                width: parent.width;
+                text: answer
+            }
 
             Component {
                 id: pushMenuItem

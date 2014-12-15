@@ -19,7 +19,7 @@ public:
     QString question() const {return m_question;}
     QString answer() const {return m_answer;}
     qint64 nextRep() const {return m_nextRep;}
-    qint64 lastRep() const {return m_nextRep;}
+    qint64 lastRep() const {return m_lastRep;}
     int grade() const {return m_grade;}
     double easiness() {return m_easiness;}
     int acquisition() {return m_acquisition;}

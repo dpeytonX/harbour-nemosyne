@@ -14,13 +14,13 @@
         <source>Nemosyne</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>no database</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Main</name>
-    <message>
-        <source>mobile flash cards</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Mnemosyne 2.x compatible</source>
         <translation type="unfinished"></translation>
@@ -35,10 +35,6 @@
     </message>
     <message>
         <source>select</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -61,11 +57,19 @@
         <source>opening database</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>database was not provided</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Question</name>
     <message>
-        <source>No more cards</source>
+        <source>No cards</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -6,11 +6,8 @@ import harbour.nemosyne.SailfishWidgets.FileManagement 1.2
 import harbour.nemosyne.SailfishWidgets.Settings 1.2
 import harbour.nemosyne.QmlLogger 2.0
 
-/**
-  a) Open DB file
-  b) If DB not available, show file search
-  **/
 Page {
+    id: main
     property File currentFile
 
     ApplicationSettings {
@@ -36,24 +33,20 @@ Page {
     Binding {target: recentFile3; property: "fileName"; value: settings.recentFile3}
 
     PageColumn {
+        id: openColumn
         spacing: Theme.paddingSmall
         title: qsTr("nemosyne")
 
-        Subtext {
-            anchors.right: parent.right
-            text: qsTr("mobile flash cards")
-        }
-
-        Heading {
-            text: qsTr("open existing database")
-            font.underline: true
+        Paragraph {
+            width: parent.width
+            text: qsTr("First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.")
         }
 
         Subtext {text: qsTr("Mnemosyne 2.x compatible")}
 
         Button {
             id: existingDb
-            text: qsTr("search")
+            text: qsTr("open existing database")
             onClicked: {
                 fileSelector.referer = this
                 fileSelector.open()
@@ -64,13 +57,6 @@ Page {
             id: errorLabel
             visible: !!text
         }
-    }
-
-    PageColumn {
-        title: ""
-        anchors.bottom: parent.bottom
-
-        Spacer {visible: recentlyUsed.visible}
 
         Heading {
             id: recentlyUsed
@@ -80,27 +66,31 @@ Page {
         }
 
         LabelButton {
+            color: Theme.primaryColor
             text: recentFile.fileName
             visible: !!text
-            onClicked: openDb(recentFile)
+            onClicked: process(recentFile)
         }
 
         LabelButton {
+            color: Theme.primaryColor
             text: recentFile1.fileName
             visible: !!text
-            onClicked: openDb(recentFile1)
+            onClicked: process(recentFile1)
         }
 
         LabelButton {
+            color: Theme.primaryColor
             text: recentFile2.fileName
             visible: !!text
-            onClicked: openDb(recentFile2)
+            onClicked: process(recentFile2)
         }
 
         LabelButton {
+            color: Theme.primaryColor
             text: recentFile3.fileName
             visible: !!text
-            onClicked: openDb(recentFile3)
+            onClicked: process(recentFile3)
         }
     }
 
@@ -109,12 +99,26 @@ Page {
         title: qsTr("opening database")
         acceptDestination: Component{ Question {} }
         acceptDestinationProperties: {"manager": manager}
+        acceptDestinationReplaceTarget: main
+        showNavigationIndicator: false
+
+        onOpened: {
+            if(!!currentFile) {
+                openDb(currentFile, false)
+            } else {
+                reject()
+                errorLabel.text = qsTr("database was not provided")
+            }
+        }
     }
 
     FileSelector {
         property variant referer
         property bool doOpen: false
         signal closed
+
+        acceptDestination: loading
+        showNavigationIndicator: status == DialogStatus.Opened
 
         id: fileSelector
 
@@ -131,20 +135,8 @@ Page {
 
             Console.info("Main::referer: " + selectedFiles[0].absoluteFilePath)
             if(referer == existingDb) {
-                doOpen = true
-            }
-        }
-
-        Component.onCompleted: {
-            pageStack.busyChanged.connect(statusCheck)
-        }
-
-        function statusCheck() {
-            Console.log("mystats " + status + " " + DialogStatus.Closed)
-            if(status != DialogStatus.Closed || pageStack.busy) return
-            if(doOpen) {
-                doOpen = false
-                openDb(selectedFiles[0])
+                currentFile = selectedFiles[0]
+                Console.info("Main::openDb: existing file selected " + currentFile.fileName)
             }
         }
     }
@@ -153,17 +145,38 @@ Page {
         id:manager
     }
 
+    function process(file) {
+        currentFile = file
+        loading.open()
+    }
+
     function openDb(file) {
         currentFile = file
 
-        loading.open()
-        Console.info("Main::openDb: existing file selected " + currentFile.fileName)
+        var fileName = currentFile.fileName
+        var filePath = currentFile.absoluteFilePath
+        Console.info("Main::openDb: existing file selected " + fileName  + " " + filePath)
         var valid = manager.isValidDb(currentFile.absoluteFilePath)
+
         Console.info("Main::openDb: db is valid " + valid)
         if(valid) {
             errorLabel.text = ""
             //TODO: keep history tracking
-            settings.recentFile = currentFile.absoluteFilePath
+            if(settings.recentFile == filePath) {
+                Console.info("Main::openDb: currentFile is equal to recentFile")
+            } else {
+                settings.recentFile3 = settings.recentFile2
+                settings.recentFile2 = settings.recentFile1
+                settings.recentFile1 = settings.recentFile
+                settings.recentFile = filePath;
+                Console.debug("Main::openDb " + settings.recentFile + " " + filePath)
+                Console.debug("after")
+                Console.debug("Main::openDb " + settings.recentFile3)
+                Console.debug("Main::openDb " + settings.recentFile2)
+                Console.debug("Main::openDb " + settings.recentFile1)
+                Console.debug("Main::openDb " + settings.recentFile)
+            }
+
             // push new card on page stack
             loading.success()
         } else {

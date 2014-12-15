@@ -34,7 +34,42 @@ import harbour.nemosyne.SailfishWidgets.Components 1.2
 import harbour.nemosyne.Nemosyne 1.0
 
 StandardCover {
+    property variant pageStack
+
     coverTitle: qsTr("Nemosyne")
+    imageSource: "qrc:///images/desktop.png"
+    displayDefault: !(!!pageStack.currentPage && (pageStack.currentPage.objectName == "question" || pageStack.currentPage.objectName == "answer"))
+
+    Subtext {
+        anchors.top: label.bottom
+        anchors.topMargin: Theme.paddingSmall
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: qsTr("no database")
+        visible: displayDefault
+    }
+
+    PageColumn {
+        anchors.fill: parent
+        Paragraph {
+            color: Theme.primaryColor
+            id: cardDisplay
+            width: parent.width
+            visible: !displayDefault
+        }
+    }
+
+    onPageStackChanged: {
+        if(!!pageStack) {
+            pageStack.currentPageChanged.connect(updateText)
+        }
+    }
+
+    function updateText() {
+        if(!!pageStack.currentPage) {
+            if(pageStack.currentPage.objectName == "question") cardDisplay.text = pageStack.currentPage.question
+            else if(pageStack.currentPage.objectName == "answer") cardDisplay.text = pageStack.currentPage.answer
+        }
+    }
 }
 
 

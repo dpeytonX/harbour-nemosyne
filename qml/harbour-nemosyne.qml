@@ -30,12 +30,20 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import "cover"
 import "pages"
 
 ApplicationWindow
 {
     initialPage: Component { Main { } }
-    cover: Qt.resolvedUrl("cover/CoverPage.qml")
+    cover: cp.createObject(this, {"pageStack": pageStack})
+
+    Component {
+        id: cp
+        CoverPage {
+
+        }
+    }
 }
 
 

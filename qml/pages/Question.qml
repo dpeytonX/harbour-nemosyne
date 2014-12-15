@@ -12,6 +12,8 @@ Dialog {
 
     signal next(int rating)
 
+    objectName: "question"
+
     acceptDestination: Answer {
         id: answerCard
         onRated: {
@@ -29,9 +31,10 @@ Dialog {
         width: parent.width - Theme.paddingLarge * 2
         x: Theme.paddingLarge
 
-        Label {
+        Paragraph {
+            color: Theme.primaryColor
             id: questionLabel;
-            height: parent.height;
+            //height: parent.height;
             width: parent.width;
         }
     }
@@ -39,7 +42,7 @@ Dialog {
     InformationalLabel {
         anchors.centerIn: parent
         visible: !canAccept
-        text: qsTr("No more cards")
+        text: qsTr("No cards")
     }
 
     StatusBar {
@@ -57,6 +60,8 @@ Dialog {
     onNext: {
         Console.log("Question: answer was rated: " + rating)
         card = manager.next(rating);
+        Console.log("Question: card is ")
+        Console.log(card)
         if(card == null) {
             canAccept = false
             return

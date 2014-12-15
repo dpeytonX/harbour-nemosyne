@@ -11,7 +11,7 @@
 enum Manager::Timing : int {LATE, EARLY, ON_TIME};
 
 Manager::Manager(QObject *parent) : QObject(parent),
-    m_active(0), m_scheduled(0), m_unmemorized(0)
+    m_active(0), m_scheduled(0), m_unmemorized(0), m_currentCard(nullptr)
 {
     m_nemo = QSqlDatabase::addDatabase("QSQLITE");
     m_nemo.setHostName("localhost");
@@ -45,7 +45,7 @@ void Manager::initTrackingValues() {
     if(!m_nemo.isOpen()) return;
 
     //scheduled
-    QSqlQuery query = QSqlQuery("SELECT count(*) AS count FROM cards WHERE grade>=2 AND CURRENT_TIMESTAMP>=next_rep AND active=1;", m_nemo);
+    QSqlQuery query = QSqlQuery("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND strftime('%s',datetime('now', 'start of day', '-1 day'))>=next_rep AND active=1;", m_nemo);
     if(!query.exec() || query.record().indexOf("count") == -1) {
         qDebug() << "initTracking" << query.lastError().text();
         return;
@@ -79,7 +79,7 @@ void Manager::initTrackingValues() {
 }
 
 qint64 Manager::calculateInitialInterval(int rating, Timing timing, qint64 actualInterval, qint64 scheduledInterval) {
-    qint64 day = 1000*60*60*24;
+    qint64 day = 60*60*24;
     qint64 intervals[6] = {0, 0, day, 3 * day, 4 * day, 7 * day};
     qint64 choice3[3] = {1, 1, 2};
     qint64 choice4[3] = {1, 2, 2};
@@ -115,7 +115,7 @@ qint64 Manager::calculateInitialInterval(int rating, Timing timing, qint64 actua
 
     if(rating <= 3)
         return (timing == Timing::ON_TIME || timing == Timing::EARLY) ? actualInterval * m_currentCard->easiness() :
-                                                            scheduledInterval;
+                                                                        scheduledInterval;
 
     if(rating == 4) return actualInterval * m_currentCard->easiness();
 
@@ -136,20 +136,27 @@ qint64 Manager::calculateInitialInterval(int rating, Timing timing, qint64 actua
   Until requested otherwise, this algorithm will just stick to the basics.
  */
 Card* Manager::next(int rating) {
-    if(!m_nemo.isOpen()) return nullptr;
+    qDebug() << "Manager::next";
+    if(!m_nemo.isOpen() || !m_nemo.isValid()) return nullptr;
 
+    qDebug() << "Rating is " << rating;
     if(m_currentCard != nullptr) {
-        //TODO: Might need to launch new thread here.
-        grade(rating);
-        saveCard();
-        m_currentCard->deleteLater();
+        qDebug() << "Card is not null";
+        if(rating != -1) {
+            //If the database was just opened, current card is orphaned.
+            grade(rating);
+            saveCard();
+        }
+        delete m_currentCard;
+        m_currentCard = nullptr;
     }
 
     initTrackingValues();
 
+    qDebug() << "searching in graded pool";
     QSqlQuery query(QString("SELECT * FROM cards WHERE grade>=2 ") +
-                                "AND CURRENT_TIMESTAMP >=next_rep AND active=1 " +
-                                "ORDER BY next_rep DESC LIMIT 1;", m_nemo);
+                    "AND strftime('%s',datetime('now', 'start of day', '-1 day')) >=next_rep AND active=1 " +
+                    "ORDER BY next_rep DESC LIMIT 1;", m_nemo);
     if(!query.exec()) {
         qDebug() << "next:" << "memory stack" << query.lastError().text();
         return nullptr;
@@ -159,6 +166,7 @@ Card* Manager::next(int rating) {
 
     if(!query.isValid()) {
         //Pull card from unmemorized pool
+        qDebug() << "searching in unmemorized pool";
         query = QSqlQuery("SELECT * FROM cards WHERE grade < 2 AND active=1 " \
                           "ORDER BY next_rep DESC LIMIT 1;", m_nemo);
         if(!query.exec()) {
@@ -170,8 +178,9 @@ Card* Manager::next(int rating) {
 
     if(!query.isValid()) {
         //Last attempt: pull card from the reviewed stack, longest rep first
+        qDebug() << "searching in reviewed pool";
         query = QSqlQuery("SELECT * FROM cards WHERE active=1 " \
-                          "ORDER BY next_rep ASC LIMIT 1;", m_nemo);
+                          "ORDER BY next_rep DESC LIMIT 1;", m_nemo);
         if(!query.exec()) {
             qDebug() << "next:" << "reviewed stack" << query.lastError().text();
             return nullptr;
@@ -180,12 +189,14 @@ Card* Manager::next(int rating) {
     }
 
     qDebug() << "next" << query.record();
+    if(!query.isValid()) return nullptr;
 
     m_currentCard = new Card(this);
     m_currentCard->setSeq(query.value("_id").toLongLong());
     m_currentCard->setQuestion(query.value("question").toString());
     m_currentCard->setAnswer(query.value("answer").toString());
     m_currentCard->setNextRep(query.value("next_rep").toLongLong());
+    m_currentCard->setLastRep(query.value("last_rep").toLongLong());
     m_currentCard->setGrade(query.value("grade").toInt());
     m_currentCard->setEasiness(query.value("easiness").toDouble());
     m_currentCard->setAcquisition(query.value("acq_reps").toInt());
@@ -206,11 +217,11 @@ void Manager::grade(int rating) {
     if(rating == -1) return;
 
     // First calculate timing
-    qint64 tstamp = QDateTime::currentDateTimeUtc().toMSecsSinceEpoch();
+    qint64 tstamp = QDateTime::currentDateTimeUtc().toMSecsSinceEpoch() / 1000;
     qDebug() << "grade: timestamp " << tstamp;
     qDebug() << "grade: nextrep " << m_currentCard->nextRep();
     Timing timing = Timing::LATE;
-    if(tstamp - 1000*60*60*24 < m_currentCard->nextRep()) {
+    if(tstamp - 60*60*24 < m_currentCard->nextRep()) {
         timing = tstamp < m_currentCard->nextRep() ? Timing::EARLY : Timing::ON_TIME;
     }
 
@@ -259,11 +270,13 @@ void Manager::grade(int rating) {
 
     m_currentCard->setGrade(rating);
     m_currentCard->setLastRep(tstamp);
+
     qDebug() << "grade: old next rep " << m_currentCard->nextRep();
     qDebug() << "grade: interval new " << intervalNew;
 
+    m_currentCard->setNextRep(m_currentCard->lastRep());
     if(rating >= 2) m_currentCard->setNextRep(m_currentCard->lastRep() + intervalNew);
-    else m_currentCard->setNextRep(m_currentCard->lastRep());
+
     qDebug() << "grade: new next rep " << m_currentCard->nextRep();
 
     //Ignoring log entry
@@ -276,21 +289,23 @@ void Manager::saveCard() {
 
     QSqlQuery query = QSqlQuery(m_nemo);
     query.prepare("UPDATE cards SET " \
-                                "question = :question, "\
-                                "answer = :answer, "\
-                                "next_rep = :next_rep, "\
-                                "grade = :grade, "\
-                                "easiness = :easiness, "\
-                                "acq_reps = :acq_reps, "\
-                                "acq_reps_since_lapse = :acq_reps_since_lapse, "\
-                                "ret_reps = :ret_reps, "\
-                                "lapses = :lapses, "\
-                                "ret_reps_since_lapse = :ret_reps_since_lapse "\
-                                "WHERE _id = :seq;");
+                  "question = :question, "\
+                  "answer = :answer, "\
+                  "next_rep = datetime(:next_rep, 'unixepoch'), "\
+                  "last_rep = datetime(:last_rep, 'unixepoch'), "\
+                  "grade = :grade, "\
+                  "easiness = :easiness, "\
+                  "acq_reps = :acq_reps, "\
+                  "acq_reps_since_lapse = :acq_reps_since_lapse, "\
+                  "ret_reps = :ret_reps, "\
+                  "lapses = :lapses, "\
+                  "ret_reps_since_lapse = :ret_reps_since_lapse "\
+                  "WHERE _id = :seq;");
 
     query.bindValue(":question", m_currentCard->question());
     query.bindValue(":answer", m_currentCard->answer());
     query.bindValue(":next_rep", m_currentCard->nextRep());
+    query.bindValue(":last_rep", m_currentCard->lastRep());
     query.bindValue(":grade", m_currentCard->grade());
     query.bindValue(":easiness", m_currentCard->easiness());
     query.bindValue(":acq_reps", m_currentCard->acquisition());
