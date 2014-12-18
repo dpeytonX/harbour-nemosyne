@@ -57,7 +57,7 @@ Item {
             var o = component.createObject(parent, properties)
             objectCompleted(o)
         } else {
-            error(component.errorString())
+            error(!!component ? component.errorString() : "Component is null.")
         }
     }
 }

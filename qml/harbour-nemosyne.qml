@@ -30,6 +30,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import harbour.nemosyne.QmlLogger 2.0
 import "cover"
 import "pages"
 
@@ -44,6 +45,8 @@ ApplicationWindow
 
         }
     }
+
+    Component.onCompleted: Console.LOG_PRIORITY = Console.INFO
 }
 
 

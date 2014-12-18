@@ -4,6 +4,7 @@ import harbour.nemosyne.Nemosyne 1.0
 import harbour.nemosyne.SailfishWidgets.Components 1.2
 import harbour.nemosyne.SailfishWidgets.FileManagement 1.2
 import harbour.nemosyne.SailfishWidgets.Settings 1.2
+import harbour.nemosyne.SailfishWidgets.Utilities 1.2
 import harbour.nemosyne.QmlLogger 2.0
 
 Page {
@@ -32,65 +33,102 @@ Page {
     Binding {target: recentFile2; property: "fileName"; value: settings.recentFile2}
     Binding {target: recentFile3; property: "fileName"; value: settings.recentFile3}
 
-    PageColumn {
-        id: openColumn
-        spacing: Theme.paddingSmall
-        title: qsTr("nemosyne")
 
-        Paragraph {
-            width: parent.width
-            text: qsTr("First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.")
-        }
 
-        Subtext {text: qsTr("Mnemosyne 2.x compatible")}
+    SilicaFlickable {
+        anchors.fill: parent
 
-        Button {
-            id: existingDb
-            text: qsTr("open existing database")
-            onClicked: {
-                fileSelector.referer = this
-                fileSelector.open()
+        PageColumn {
+            id: openColumn
+            spacing: Theme.paddingSmall
+            title: qsTr("nemosyne")
+
+            Paragraph {
+                width: parent.width
+                text: qsTr("First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.")
+            }
+
+            Subtext {text: qsTr("Mnemosyne 2.x compatible")}
+
+            Button {
+                id: existingDb
+                text: qsTr("open existing database")
+                onClicked: {
+                    fileSelector.referer = this
+                    fileSelector.open()
+                }
+            }
+
+            Label {
+                id: errorLabel
+                visible: !!text
+            }
+
+            Heading {
+                id: recentlyUsed
+                text: qsTr("recently used")
+                visible: !!recentFile.fileName
+                font.underline: true
+            }
+
+            LabelButton {
+                color: Theme.primaryColor
+                text: recentFile.fileName
+                visible: !!text
+                onClicked: process(recentFile)
+            }
+
+            LabelButton {
+                color: Theme.primaryColor
+                text: recentFile1.fileName
+                visible: !!text
+                onClicked: process(recentFile1)
+            }
+
+            LabelButton {
+                color: Theme.primaryColor
+                text: recentFile2.fileName
+                visible: !!text
+                onClicked: process(recentFile2)
+            }
+
+            LabelButton {
+                color: Theme.primaryColor
+                text: recentFile3.fileName
+                visible: !!text
+                onClicked: process(recentFile3)
             }
         }
 
-        Label {
-            id: errorLabel
-            visible: !!text
+        PullDownMenu  {
+            id:pulley
+            StandardMenuItem {
+                text: qsTr("About")
+                onClicked: {
+                    loader.create(aboutDialog, main, {})
+                }
+            }
         }
+    }
 
-        Heading {
-            id: recentlyUsed
-            text: qsTr("recently used")
-            visible: !!recentFile.fileName
-            font.underline: true
-        }
+    DynamicLoader {
+        id: loader
 
-        LabelButton {
-            color: Theme.primaryColor
-            text: recentFile.fileName
-            visible: !!text
-            onClicked: process(recentFile)
-        }
+        onObjectCompleted: pageStack.push(object)
+    }
 
-        LabelButton {
-            color: Theme.primaryColor
-            text: recentFile1.fileName
-            visible: !!text
-            onClicked: process(recentFile1)
-        }
-
-        LabelButton {
-            color: Theme.primaryColor
-            text: recentFile2.fileName
-            visible: !!text
-            onClicked: process(recentFile2)
-        }
-
-        LabelButton {
-            color: Theme.primaryColor
-            text: recentFile3.fileName
-            visible: !!text
-            onClicked: process(recentFile3)
+    Component {
+        id: aboutDialog
+        AboutPage {
+            description: qsTr(UIConstants.appDescription)
+            icon: "qrc:///images/desktop.png"
+            application: UIConstants.appTitle + " " + UIConstants.appVersion
+            copyrightHolder: UIConstants.appCopyright
+            copyrightYear: UIConstants.appYear
+            contributors: UIConstants.appAuthors
+            licenses: UIConstants.appLicense
+            pageTitle: UIConstants.appTitle
+            projectLinks: UIConstants.appProjectInfo
         }
     }
 

@@ -23,11 +23,22 @@
   \endlegalese
 
   \startpage
+
+  SailfishWidgets 1.3
+  \list
+  \li Deprecating \l {Heading} in favor of SectionHeader. From now on, use \c Sailfish.Silica::SectionHeader.
+  \li Added \l {AboutPage}
+  \li Fixed error in \l {DynamicLoader} when accessing \c errorString on null Component
+  \endlist
+
   SailfishWidgets 1.2
   \list
   \li Updated \l {StandardListView} to remove PageHeader (makes it more useful in dialogs)
   \li Added \l {Variant} for operations on variant types
   \li Added \l {Dir}, \l {File}, and \l {FileSelector} inside the FileManagement package
+  \li ApplicationSettings will emit \c settingsPropertyUpdated(QString name) when a property is changed.
+  \li ApplicationSettings will propagate settings changes to all known QML objects refering to the same settings file.
+  \li Added \l {Spacer}, \l {LabelButton}, and \l {BusyPage} components
   \endlist
 
   SailfishWidgets 1.1.2

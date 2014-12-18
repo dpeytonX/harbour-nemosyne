@@ -24,16 +24,17 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 /*!
-   \qmltype Spacer
+   \qmltype Heading
    \since 5.0
-   \brief Provides padding to separate components
+   \brief Meant to be used as a section header.
    \inqmlmodule SailfishWidgets.Components
 
    Back to \l {Sailfish Widgets}
 
-  This takes up a height of \c Theme.paddingLarge in order to provide custom spacing in a Column.
-  */
-Item {
-    width: 1
-    height: Theme.paddingLarge
+   Label with a large font size and normal highlighting.
+*/
+Label {
+    color: Theme.highlightColor
+    font.family: Theme.fontFamilyHeading
+    font.pixelSize: Theme.fontSizeLarge
 }

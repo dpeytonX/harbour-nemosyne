@@ -34,8 +34,8 @@ import "." 1.2
 
    Back to \l {Sailfish Widgets}
 
-  Displays a file system borwser that allows a user to select one or files
-  or directories by visually selecting files that are stored in a \c ListView
+  Displays a file system browser that allows a user to select one or more files
+  or directories that are stored in a \c ListView
  
   \image file_selector.png "File Selector in action"
   It uses the \l {Dir} Qt object which provides the directory list
