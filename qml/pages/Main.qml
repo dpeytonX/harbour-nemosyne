@@ -138,6 +138,14 @@ Page {
                 onClicked: loader.create(fileSelector, main, {"referer": this})
             }
 
+            Button {
+                id: newDb
+                text: qsTr("new db")
+                onClicked: {
+                    Console.info("new database requested")
+                }
+            }
+
             Label {
                 id: errorLabel
                 visible: !!text

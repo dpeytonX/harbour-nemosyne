@@ -41,7 +41,7 @@ INSTALLS += nemosyne
 # to disable building translations every time, comment out the
 # following CONFIG line
 CONFIG += sailfishapp_i18n
-TRANSLATIONS += translations/harbour-nemosyne-de.ts
+TRANSLATIONS += translations/harbour-nemosyne-ja.ts translations/harbour-nemosyne-en.ts
 
 RESOURCES += \
     images.qrc \

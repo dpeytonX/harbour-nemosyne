@@ -5,37 +5,37 @@
     <name>Answer</name>
     <message>
         <source>rating</source>
-        <translation>Rating</translation>
+        <translation>評価</translation>
     </message>
 </context>
 <context>
     <name>CoverPage</name>
     <message>
         <source>no database</source>
-        <translation>No database</translation>
+        <translation>データベースは開いていない</translation>
     </message>
 </context>
 <context>
     <name>Main</name>
     <message>
         <source>Mnemosyne 2.x compatible</source>
-        <translation>Mnemosyne 2.x compatible</translation>
+        <translation>Mnemosyne 2.xの対応</translation>
     </message>
     <message>
         <source>select database</source>
-        <translation>Select Database</translation>
+        <translation>データベースの選択</translation>
     </message>
     <message>
         <source>deselect</source>
-        <translation>Deselect</translation>
+        <translation>選択を消去</translation>
     </message>
     <message>
         <source>select</source>
-        <translation>Select</translation>
+        <translation>選択</translation>
     </message>
     <message>
         <source>open existing database</source>
-        <translation>Open existing database</translation>
+        <translation>既存するデータベースに参照</translation>
     </message>
     <message>
         <source>nemosyne</source>
@@ -43,53 +43,53 @@
     </message>
     <message>
         <source>recently used</source>
-        <translation>Recently Used</translation>
+        <translation>最近使ったファイル</translation>
     </message>
     <message>
         <source>database could not be opened</source>
-        <translation>Database could not be opened</translation>
+        <translation>ファイルが開くことはできません</translation>
     </message>
     <message>
         <source>opening database</source>
-        <translation>Opening database</translation>
+        <translation>処理中</translation>
     </message>
     <message>
         <source>database was not provided</source>
-        <translation>Database was not provided</translation>
+        <translation>データベースは指摘されていませんでした</translation>
     </message>
     <message>
         <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
-        <translation>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</translation>
+        <translation>ご利用いただきありがとうございます。まずはパソコンから本体にmnemosyne.dbというファイルをコピーしてください。それから、下のボタンを押してコピーしたデータベースを選んでフラシュカードを勉強することができるようになります。</translation>
     </message>
     <message>
         <source>About</source>
-        <translation>About</translation>
+        <translation>アプリについて</translation>
     </message>
     <message>
         <source>new db</source>
-        <translation>New database</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Question</name>
     <message>
         <source>No cards</source>
-        <translation>No cards</translation>
+        <translation>カードはありません</translation>
     </message>
 </context>
 <context>
     <name>StatusBar</name>
     <message>
         <source>scheduled</source>
-        <translation>Scheduled</translation>
+        <translation>予定の数量</translation>
     </message>
     <message>
         <source>unmemorized</source>
-        <translation>Unmemorized</translation>
+        <translation>記憶されてない数量</translation>
     </message>
     <message>
         <source>active</source>
-        <translation>Active</translation>
+        <translation>活動の数量</translation>
     </message>
 </context>
 </TS>
