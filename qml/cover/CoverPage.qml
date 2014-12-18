@@ -28,9 +28,9 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import QtQuick 2.0
+import QtQuick 2.1
 import Sailfish.Silica 1.0
-import harbour.nemosyne.SailfishWidgets.Components 1.2
+import harbour.nemosyne.SailfishWidgets.Components 1.3
 import harbour.nemosyne.Nemosyne 1.0
 
 StandardCover {

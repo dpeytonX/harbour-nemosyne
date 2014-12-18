@@ -2,47 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name>AboutPage</name>
-    <message>
-        <source>Description</source>
-        <extracomment>headline for application description</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Licensing</source>
-        <extracomment>headline for application licensing information</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>License</source>
-        <extracomment>Copyright and license information</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Project information</source>
-        <extracomment>headline for application project information</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Contributors</source>
-        <extracomment>headline for application contributors</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Copyright © </source>
-        <extracomment>Copyright and license information</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unspecified</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>Answer</name>
     <message>
         <source>rating</source>

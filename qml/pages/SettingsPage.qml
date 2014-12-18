@@ -1,6 +1,6 @@
-import QtQuick 2.0
+import QtQuick 2.1
 import Sailfish.Silica 1.0
-import harbour.nemosyne.SailfishWidgets.Settings 1.2
+import harbour.nemosyne.SailfishWidgets.Settings 1.3
 
 Page {
     ApplicationSettings {
