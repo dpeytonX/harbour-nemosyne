@@ -11,6 +11,89 @@ Page {
     id: main
     property File currentFile
 
+    // ------ SQLite Interface -----------------------
+
+    Manager {
+        id:manager
+    }
+
+    // ------ Dynamic Object Creation ----------------
+    DynamicLoader {
+        id: loader
+
+        onObjectCompleted: pageStack.push(object)
+    }
+
+    // ------ Dialogs and Misc -----------------------
+
+    Component {
+        id: aboutDialog
+        AboutPage {
+            description: qsTr(UIConstants.appDescription)
+            icon: UIConstants.appIcon
+            application: UIConstants.appTitle + " " + UIConstants.appVersion
+            copyrightHolder: UIConstants.appCopyright
+            copyrightYear: UIConstants.appYear
+            contributors: UIConstants.appAuthors
+            licenses: UIConstants.appLicense
+            pageTitle: UIConstants.appTitle
+            projectLinks: UIConstants.appProjectInfo
+        }
+    }
+
+    Component {
+        id: fileSelector
+
+        FileSelector {
+            property variant referer
+            property bool doOpen: false
+            signal closed
+
+            acceptDestination: loading
+            showNavigationIndicator: status == DialogStatus.Opened
+
+
+            acceptText: qsTr("select database")
+            deselectText: qsTr("deselect")
+            selectText: qsTr("select")
+            multiSelect: false
+            selectionFilter: Dir.Files | Dir.Readable | Dir.Writable
+            selectedFiles: [recentFile]
+
+            onAccepted: {
+                if(referer == null || selectedFiles.length != 1)
+                    return;
+
+                Console.info("Main::referer: " + selectedFiles[0].absoluteFilePath)
+                if(referer == existingDb) {
+                    currentFile = selectedFiles[0]
+                    Console.info("Main::openDb: existing file selected " + currentFile.fileName)
+                }
+            }
+        }
+    }
+
+    //Not wrapping in Component since it's a pain to use signal connects
+    BusyPage {
+        id: loading
+        title: qsTr("opening database")
+        acceptDestination: Component{ Question {} }
+        acceptDestinationProperties: {"manager": manager}
+        acceptDestinationReplaceTarget: main
+        showNavigationIndicator: false
+
+        onOpened: {
+            if(!!currentFile) {
+                openDb(currentFile, false)
+            } else {
+                reject()
+                errorLabel.text = qsTr("database was not provided")
+            }
+        }
+    }
+
+
+    // --------- QSettings ----------------------
     ApplicationSettings {
         id: settings
         applicationName: "harbour-nemosyne"
@@ -33,8 +116,7 @@ Page {
     Binding {target: recentFile2; property: "fileName"; value: settings.recentFile2}
     Binding {target: recentFile3; property: "fileName"; value: settings.recentFile3}
 
-
-
+    //------------Page View ----------------------
     SilicaFlickable {
         anchors.fill: parent
 
@@ -53,10 +135,7 @@ Page {
             Button {
                 id: existingDb
                 text: qsTr("open existing database")
-                onClicked: {
-                    fileSelector.referer = this
-                    fileSelector.open()
-                }
+                onClicked: loader.create(fileSelector, main, {"referer": this})
             }
 
             Label {
@@ -110,77 +189,8 @@ Page {
         }
     }
 
-    DynamicLoader {
-        id: loader
+    //----------Internal Functions---------------
 
-        onObjectCompleted: pageStack.push(object)
-    }
-
-    Component {
-        id: aboutDialog
-        AboutPage {
-            description: qsTr(UIConstants.appDescription)
-            icon: "qrc:///images/desktop.png"
-            application: UIConstants.appTitle + " " + UIConstants.appVersion
-            copyrightHolder: UIConstants.appCopyright
-            copyrightYear: UIConstants.appYear
-            contributors: UIConstants.appAuthors
-            licenses: UIConstants.appLicense
-            pageTitle: UIConstants.appTitle
-            projectLinks: UIConstants.appProjectInfo
-        }
-    }
-
-    BusyPage {
-        id: loading
-        title: qsTr("opening database")
-        acceptDestination: Component{ Question {} }
-        acceptDestinationProperties: {"manager": manager}
-        acceptDestinationReplaceTarget: main
-        showNavigationIndicator: false
-
-        onOpened: {
-            if(!!currentFile) {
-                openDb(currentFile, false)
-            } else {
-                reject()
-                errorLabel.text = qsTr("database was not provided")
-            }
-        }
-    }
-
-    FileSelector {
-        property variant referer
-        property bool doOpen: false
-        signal closed
-
-        acceptDestination: loading
-        showNavigationIndicator: status == DialogStatus.Opened
-
-        id: fileSelector
-
-        acceptText: qsTr("select database")
-        deselectText: qsTr("deselect")
-        selectText: qsTr("select")
-        multiSelect: false
-        selectionFilter: Dir.Files | Dir.Readable | Dir.Writable
-        selectedFiles: [recentFile]
-
-        onAccepted: {
-            if(referer == null || selectedFiles.length != 1)
-                return;
-
-            Console.info("Main::referer: " + selectedFiles[0].absoluteFilePath)
-            if(referer == existingDb) {
-                currentFile = selectedFiles[0]
-                Console.info("Main::openDb: existing file selected " + currentFile.fileName)
-            }
-        }
-    }
-
-    Manager {
-        id:manager
-    }
 
     function process(file) {
         currentFile = file
@@ -198,7 +208,6 @@ Page {
         Console.info("Main::openDb: db is valid " + valid)
         if(valid) {
             errorLabel.text = ""
-            //TODO: keep history tracking
             if(settings.recentFile == filePath) {
                 Console.info("Main::openDb: currentFile is equal to recentFile")
             } else {

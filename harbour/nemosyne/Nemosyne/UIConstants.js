@@ -1,6 +1,7 @@
 .pragma library
 
 var appName = "harbour-nemosyne"
+var appIcon = "qrc:///images/desktop.png"
 var appTitle = "Nemosyne"
 var appAuthors = ["Dametrious Peyton", "Thomas Amler - for AboutPage"]
 var appDescription = "A mobile flash card tool"

@@ -36,8 +36,8 @@ import harbour.nemosyne.Nemosyne 1.0
 StandardCover {
     property variant pageStack
 
-    coverTitle: qsTr("Nemosyne")
-    imageSource: "qrc:///images/desktop.png"
+    coverTitle: UIConstants.appTitle
+    imageSource: UIConstants.appIcon
     displayDefault: !(!!pageStack.currentPage && (pageStack.currentPage.objectName == "question" || pageStack.currentPage.objectName == "answer"))
 
     Subtext {

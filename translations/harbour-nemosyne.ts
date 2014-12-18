@@ -11,10 +11,6 @@
 <context>
     <name>CoverPage</name>
     <message>
-        <source>Nemosyne</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>no database</source>
         <translation type="unfinished"></translation>
     </message>

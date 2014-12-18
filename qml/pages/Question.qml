@@ -34,7 +34,6 @@ Dialog {
         Paragraph {
             color: Theme.primaryColor
             id: questionLabel;
-            //height: parent.height;
             width: parent.width;
         }
     }

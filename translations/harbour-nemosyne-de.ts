@@ -15,10 +15,6 @@
         <translation type="vanished">Mein Cover</translation>
     </message>
     <message>
-        <source>Nemosyne</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>no database</source>
         <translation type="unfinished"></translation>
     </message>
