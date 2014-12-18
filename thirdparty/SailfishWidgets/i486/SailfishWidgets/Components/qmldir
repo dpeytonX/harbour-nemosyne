@@ -2,7 +2,8 @@ module harbour.nemosyne.SailfishWidgets.Components
 versioner 1.1 version.qml
 versioner 1.2 version.qml
 versioner 1.3 version.qml
-BusyPage 1.2 BusyPage.qml
+BusyPage 1.2 BusyPage_12.qml
+BusyPage 1.3 BusyPage.qml
 Heading 1.1 Heading_11.qml
 Heading 1.3 Heading.qml
 InformationalLabel 1.1 InformationalLabel.qml
