@@ -12,3 +12,5 @@ var appProjectInfo = ["https://github.com/prplmnky/harbour-nemosyne",
                       "https://github.com/Armadill0/harbour-tasklist"]
 var appVersion = 1.1
 var appYear = 2014
+
+var defaultDb = "nemosyne.db"

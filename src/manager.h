@@ -18,6 +18,8 @@ public:
 
     Q_INVOKABLE bool isValidDb(QString filePath);
     Q_INVOKABLE Card* next(int rating);
+    Q_INVOKABLE bool create(QString filePath);
+    Q_INVOKABLE bool initialize();
 
     int active() const {return m_active;}
     int scheduled() const {return m_scheduled;}

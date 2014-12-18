@@ -9,6 +9,7 @@ import harbour.nemosyne.QmlLogger 2.0
 
 Page {
     id: main
+    readonly property string dataPath: dir.XdgData + "/" + UIConstants.defaultDb
     property File currentFile
 
     // ------ SQLite Interface -----------------------
@@ -106,6 +107,8 @@ Page {
         property string recentFile3: ""
     }
 
+    Dir {id: dir}
+    File {id: newFile; fileName: dataPath}
     File {id: recentFile}
     File {id: recentFile1}
     File {id: recentFile2}
@@ -119,6 +122,7 @@ Page {
     //------------Page View ----------------------
     SilicaFlickable {
         anchors.fill: parent
+        contentHeight: openColumn.height
 
         PageColumn {
             id: openColumn
@@ -138,11 +142,27 @@ Page {
                 onClicked: loader.create(fileSelector, main, {"referer": this})
             }
 
+            Paragraph {
+                width: parent.width
+                text: qsTr("New databases will be created at the following path: ") + dataPath
+            }
+
             Button {
                 id: newDb
                 text: qsTr("new db")
                 onClicked: {
                     Console.info("new database requested")
+                    Console.info("creating db at " + dataPath)
+                    //TODO: remorse item if overwriting existing database
+                    if(manager.create(dataPath)) {
+                        if(manager.initialize()) {
+                            process(newFile)
+                        } else {
+                            errorLabel.text = qsTr("database could not be initialized")
+                        }
+                    } else {
+                        errorLabel.text = qsTr("database could not be opened")
+                    }
                 }
             }
 

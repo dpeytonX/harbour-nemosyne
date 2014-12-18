@@ -5,6 +5,8 @@
 #include <QtSql/QSqlError>
 #include <QDebug>
 #include <QDateTime>
+#include <QFile>
+#include <QDir>
 
 #include <stdlib.h>
 
@@ -39,6 +41,54 @@ bool Manager::isValidDb(QString filePath) {
     if(result) initTrackingValues();
 
     return result;
+}
+
+bool Manager::create(QString filePath) {
+    if(m_nemo.isOpen()) m_nemo.close();
+
+    QFileInfo info(filePath);
+    QDir(info.absolutePath()).mkpath(info.absolutePath());
+    QFile file(filePath);
+
+    if(file.exists()) file.remove();
+    file.open(QIODevice::WriteOnly); //touch the file
+    file.close();
+    m_nemo.setDatabaseName(filePath);
+    return m_nemo.open();
+}
+
+bool Manager::initialize() {
+    QFile sql(":/data/nemosyne.sql");
+
+    if(!sql.exists()) {
+        qDebug() << "initialize: resource does not exist!";
+        return false;
+    }
+
+    sql.open(QIODevice::ReadOnly);
+    QStringList command = QTextStream(&sql).readAll().split(';');
+
+    //Qt SQLite driver can only execute one statement at a time.
+    foreach(QString c, command) {
+        QSqlQuery query(c, m_nemo);
+        if(c.trimmed().isEmpty()) continue;
+        c.append(';');
+        if(c.toLower().contains("begin transaction;")) {
+            m_nemo.transaction();
+            continue;
+        }
+        if(c.toLower().contains("commit;")) {
+            m_nemo.commit();
+            continue;
+        }
+        bool result = query.exec();
+        if(!result) {
+            qDebug() << "initialize: error occurred " << c << query.lastError();
+
+            //return false;
+        }
+    }
+    return true;
 }
 
 void Manager::initTrackingValues() {

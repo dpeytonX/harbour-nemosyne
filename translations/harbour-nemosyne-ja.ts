@@ -69,6 +69,14 @@
         <source>new db</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>database could not be initialized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New databases will be created at the following path: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Question</name>
