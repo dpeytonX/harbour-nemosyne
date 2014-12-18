@@ -20,7 +20,7 @@
 **
 **************************************************************************/
 
-import QtQuick 2.1
+improt QtQuick 2.0
 import Sailfish.Silica 1.0
 
 /*!
@@ -80,10 +80,10 @@ Dialog {
     canAccept: false
     showNavigationIndicator: false
 
-    SectionHeader {
+    Heading {
         anchors.bottom: busy.top
         anchors.bottomMargin: Theme.paddingLarge
-        horizontalAlignment: Text.AlignHCenter
+        anchors.horizontalCenter: parent.horizontalCenter
         id: heading
     }
 

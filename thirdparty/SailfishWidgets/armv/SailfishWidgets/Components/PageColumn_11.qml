@@ -20,18 +20,31 @@
 **
 **************************************************************************/
 
+import QtQuick 2.0
 import Sailfish.Silica 1.0
+
 /*!
-   \qmltype StandardMenuItem
+   \qmltype PageColumn
    \since 5.0
-   \brief MenuItem with Sailfish Silica theme.
+   \brief Column to be used in Page elements
    \inqmlmodule SailfishWidgets.Components
 
    Back to \l {Sailfish Widgets}
 
-   Use this as you would a normal MenuItem
+   Use within Page elements to create a vertical layout. This colum uses the standard Sailfish Silica padding and provides a PageHeader for convience.
 */
-MenuItem {
-    color: Theme.highlightColor
-    font.family: Theme.fontFamily
+Column {
+    width: parent.width - Theme.paddingLarge * 2
+    x: Theme.paddingLarge
+
+    /*!
+       \qmlproperty alias PageColumn::title
+       Sets the title for the PageHeader. It defaults to a blank space in order to preserve the column's layout.
+   */
+    property alias title: header.title
+
+    PageHeader {
+        id: header
+        title: ""
+    }
 }

@@ -20,18 +20,20 @@
 **
 **************************************************************************/
 
+import QtQuick 2.0
 import Sailfish.Silica 1.0
+
 /*!
-   \qmltype StandardMenuItem
+   \qmltype Spacer
    \since 5.0
-   \brief MenuItem with Sailfish Silica theme.
+   \brief Provides padding to separate components
    \inqmlmodule SailfishWidgets.Components
 
    Back to \l {Sailfish Widgets}
 
-   Use this as you would a normal MenuItem
-*/
-MenuItem {
-    color: Theme.highlightColor
-    font.family: Theme.fontFamily
+  This takes up a height of \c Theme.paddingLarge in order to provide custom spacing in a Column.
+  */
+Item {
+    width: 1
+    height: Theme.paddingLarge
 }
