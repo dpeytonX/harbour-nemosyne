@@ -13,24 +13,25 @@
 enum Manager::Timing : int {LATE, EARLY, ON_TIME};
 
 Manager::Manager(QObject *parent) : QObject(parent),
-    m_active(0), m_scheduled(0), m_unmemorized(0), m_currentCard(nullptr)
+    m_active(0), m_scheduled(0), m_unmemorized(0), m_database(this), m_currentCard(nullptr)
 {
-    m_nemo = QSqlDatabase::addDatabase("QSQLITE");
-    m_nemo.setHostName("localhost");
+    m_nemo = m_database.database();
 }
 
 bool Manager::isValidDb(QString filePath) {
     //Step 1: Check if this is an sql lite db
-    if(m_nemo.isOpen()) m_nemo.close();
+    if(m_database.opened()) m_database.close();
 
     qDebug() << "opening db at " << filePath;
-    m_nemo.setDatabaseName(filePath);
-    if(!m_nemo.open())return false;
+    m_database.setDatabaseName(filePath);
+    if(!m_database.open())return false;
 
-    qDebug() << "running query on " << m_nemo;
+    qDebug() << "running query on " << m_database.database();
     //Step 2: Check for a mnemosyne table for verification
-    QSqlQuery query("SELECT * FROM global_variables WHERE key='version' AND value='Mnemosyne SQL 1.0';", m_nemo);
-    if(!query.exec()) {
+
+    bool exec = m_database.exec("SELECT * FROM global_variables WHERE key='version' AND value='Mnemosyne SQL 1.0';");
+    QSqlQuery query = m_database.lastQuery();
+    if(!exec) {
         qDebug() << query.lastError().text();
         return false;
     }
@@ -44,17 +45,7 @@ bool Manager::isValidDb(QString filePath) {
 }
 
 bool Manager::create(QString filePath) {
-    if(m_nemo.isOpen()) m_nemo.close();
-
-    QFileInfo info(filePath);
-    QDir(info.absolutePath()).mkpath(info.absolutePath());
-    QFile file(filePath);
-
-    if(file.exists()) file.remove();
-    file.open(QIODevice::WriteOnly); //touch the file
-    file.close();
-    m_nemo.setDatabaseName(filePath);
-    return m_nemo.open();
+    return m_database.create(filePath);
 }
 
 bool Manager::initialize() {
@@ -70,33 +61,23 @@ bool Manager::initialize() {
 
     //Qt SQLite driver can only execute one statement at a time.
     foreach(QString c, command) {
-        QSqlQuery query(c, m_nemo);
         if(c.trimmed().isEmpty()) continue;
         c.append(';');
-        if(c.toLower().contains("begin transaction;")) {
-            m_nemo.transaction();
-            continue;
-        }
-        if(c.toLower().contains("commit;")) {
-            m_nemo.commit();
-            continue;
-        }
-        bool result = query.exec();
+        bool result = m_database.exec(c);
         if(!result) {
-            qDebug() << "initialize: error occurred " << c << query.lastError();
-
-            //return false;
+            qDebug() << "initialize: error occurred " << c << m_database.lastQuery().lastError();
         }
     }
     return true;
 }
 
 void Manager::initTrackingValues() {
-    if(!m_nemo.isOpen()) return;
+    if(!m_database.opened()) return;
 
     //scheduled
-    QSqlQuery query = QSqlQuery("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND strftime('%s',datetime('now', 'start of day', '-1 day'))>=next_rep AND active=1;", m_nemo);
-    if(!query.exec() || query.record().indexOf("count") == -1) {
+    bool result = m_database.exec("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND strftime('%s',datetime('now', 'start of day', '-1 day'))>=next_rep AND active=1;");
+    QSqlQuery query = m_database.lastQuery();
+    if(!result || query.record().indexOf("count") == -1) {
         qDebug() << "initTracking" << query.lastError().text();
         return;
     }
@@ -106,8 +87,9 @@ void Manager::initTrackingValues() {
     setScheduled(query.value("count").toInt());
 
     //active
-    query = QSqlQuery("SELECT count(*) AS count FROM cards WHERE active=1;", m_nemo);
-    if(!query.exec() || query.record().indexOf("count") == -1) {
+    result = m_database.exec("SELECT count(*) AS count FROM cards WHERE active=1;");
+    query = m_database.lastQuery();
+    if(!result || query.record().indexOf("count") == -1) {
         qDebug() << "initTracking" << query.lastError().text();
         return;
     }
@@ -117,8 +99,10 @@ void Manager::initTrackingValues() {
     setActive(query.value("count").toInt());
 
     //unmemorized
-    query = QSqlQuery("SELECT count(*) AS count FROM cards WHERE grade < 2 AND active=1;", m_nemo);
-    if(!query.exec() || query.record().indexOf("count") == -1) {
+    result = m_database.exec("SELECT count(*) AS count FROM cards WHERE grade < 2 AND active=1;");
+    query = m_database.lastQuery();
+
+    if(!result || query.record().indexOf("count") == -1) {
         qDebug() << "initTracking" << query.lastError().text();
         return;
     }
@@ -187,7 +171,7 @@ qint64 Manager::calculateInitialInterval(int rating, Timing timing, qint64 actua
  */
 Card* Manager::next(int rating) {
     qDebug() << "Manager::next";
-    if(!m_nemo.isOpen() || !m_nemo.isValid()) return nullptr;
+    if(!m_database.opened() || !m_database.valid()) return nullptr;
 
     qDebug() << "Rating is " << rating;
     if(m_currentCard != nullptr) {
@@ -204,10 +188,11 @@ Card* Manager::next(int rating) {
     initTrackingValues();
 
     qDebug() << "searching in graded pool";
-    QSqlQuery query(QString("SELECT * FROM cards WHERE grade>=2 ") +
+    bool result = m_database.exec(QString("SELECT * FROM cards WHERE grade>=2 ") +
                     "AND strftime('%s',datetime('now', 'start of day', '-1 day')) >=next_rep AND active=1 " +
-                    "ORDER BY next_rep DESC LIMIT 1;", m_nemo);
-    if(!query.exec()) {
+                    "ORDER BY next_rep DESC LIMIT 1;");
+    QSqlQuery query = m_database.lastQuery();
+    if(!result) {
         qDebug() << "next:" << "memory stack" << query.lastError().text();
         return nullptr;
     }
@@ -217,9 +202,10 @@ Card* Manager::next(int rating) {
     if(!query.isValid()) {
         //Pull card from unmemorized pool
         qDebug() << "searching in unmemorized pool";
-        query = QSqlQuery("SELECT * FROM cards WHERE grade < 2 AND active=1 " \
-                          "ORDER BY next_rep DESC LIMIT 1;", m_nemo);
-        if(!query.exec()) {
+        result = m_database.exec("SELECT * FROM cards WHERE grade < 2 AND active=1 " \
+                          "ORDER BY next_rep DESC LIMIT 1;");
+         query = m_database.lastQuery();
+        if(!result) {
             qDebug() << "next:" << "unmemorized stack" << query.lastError().text();
             return nullptr;
         }
@@ -229,9 +215,10 @@ Card* Manager::next(int rating) {
     if(!query.isValid()) {
         //Last attempt: pull card from the reviewed stack, longest rep first
         qDebug() << "searching in reviewed pool";
-        query = QSqlQuery("SELECT * FROM cards WHERE active=1 " \
-                          "ORDER BY next_rep DESC LIMIT 1;", m_nemo);
-        if(!query.exec()) {
+        result = m_database.exec("SELECT * FROM cards WHERE active=1 " \
+                          "ORDER BY next_rep DESC LIMIT 1;");
+         query = m_database.lastQuery();
+        if(!result) {
             qDebug() << "next:" << "reviewed stack" << query.lastError().text();
             return nullptr;
         }
@@ -333,12 +320,11 @@ void Manager::grade(int rating) {
 }
 
 void Manager::saveCard() {
-    if(!m_nemo.isOpen() || m_currentCard == nullptr) return;
+    if(!m_database.opened() || m_currentCard == nullptr) return;
 
     qDebug() << "saving card" << m_currentCard->seq();
 
-    QSqlQuery query = QSqlQuery(m_nemo);
-    query.prepare("UPDATE cards SET " \
+    m_database.prepare("UPDATE cards SET " \
                   "question = :question, "\
                   "answer = :answer, "\
                   "next_rep = datetime(:next_rep, 'unixepoch'), "\
@@ -352,21 +338,21 @@ void Manager::saveCard() {
                   "ret_reps_since_lapse = :ret_reps_since_lapse "\
                   "WHERE _id = :seq;");
 
-    query.bindValue(":question", m_currentCard->question());
-    query.bindValue(":answer", m_currentCard->answer());
-    query.bindValue(":next_rep", m_currentCard->nextRep());
-    query.bindValue(":last_rep", m_currentCard->lastRep());
-    query.bindValue(":grade", m_currentCard->grade());
-    query.bindValue(":easiness", m_currentCard->easiness());
-    query.bindValue(":acq_reps", m_currentCard->acquisition());
-    query.bindValue(":acq_reps_since_lapse", m_currentCard->acquisitionRepsSinceLast());
-    query.bindValue(":ret_reps", m_currentCard->retentionRep());
-    query.bindValue(":lapses", m_currentCard->lapses());
-    query.bindValue(":ret_reps_since_lapse", m_currentCard->retentionRepsSinceLast());
-    query.bindValue(":seq", m_currentCard->seq());
+    m_database.bind(":question", m_currentCard->question());
+    m_database.bind(":answer", m_currentCard->answer());
+    m_database.bind(":next_rep", m_currentCard->nextRep());
+    m_database.bind(":last_rep", m_currentCard->lastRep());
+    m_database.bind(":grade", m_currentCard->grade());
+    m_database.bind(":easiness", m_currentCard->easiness());
+    m_database.bind(":acq_reps", m_currentCard->acquisition());
+    m_database.bind(":acq_reps_since_lapse", m_currentCard->acquisitionRepsSinceLast());
+    m_database.bind(":ret_reps", m_currentCard->retentionRep());
+    m_database.bind(":lapses", m_currentCard->lapses());
+    m_database.bind(":ret_reps_since_lapse", m_currentCard->retentionRepsSinceLast());
+    m_database.bind(":seq", m_currentCard->seq());
 
-    if(!query.exec()) {
-        qDebug() << "save:" << "error" << query.lastError().text();
+    if(!m_database.exec()) {
+        qDebug() << "save:" << "error" << m_database.lastQuery().lastError().text();
         return;
     }
 }

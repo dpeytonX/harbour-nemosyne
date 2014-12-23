@@ -5,6 +5,7 @@
 #include <QString>
 #include <QtSql/QSqlDatabase>
 
+#include "sqlitedatabase.h"
 #include "card.h"
 
 class Manager : public QObject
@@ -44,6 +45,7 @@ private:
     int m_scheduled;
     int m_unmemorized;
 
+    SQLiteDatabase m_database;
     QSqlDatabase m_nemo;
     Card* m_currentCard;
 };
