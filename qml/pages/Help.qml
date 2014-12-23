@@ -12,9 +12,17 @@ Page {
     PageColumn {
         title: qsTr("Help")
 
+        SectionHeader {
+            text: qsTr("Importing Mnemosyne 2.x Database")
+        }
+
         Paragraph {
             width: parent.width
             text: qsTr("First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.")
+        }
+
+        SectionHeader {
+            text: qsTr("Starting a New Database")
         }
 
         Paragraph {

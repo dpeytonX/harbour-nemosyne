@@ -32,7 +32,7 @@ bool Manager::isValidDb(QString filePath) {
     bool exec = m_database.exec("SELECT * FROM global_variables WHERE key='version' AND value='Mnemosyne SQL 1.0';");
     QSqlQuery query = m_database.lastQuery();
     if(!exec) {
-        qDebug() << query.lastError().text();
+        qDebug() << m_database.lastError();
         return false;
     }
 
@@ -57,18 +57,8 @@ bool Manager::initialize() {
     }
 
     sql.open(QIODevice::ReadOnly);
-    QStringList command = QTextStream(&sql).readAll().split(';');
-
-    //Qt SQLite driver can only execute one statement at a time.
-    foreach(QString c, command) {
-        if(c.trimmed().isEmpty()) continue;
-        c.append(';');
-        bool result = m_database.exec(c);
-        if(!result) {
-            qDebug() << "initialize: error occurred " << c << m_database.lastQuery().lastError();
-        }
-    }
-    return true;
+    QStringList commands = QTextStream(&sql).readAll().split(';');
+    return m_database.execBatch(commands, true);
 }
 
 void Manager::initTrackingValues() {
@@ -193,7 +183,7 @@ Card* Manager::next(int rating) {
                     "ORDER BY next_rep DESC LIMIT 1;");
     QSqlQuery query = m_database.lastQuery();
     if(!result) {
-        qDebug() << "next:" << "memory stack" << query.lastError().text();
+        qDebug() << "next:" << "memory stack" << m_database.lastError();
         return nullptr;
     }
 
@@ -206,7 +196,7 @@ Card* Manager::next(int rating) {
                           "ORDER BY next_rep DESC LIMIT 1;");
          query = m_database.lastQuery();
         if(!result) {
-            qDebug() << "next:" << "unmemorized stack" << query.lastError().text();
+            qDebug() << "next:" << "unmemorized stack" << m_database.lastError();
             return nullptr;
         }
         query.first();
@@ -219,7 +209,7 @@ Card* Manager::next(int rating) {
                           "ORDER BY next_rep DESC LIMIT 1;");
          query = m_database.lastQuery();
         if(!result) {
-            qDebug() << "next:" << "reviewed stack" << query.lastError().text();
+            qDebug() << "next:" << "reviewed stack" << m_database.lastError();
             return nullptr;
         }
         query.first();
@@ -352,7 +342,7 @@ void Manager::saveCard() {
     m_database.bind(":seq", m_currentCard->seq());
 
     if(!m_database.exec()) {
-        qDebug() << "save:" << "error" << m_database.lastQuery().lastError().text();
+        qDebug() << "save:" << "error" << m_database.lastError();
         return;
     }
 }

@@ -29,6 +29,14 @@
         <source>New databases will be created at the following path: </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Importing Mnemosyne 2.x Database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Starting a New Database</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Main</name>

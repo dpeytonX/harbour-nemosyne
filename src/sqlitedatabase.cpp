@@ -1,9 +1,12 @@
 #include "sqlitedatabase.h"
 
+#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QString>
+#include <QStringList>
+#include <QSqlError>
 
 SQLiteDatabase::SQLiteDatabase(QObject *parent) : QObject(parent),
   m_lastQuery()
@@ -66,18 +69,36 @@ bool SQLiteDatabase::create(QString filePath) {
     return open();
 }
 
+bool SQLiteDatabase::execBatch(QStringList batch, bool ignoreErrors) {
+    foreach(QString c, batch) {
+        if(c.trimmed().isEmpty()) continue;
+
+        if(!exec(c) && !ignoreErrors) {
+            qDebug() << "exec batch: error occurred " << c << lastError();
+            return false;
+        }
+    }
+    return true;
+}
+
 bool SQLiteDatabase::exec(QString query) {
+    query = query.trimmed();
+
     if(query.isEmpty())
         return m_lastQuery.exec();
+
+    if(query.at(query.length() - 1) != ';') query.append(";");
 
     if(query.toLower().startsWith("begin transaction")) {
         m_lastQuery = QSqlQuery(m_database);
         return m_database.transaction();
     }
+
     if(query.toLower().startsWith("commit")) {
         m_lastQuery = QSqlQuery(m_database);
         return m_database.commit();
     }
+
     m_lastQuery = QSqlQuery(query, m_database);
     return m_lastQuery.exec();
 }
@@ -93,4 +114,8 @@ void SQLiteDatabase::bind(QString key, QVariant value) {
 
 QSqlQuery SQLiteDatabase::lastQuery() {
     return m_lastQuery;
+}
+
+QString SQLiteDatabase::lastError() {
+    return m_lastQuery.lastError().text();
 }

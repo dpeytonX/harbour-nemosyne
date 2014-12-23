@@ -36,6 +36,7 @@
 
 #include "manager.h"
 #include "card.h"
+#include "sqlitedatabase.h"
 
 int main(int argc, char *argv[])
 {
@@ -51,6 +52,7 @@ int main(int argc, char *argv[])
     srand(time(NULL));
     qmlRegisterType<Manager>("harbour.nemosyne.Nemosyne", 1, 0, "Manager");
     qmlRegisterType<Card>("harbour.nemosyne.Nemosyne", 1, 0, "Card");
+    qmlRegisterType<SQLiteDatabase>("harbour.nemosyne.Nemosyne", 1, 0, "SQLiteDatabase");
     return SailfishApp::main(argc, argv);
 }
 
