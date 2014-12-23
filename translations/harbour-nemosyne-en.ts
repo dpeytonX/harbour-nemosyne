@@ -16,6 +16,21 @@
     </message>
 </context>
 <context>
+    <name>Help</name>
+    <message>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
+        <translation type="unfinished">First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</translation>
+    </message>
+    <message>
+        <source>New databases will be created at the following path: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Main</name>
     <message>
         <source>Mnemosyne 2.x compatible</source>
@@ -59,7 +74,7 @@
     </message>
     <message>
         <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
-        <translation>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</translation>
+        <translation type="vanished">First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</translation>
     </message>
     <message>
         <source>About</source>
@@ -74,7 +89,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>New databases will be created at the following path: </source>
+        <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

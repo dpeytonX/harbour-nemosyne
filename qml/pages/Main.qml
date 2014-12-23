@@ -43,6 +43,11 @@ Page {
     }
 
     Component {
+        id: helpDialog
+        Help {}
+    }
+
+    Component {
         id: fileSelector
 
         FileSelector {
@@ -124,15 +129,12 @@ Page {
         anchors.fill: parent
         contentHeight: openColumn.height
 
+        VerticalScrollDecorator {}
+
         PageColumn {
             id: openColumn
             spacing: Theme.paddingSmall
             title: qsTr("nemosyne")
-
-            Paragraph {
-                width: parent.width
-                text: qsTr("First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.")
-            }
 
             Subtext {text: qsTr("Mnemosyne 2.x compatible")}
 
@@ -142,10 +144,7 @@ Page {
                 onClicked: loader.create(fileSelector, main, {"referer": this})
             }
 
-            Paragraph {
-                width: parent.width
-                text: qsTr("New databases will be created at the following path: ") + dataPath
-            }
+            Spacer {}
 
             Button {
                 id: newDb
@@ -208,6 +207,14 @@ Page {
 
         PullDownMenu  {
             id:pulley
+
+            StandardMenuItem {
+                text: qsTr("Help")
+                onClicked: {
+                    loader.create(helpDialog, main, {})
+                }
+            }
+
             StandardMenuItem {
                 text: qsTr("About")
                 onClicked: {

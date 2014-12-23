@@ -19,6 +19,7 @@ QT += sql
 QMAKE_CXXFLAGS += "-std=c++0x"
 
 SOURCES += src/harbour-nemosyne.cpp \
+    src/sqlitedatabase.cpp \
     src/manager.cpp \
     src/card.cpp
 
@@ -48,5 +49,6 @@ RESOURCES += \
     data.qrc
 
 HEADERS += \
+    src/sqlitedatabase.h \
     src/manager.h \
     src/card.h
