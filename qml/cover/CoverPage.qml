@@ -31,9 +31,11 @@
 import QtQuick 2.1
 import Sailfish.Silica 1.0
 import harbour.nemosyne.SailfishWidgets.Components 1.3
+import harbour.nemosyne.SailfishWidgets.JS 1.3
 import harbour.nemosyne.Nemosyne 1.0
 
 StandardCover {
+    id: cp
     property variant pageStack
 
     coverTitle: UIConstants.appTitle
@@ -48,7 +50,7 @@ StandardCover {
         visible: displayDefault
     }
 
-    PageColumn {
+    Column {
         anchors.fill: parent
         Paragraph {
             color: Theme.primaryColor
@@ -58,16 +60,48 @@ StandardCover {
         }
     }
 
+    CoverActionList {
+        enabled: !displayDefault
+
+        CoverAction {
+            iconSource: IconThemes.iconCoverPrevious
+            onTriggered: {
+                if(isAnswer(pageStack.currentPage)) {
+                    cardDisplay.text = ""
+                    pageStack.pop();
+                }
+            }
+        }
+
+        CoverAction {
+            iconSource: IconThemes.iconCoverNext
+            onTriggered: {
+                if(isQuestion(pageStack.currentPage)) {
+                    cardDisplay.text = ""
+                    pageStack.currentPage.accept()
+                }
+            }
+        }
+    }
+
     onPageStackChanged: {
         if(!!pageStack) {
             pageStack.currentPageChanged.connect(updateText)
         }
     }
 
+    function isQuestion(page) {
+        return page.objectName == "question";
+    }
+
+    function isAnswer(page) {
+        return page.objectName == "answer";
+    }
+
     function updateText() {
         if(!!pageStack.currentPage) {
-            if(pageStack.currentPage.objectName == "question") cardDisplay.text = pageStack.currentPage.question
-            else if(pageStack.currentPage.objectName == "answer") cardDisplay.text = pageStack.currentPage.answer
+            if(isQuestion(pageStack.currentPage)) cardDisplay.text = pageStack.currentPage.question
+            else if(isAnswer(pageStack.currentPage)) cardDisplay.text = pageStack.currentPage.answer
         }
     }
 }
