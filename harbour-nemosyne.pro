@@ -21,7 +21,8 @@ QMAKE_CXXFLAGS += "-std=c++0x"
 SOURCES += src/harbour-nemosyne.cpp \
     src/sqlitedatabase.cpp \
     src/manager.cpp \
-    src/card.cpp
+    src/card.cpp \
+    src/query.cpp
 
 OTHER_FILES += qml/harbour-nemosyne.qml \
     qml/cover/CoverPage.qml \
@@ -51,4 +52,5 @@ RESOURCES += \
 HEADERS += \
     src/sqlitedatabase.h \
     src/manager.h \
-    src/card.h
+    src/card.h \
+    src/query.h

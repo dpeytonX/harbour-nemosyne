@@ -6,6 +6,7 @@
 #include <QtSql/QSqlDatabase>
 
 #include "sqlitedatabase.h"
+#include "query.h"
 #include "card.h"
 
 class Manager : public QObject

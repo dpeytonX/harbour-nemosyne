@@ -10,6 +10,8 @@
 
 #include <stdlib.h>
 
+#include "query.h"
+
 enum Manager::Timing : int {LATE, EARLY, ON_TIME};
 
 Manager::Manager(QObject *parent) : QObject(parent),
@@ -30,7 +32,8 @@ bool Manager::isValidDb(QString filePath) {
     //Step 2: Check for a mnemosyne table for verification
 
     bool exec = m_database.exec("SELECT * FROM global_variables WHERE key='version' AND value='Mnemosyne SQL 1.0';");
-    QSqlQuery query = m_database.lastQuery();
+
+    Query* query = m_database.query();
     if(!exec) {
         qDebug() << m_database.lastError();
         return false;
@@ -38,7 +41,9 @@ bool Manager::isValidDb(QString filePath) {
 
     qDebug() << "query was valid ";
 
-    bool result = query.record().indexOf("value") != -1;
+    bool result = query->indexOf("value") != -1;
+    delete query;
+
     if(result) initTrackingValues();
 
     return result;

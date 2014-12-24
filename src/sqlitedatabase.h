@@ -7,6 +7,8 @@
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 
+#include "query.h"
+
 class SQLiteDatabase : public QObject
 {
     Q_OBJECT
@@ -14,6 +16,7 @@ class SQLiteDatabase : public QObject
     Q_PROPERTY(bool valid READ valid)
     Q_PROPERTY(QString databaseName READ databaseName WRITE setDatabaseName NOTIFY databaseNameChanged)
     Q_PROPERTY(QString lastError READ lastError)
+    Q_PROPERTY(Query* query READ query)
 
 public:
     SQLiteDatabase(QObject *parent=0);
@@ -35,6 +38,7 @@ public:
     void setDatabaseName(const QString& name);
     QSqlQuery lastQuery();
     QString lastError();
+    Query* query();
 
 signals:
     void openedChanged();

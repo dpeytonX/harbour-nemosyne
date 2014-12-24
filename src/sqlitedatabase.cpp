@@ -119,3 +119,7 @@ QSqlQuery SQLiteDatabase::lastQuery() {
 QString SQLiteDatabase::lastError() {
     return m_lastQuery.lastError().text();
 }
+
+Query* SQLiteDatabase::query() {
+    return new Query(lastQuery(), this);
+}
