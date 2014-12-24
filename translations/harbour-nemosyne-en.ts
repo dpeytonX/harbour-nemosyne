@@ -26,15 +26,7 @@
         <translation type="unfinished">First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</translation>
     </message>
     <message>
-        <source>New databases will be created at the following path: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Importing Mnemosyne 2.x Database</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Starting a New Database</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -90,11 +82,7 @@
     </message>
     <message>
         <source>new db</source>
-        <translation>New database</translation>
-    </message>
-    <message>
-        <source>database could not be initialized</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">New database</translation>
     </message>
     <message>
         <source>Help</source>

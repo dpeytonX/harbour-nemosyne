@@ -1,7 +1,7 @@
 #ifndef SQLITEDATABASE_H
 #define SQLITEDATABASE_H
 
-#include <QObject>
+#include <QQuickItem>
 #include <QString>
 #include <QVariant>
 #include <QtSql/QSqlDatabase>
@@ -9,17 +9,17 @@
 
 #include "query.h"
 
-class SQLiteDatabase : public QObject
+class SQLiteDatabase : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(bool opened READ opened NOTIFY openedChanged)
     Q_PROPERTY(bool valid READ valid)
     Q_PROPERTY(QString databaseName READ databaseName WRITE setDatabaseName NOTIFY databaseNameChanged)
     Q_PROPERTY(QString lastError READ lastError)
-    Q_PROPERTY(Query* query READ query)
+    Q_PROPERTY(Query* query READ query NOTIFY queryChanged)
 
 public:
-    SQLiteDatabase(QObject *parent=0);
+    SQLiteDatabase(QQuickItem *parent=0);
     QSqlDatabase &database();
 
     Q_INVOKABLE bool open();
@@ -43,10 +43,14 @@ public:
 signals:
     void openedChanged();
     void databaseNameChanged();
+    void queryChanged();
 
 private:
+    void setLastQuery(const QSqlQuery& query);
+
     QSqlDatabase m_database;
     QSqlQuery m_lastQuery;
+    Query* m_query;
 };
 
 #endif // SQLITEDATABASE_H

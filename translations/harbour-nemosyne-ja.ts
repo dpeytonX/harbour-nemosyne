@@ -26,15 +26,7 @@
         <translation type="unfinished">ご利用いただきありがとうございます。まずはパソコンから本体にmnemosyne.dbというファイルをコピーしてください。それから、下のボタンを押してコピーしたデータベースを選んでフラシュカードを勉強することができるようになります。</translation>
     </message>
     <message>
-        <source>New databases will be created at the following path: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Importing Mnemosyne 2.x Database</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Starting a New Database</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -87,14 +79,6 @@
     <message>
         <source>About</source>
         <translation>アプリについて</translation>
-    </message>
-    <message>
-        <source>new db</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>database could not be initialized</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Help</source>
