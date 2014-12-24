@@ -1,2 +1,4 @@
 module harbour.nemosyne.Nemosyne
 UIConstants 1.0 UIConstants.js
+Manager 1.0 Manager.qml
+Card 1.0 Card.qml

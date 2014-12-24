@@ -34,8 +34,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "manager.h"
-#include "card.h"
 #include "sqlitedatabase.h"
 #include "query.h"
 
@@ -51,8 +49,6 @@ int main(int argc, char *argv[])
     // To display the view, call "show()" (will show fullscreen on device).
 
     srand(time(NULL));
-    qmlRegisterType<Manager>("harbour.nemosyne.Nemosyne", 1, 0, "Manager");
-    qmlRegisterType<Card>("harbour.nemosyne.Nemosyne", 1, 0, "Card");
     qmlRegisterType<SQLiteDatabase>("harbour.nemosyne.Nemosyne", 1, 0, "SQLiteDatabase");
     qmlRegisterType<Query>("harbour.nemosyne.Nemosyne", 1, 0, "Query");
     return SailfishApp::main(argc, argv);

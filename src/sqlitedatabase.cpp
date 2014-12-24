@@ -8,8 +8,8 @@
 #include <QStringList>
 #include <QSqlError>
 
-SQLiteDatabase::SQLiteDatabase(QObject *parent) : QObject(parent),
-  m_lastQuery()
+SQLiteDatabase::SQLiteDatabase(QQuickItem *parent) : QQuickItem(parent),
+  m_lastQuery(), m_query(new Query(m_lastQuery, this))
 {
     m_database = QSqlDatabase::addDatabase("QSQLITE");
     m_database.setHostName("localhost");
@@ -90,21 +90,21 @@ bool SQLiteDatabase::exec(QString query) {
     if(query.at(query.length() - 1) != ';') query.append(";");
 
     if(query.toLower().startsWith("begin transaction")) {
-        m_lastQuery = QSqlQuery(m_database);
+        setLastQuery(QSqlQuery(m_database));
         return m_database.transaction();
     }
 
     if(query.toLower().startsWith("commit")) {
-        m_lastQuery = QSqlQuery(m_database);
+        setLastQuery(QSqlQuery(m_database));
         return m_database.commit();
     }
 
-    m_lastQuery = QSqlQuery(query, m_database);
+    setLastQuery(QSqlQuery(query, m_database));
     return m_lastQuery.exec();
 }
 
 bool SQLiteDatabase::prepare(QString query) {
-    m_lastQuery = QSqlQuery(m_database);
+    setLastQuery(QSqlQuery(m_database));
     return m_lastQuery.prepare(query);
 }
 
@@ -114,6 +114,13 @@ void SQLiteDatabase::bind(QString key, QVariant value) {
 
 QSqlQuery SQLiteDatabase::lastQuery() {
     return m_lastQuery;
+}
+
+void SQLiteDatabase::setLastQuery(const QSqlQuery& query) {
+    m_lastQuery = query;
+    delete m_query;
+    m_query = new Query(m_lastQuery, this);
+    emit queryChanged();
 }
 
 QString SQLiteDatabase::lastError() {

@@ -16,6 +16,33 @@ Page {
 
     Manager {
         id:manager
+
+        onValidateDatabase: {
+            Console.info("Main::openDb: db is valid " + validDb)
+            if(validDb) {
+                errorLabel.text = ""
+                if(settings.recentFile == filePath) {
+                    Console.info("Main::openDb: currentFile is equal to recentFile")
+                } else {
+                    settings.recentFile3 = settings.recentFile2
+                    settings.recentFile2 = settings.recentFile1
+                    settings.recentFile1 = settings.recentFile
+                    settings.recentFile = filePath;
+                    Console.debug("Main::openDb " + settings.recentFile + " " + filePath)
+                    Console.debug("after")
+                    Console.debug("Main::openDb " + settings.recentFile3)
+                    Console.debug("Main::openDb " + settings.recentFile2)
+                    Console.debug("Main::openDb " + settings.recentFile1)
+                    Console.debug("Main::openDb " + settings.recentFile)
+                }
+
+                // push new card on page stack
+                loading.success()
+            } else {
+                errorLabel.text = qsTr("database could not be opened")
+                loading.failure()
+            }
+        }
     }
 
     // ------ Dynamic Object Creation ----------------
@@ -146,7 +173,7 @@ Page {
 
             Spacer {}
 
-            Button {
+            /*Button {
                 id: newDb
                 text: qsTr("new db")
                 onClicked: {
@@ -164,6 +191,9 @@ Page {
                     }
                 }
             }
+
+            Spacer{}
+            */
 
             Label {
                 id: errorLabel
@@ -238,31 +268,6 @@ Page {
         var fileName = currentFile.fileName
         var filePath = currentFile.absoluteFilePath
         Console.info("Main::openDb: existing file selected " + fileName  + " " + filePath)
-        var valid = manager.isValidDb(currentFile.absoluteFilePath)
-
-        Console.info("Main::openDb: db is valid " + valid)
-        if(valid) {
-            errorLabel.text = ""
-            if(settings.recentFile == filePath) {
-                Console.info("Main::openDb: currentFile is equal to recentFile")
-            } else {
-                settings.recentFile3 = settings.recentFile2
-                settings.recentFile2 = settings.recentFile1
-                settings.recentFile1 = settings.recentFile
-                settings.recentFile = filePath;
-                Console.debug("Main::openDb " + settings.recentFile + " " + filePath)
-                Console.debug("after")
-                Console.debug("Main::openDb " + settings.recentFile3)
-                Console.debug("Main::openDb " + settings.recentFile2)
-                Console.debug("Main::openDb " + settings.recentFile1)
-                Console.debug("Main::openDb " + settings.recentFile)
-            }
-
-            // push new card on page stack
-            loading.success()
-        } else {
-            errorLabel.text = qsTr("database could not be opened")
-            loading.failure()
-        }
+        manager.validateDatabase(currentFile.absoluteFilePath)
     }
 }
