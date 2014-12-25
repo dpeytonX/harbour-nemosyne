@@ -14,13 +14,9 @@ TARGET = harbour-nemosyne
 
 CONFIG += sailfishapp
 
-QT += sql
-
 QMAKE_CXXFLAGS += "-std=c++0x"
 
-SOURCES += src/harbour-nemosyne.cpp \
-    src/sqlitedatabase.cpp \
-    src/query.cpp
+SOURCES += src/harbour-nemosyne.cpp
 
 OTHER_FILES += qml/harbour-nemosyne.qml \
     qml/cover/CoverPage.qml \
@@ -46,7 +42,3 @@ TRANSLATIONS += translations/harbour-nemosyne-ja.ts translations/harbour-nemosyn
 RESOURCES += \
     images.qrc \
     data.qrc
-
-HEADERS += \
-    src/sqlitedatabase.h \
-    src/query.h

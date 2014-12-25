@@ -24,6 +24,12 @@
 
   \startpage
 
+  SailfishWidgets 1.3.1
+  \list
+  \li Added \l {SQLiteDatabase} and \l {Query} to the Database package
+  \li Fixed some warnings with \l {ApplicationSettings}, \l {File}, and \l {Dir}'s documentation.
+  \endlist
+
   SailfishWidgets 1.3
   \list
   \li Deprecating \l {Heading} in favor of SectionHeader. From now on, use \c Sailfish.Silica::SectionHeader.

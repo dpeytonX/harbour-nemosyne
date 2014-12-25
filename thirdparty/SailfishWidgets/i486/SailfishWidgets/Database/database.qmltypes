@@ -1,0 +1,160 @@
+import QtQuick.tooling 1.1
+
+// There always is a single Module object that contains all
+// Component objects.
+Module {
+    // A Component object directly corresponds to a type exported
+    // in a plugin with a call to qmlRegisterType.
+    Component {
+
+        // The name is a unique identifier used to refer to this type.
+        // It is recommended you simply use the C++ type name.
+        name: "SQLiteDatabase"
+
+        // The name of the prototype Component.
+        prototype: "QQuickItem"
+
+        // The list of exports determines how a type can be imported.
+        // Each string has the format "URI/Name version" and matches the
+        // arguments to qmlRegisterType. Usually types are only exported
+        // once, if at all.
+        // If the "URI/" part of the string is missing that means the
+        // type should be put into the package defined by the URI the
+        // module was imported with.
+        // For example if this module was imported with 'import Foo 4.8'
+        // the Animation object would be found in the package Foo and
+        // QtQuick.
+        exports: [
+            "Database 1.3",
+            "SailfishWidgets/Database 1.3"
+        ]
+
+        // The meta object revisions for the exports specified in 'exports'.
+        // Describes with revisioned properties will be visible in an export.
+        // The list must have exactly the same length as the 'exports' list.
+        // For example the 'animations' propery described below will only be
+        // available through the QtQuick/Animation 1.0 export.
+
+        //In other words, the package import version will receive all features up to and including the
+        //specified revision
+        exportMetaObjectRevisions: [0, 0]
+
+        Property {
+            name: "opened"
+            type: "bool"
+        }
+        Property {
+            name: "valid"
+            type: "bool"
+        }
+        Property {
+            name: "databaseName"
+            type: "string"
+        }
+        Property {
+            name: "lastError"
+            type: "string"
+        }
+        Property {
+            name: "query"
+            type: "Query*"
+        }
+
+        Method { name: "open" }
+        Method { name: "close" }
+        Method { name: "create"
+                 parameter: {name: "filePath"
+                             type: "string"} }
+        Method { name: "transaction" }
+        Method { name: "commit" }
+        Method { name: "exec" }
+        Method { name: "exec"
+                 parameter: {name: "query"
+                             type: "string"} }
+        Method { name: "execBatch"
+                 parameter: {name: "batch"
+                             type: "variant"}
+                 parameter: {name: "ignoreErrors"
+                             type: "bool"}}
+        Method { name: "prepare"
+                 parameter: {name: "query"
+                             type: "string"} }
+        Method { name: "bind"
+                 parameter: {name: "key"
+                             type: "string"}
+                 parameter: {name: "value"
+                             type: "variant"}}
+
+        
+        Signal { name: "openedChanged" }
+        Signal { name: "databaseNameChanged" }
+        Signal { name: "queryChanged" }
+    }
+
+    Component {
+
+        // The name is a unique identifier used to refer to this type.
+        // It is recommended you simply use the C++ type name.
+        name: "Query"
+
+        // The name of the prototype Component.
+        prototype: "QObject"
+
+        // The list of exports determines how a type can be imported.
+        // Each string has the format "URI/Name version" and matches the
+        // arguments to qmlRegisterType. Usually types are only exported
+        // once, if at all.
+        // If the "URI/" part of the string is missing that means the
+        // type should be put into the package defined by the URI the
+        // module was imported with.
+        // For example if this module was imported with 'import Foo 4.8'
+        // the Animation object would be found in the package Foo and
+        // QtQuick.
+        exports: [
+            "Database 1.3",
+            "SailfishWidgets/Database 1.3"
+        ]
+
+        // The meta object revisions for the exports specified in 'exports'.
+        // Describes with revisioned properties will be visible in an export.
+        // The list must have exactly the same length as the 'exports' list.
+        // For example the 'animations' propery described below will only be
+        // available through the QtQuick/Animation 1.0 export.
+
+        //In other words, the package import version will receive all features up to and including the
+        //specified revision
+        exportMetaObjectRevisions: [0, 0]
+
+        Property {
+            name: "active"
+            type: "bool"
+        }
+        Property {
+            name: "valid"
+            type: "bool"
+        }
+        Property {
+            name: "size"
+            type: "int"
+        }
+        Property {
+            name: "lastError"
+            type: "string"
+        }
+
+        Method { name: "first" }
+        Method { name: "last" }
+        Method { name: "next" }
+        Method { name: "seek"
+                 parameter: {name: "index"
+                             type: "int"}
+                 parameter: {name: "relative"
+                             type: "bool"}}
+        Method { name: "indexOf"
+                 parameter: {name: "field"
+                             type: "string"} }
+        Method { name: "value"
+                 parameter: {name: "name"
+                             type: "string"} }
+    }
+}

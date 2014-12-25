@@ -34,9 +34,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "sqlitedatabase.h"
-#include "query.h"
-
 int main(int argc, char *argv[])
 {
     // SailfishApp::main() will display "qml/template.qml", if you need more
@@ -49,8 +46,6 @@ int main(int argc, char *argv[])
     // To display the view, call "show()" (will show fullscreen on device).
 
     srand(time(NULL));
-    qmlRegisterType<SQLiteDatabase>("harbour.nemosyne.Nemosyne", 1, 0, "SQLiteDatabase");
-    qmlRegisterType<Query>("harbour.nemosyne.Nemosyne", 1, 0, "Query");
     return SailfishApp::main(argc, argv);
 }
 

@@ -1,6 +1,7 @@
 import QtQuick 2.1
 import harbour.nemosyne.Nemosyne 1.0
 import harbour.nemosyne.QmlLogger 2.0
+import harbour.nemosyne.SailfishWidgets.Database 1.3
 import harbour.nemosyne.SailfishWidgets.FileManagement 1.3
 import harbour.nemosyne.SailfishWidgets.Utilities 1.3
 import harbour.nemosyne.SailfishWidgets.JS 1.3
