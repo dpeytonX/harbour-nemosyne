@@ -26,7 +26,7 @@ SQLiteDatabase {
           Until requested otherwise, this algorithm will just stick to the basics.
          */
     signal next(int rating)
-    signal initialize()
+    signal initializedDone()
 
     DynamicLoader {
         id: cardCreator
@@ -65,17 +65,18 @@ SQLiteDatabase {
         validDb = result
     }
 
-    onInitialize: {
+    function initialize() {
         if(!sqlFile.exists) {
             Console.debug("initialize: resource does not exist!")
             initialized = false
         }
 
         //TODO:
-        /*sql.open(QIODevice::ReadOnly);
-            QStringList commands = QTextStream(&sql).readAll().split(';');*/
-        var commands = ["", "", ""]
+        sqlFile.open(File.ReadOnly);
+        var commands = sqlFile.readAll().split(';')
         initialized = execBatch(commands, true)
+        initializedDone()
+        return initialized
     }
 
     onNext: {
@@ -128,6 +129,12 @@ SQLiteDatabase {
                 return
             }
             query.first()
+        }
+
+        if(!query.valid) {
+            //No card found
+            Console.info("no card found in database")
+            return
         }
 
         Console.debug("next " + query)

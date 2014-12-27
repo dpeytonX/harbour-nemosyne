@@ -173,7 +173,7 @@ Page {
 
             Spacer {}
 
-            /*Button {
+            Button {
                 id: newDb
                 text: qsTr("new db")
                 onClicked: {
@@ -193,7 +193,7 @@ Page {
             }
 
             Spacer{}
-            */
+
 
             Label {
                 id: errorLabel

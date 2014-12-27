@@ -29,6 +29,14 @@
         <source>Importing Mnemosyne 2.x Database</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Starting a New Database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New databases will be created at the following path: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Main</name>
@@ -82,6 +90,14 @@
     </message>
     <message>
         <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>new db</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>database could not be initialized</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

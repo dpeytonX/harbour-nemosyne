@@ -59,26 +59,13 @@ Dialog {
     onNext: {
         Console.log("Question: answer was rated: " + rating)
         manager.next(rating)
-        /*card = manager.next(rating);
-        Console.log("Question: card is ")
-        Console.log(card)
-        if(card == null) {
-            canAccept = false
-            return
-        }
-        canAccept = true
-
-        question = card.question
-        answer = card.answer*/
-    }
-
-    onCardChanged: {
         Console.log("Question: card is " + card)
         if(!card) {
             canAccept = false
             return
         }
         canAccept = true
+
         question = card.question
         answer = card.answer
     }
