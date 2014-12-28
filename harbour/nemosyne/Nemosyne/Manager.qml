@@ -71,9 +71,9 @@ SQLiteDatabase {
             initialized = false
         }
 
-        //TODO:
         sqlFile.open(File.ReadOnly);
         var commands = sqlFile.readAll().split(';')
+        Console.debug(commands)
         initialized = execBatch(commands, true)
         initializedDone()
         return initialized

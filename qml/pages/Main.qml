@@ -54,6 +54,10 @@ Page {
 
     // ------ Dialogs and Misc -----------------------
 
+    RemorsePopup {
+        id: remorse
+    }
+
     Component {
         id: aboutDialog
         AboutPage {
@@ -72,6 +76,25 @@ Page {
     Component {
         id: helpDialog
         Help {}
+    }
+
+    Component {
+        id: newDbDialog
+        Dialog {
+            DialogHeader {
+                title: qsTr("This action will delete the pre-existing database. Are you sure?")
+            }
+
+            onAccepted: {
+                remorse.execute(qsTr("Deleting old database"), function() {
+                    Console.info("initialize: file " + newFile.absoluteFilePath + "already exists. will delete")
+                    var result = newFile.remove()
+                    Console.info("initialize: file deleted " + result)
+
+                    create()
+                })
+            }
+        }
     }
 
     Component {
@@ -177,17 +200,10 @@ Page {
                 id: newDb
                 text: qsTr("new db")
                 onClicked: {
-                    Console.info("new database requested")
-                    Console.info("creating db at " + dataPath)
-                    //TODO: remorse item if overwriting existing database
-                    if(manager.create(dataPath)) {
-                        if(manager.initialize()) {
-                            process(newFile)
-                        } else {
-                            errorLabel.text = qsTr("database could not be initialized")
-                        }
+                    if(newFile.exists) {
+                        loader.create(newDbDialog, main, {})
                     } else {
-                        errorLabel.text = qsTr("database could not be opened")
+                        create()
                     }
                 }
             }
@@ -269,5 +285,20 @@ Page {
         var filePath = currentFile.absoluteFilePath
         Console.info("Main::openDb: existing file selected " + fileName  + " " + filePath)
         manager.validateDatabase(currentFile.absoluteFilePath)
+    }
+
+    function create() {
+        Console.info("new database requested")
+        Console.info("creating db at " + dataPath)
+
+        if(manager.create(dataPath)) {
+            if(manager.initialize()) {
+                process(newFile)
+            } else {
+                errorLabel.text = qsTr("database could not be initialized")
+            }
+        } else {
+            errorLabel.text = qsTr("database could not be opened")
+        }
     }
 }

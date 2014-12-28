@@ -100,6 +100,14 @@
         <source>database could not be initialized</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This action will delete the pre-existing database. Are you sure?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting old database</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Question</name>
