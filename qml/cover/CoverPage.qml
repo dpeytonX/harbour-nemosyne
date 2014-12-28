@@ -35,18 +35,19 @@ import harbour.nemosyne.SailfishWidgets.JS 1.3
 import harbour.nemosyne.Nemosyne 1.0
 
 StandardCover {
-    id: cp
     property variant pageStack
+    property bool dbActive: pageStack.currentPage.objectName == "question" || pageStack.currentPage.objectName == "answer"
 
+    id: cp
     coverTitle: UIConstants.appTitle
     imageSource: UIConstants.appIcon
-    displayDefault: !(!!pageStack.currentPage && (pageStack.currentPage.objectName == "question" || pageStack.currentPage.objectName == "answer"))
+    displayDefault: !(!!pageStack.currentPage && dbActive && !!cardDisplay.text)
 
     Subtext {
         anchors.top: label.bottom
         anchors.topMargin: Theme.paddingSmall
         anchors.horizontalCenter: parent.horizontalCenter
-        text: qsTr("no database")
+        text: dbActive ? qsTr("No Cards") : qsTr("no database")
         visible: displayDefault
     }
 

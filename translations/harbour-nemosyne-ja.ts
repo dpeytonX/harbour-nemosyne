@@ -14,6 +14,10 @@
         <source>no database</source>
         <translation>データベースは開いていない</translation>
     </message>
+    <message>
+        <source>No Cards</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Help</name>
