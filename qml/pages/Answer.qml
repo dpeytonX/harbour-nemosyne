@@ -50,5 +50,7 @@ Page {
                 }
             }
         }
+
+        VerticalScrollDecorator {}
     }
 }

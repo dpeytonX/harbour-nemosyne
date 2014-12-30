@@ -21,13 +21,10 @@ SOURCES += src/harbour-nemosyne.cpp
 OTHER_FILES += qml/harbour-nemosyne.qml \
     qml/cover/CoverPage.qml \
     qml/pages/* \
-    rpm/harbour-nemosyne.changes.in \
-    rpm/harbour-nemosyne.spec \
-    rpm/harbour-nemosyne.yaml \
+    rpm/* \
     translations/*.ts \
     harbour/nemosyne/* \
-    harbour-nemosyne.desktop \
-    qml/pages/LabelButton.qml
+    harbour-nemosyne.desktop
 
 QML_IMPORT_PATH = .
 nemosyne.files = harbour

@@ -2,6 +2,21 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
+    <name>AddCard</name>
+    <message>
+        <source>Card Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Question</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Answer</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Answer</name>
     <message>
         <source>rating</source>
@@ -118,6 +133,22 @@
     <message>
         <source>No cards</source>
         <translation>No cards</translation>
+    </message>
+    <message>
+        <source>Add Card(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add cards to begin</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

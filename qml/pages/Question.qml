@@ -2,9 +2,11 @@ import QtQuick 2.1
 import Sailfish.Silica 1.0
 import harbour.nemosyne.QmlLogger 2.0
 import harbour.nemosyne.SailfishWidgets.Components 1.3
+import harbour.nemosyne.SailfishWidgets.Utilities 1.3
 import harbour.nemosyne.Nemosyne 1.0
 
 Dialog {
+    id: questionPage
     property alias question: questionLabel.text
     property alias answer: answerCard.answer
     property Manager manager;
@@ -24,24 +26,75 @@ Dialog {
         Component.onCompleted: next(-1)
     }
 
-    PageHeader {id: header; title:""}
-
-    Column {
-        anchors.top: header.bottom
-        width: parent.width - Theme.paddingLarge * 2
-        x: Theme.paddingLarge
-
-        Paragraph {
-            color: Theme.primaryColor
-            id: questionLabel;
-            width: parent.width;
-        }
+    DynamicLoader {
+        id: loader
+        onObjectCompleted: pageStack.push(object)
     }
 
-    InformationalLabel {
-        anchors.centerIn: parent
+    SilicaFlickable {
+        anchors.fill: parent
+        contentHeight: pageCol.height
+
+        PageColumn {
+            id: pageCol
+            //anchors.top: header.bottom
+            title: ""
+
+            Paragraph {
+                color: Theme.primaryColor
+                id: questionLabel;
+                width: parent.width;
+            }
+        }
+
+        PullDownMenu  {
+            id: cardOps
+
+            StandardMenuItem {
+                text: qsTr("Add Card(s)")
+
+                onClicked: {
+                    Console.info("Add card selected")
+                    loader.create(Qt.createComponent("AddCard.qml"), questionPage, {})
+                }
+            }
+
+            StandardMenuItem {
+                text: qsTr("Edit")
+                visible: canAccept
+
+                onClicked: {
+                    Console.info("Edit card selected")
+                }
+            }
+
+            StandardMenuItem {
+                text: qsTr("Delete")
+                visible: canAccept
+
+                onClicked: {
+                    Console.info("Delete card selected")
+                }
+            }
+        }
+
+        VerticalScrollDecorator {}
+    }
+
+    Column {
+        anchors.verticalCenter: parent.verticalCenter
+        width: parent.width
         visible: !canAccept
-        text: qsTr("No cards")
+
+        InformationalLabel {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("No cards")
+        }
+
+        Subtext {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("Add cards to begin")
+        }
     }
 
     StatusBar {
@@ -50,6 +103,7 @@ Dialog {
         anchors.left: parent.left
         anchors.leftMargin: Theme.paddingLarge
         width: parent.width - Theme.paddingLarge * 2
+        visible: canAccept
 
         scheduled: manager.scheduled
         active: manager.active
