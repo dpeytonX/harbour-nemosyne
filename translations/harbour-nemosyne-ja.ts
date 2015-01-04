@@ -15,6 +15,18 @@
         <source>Answer</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Card Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Front To Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Front to Back, Back to Front</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Answer</name>

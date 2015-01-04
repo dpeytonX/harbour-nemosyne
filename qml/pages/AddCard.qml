@@ -11,9 +11,13 @@ import harbour.nemosyne.SailfishWidgets.Components 1.3
   TODO: add card type combo field
   */
 Dialog {
-    id: addCard
-    property string answerText: answer.text
-    property string questionText: question.text
+    id: cardDetails
+    property alias answerText: answer.text
+    property alias questionText: question.text
+    property alias cardType: combo.currentIndex
+    property int addOperation: 0
+    property int editOperation: 1
+    property int cardOperation: addOperation
 
     anchors.leftMargin: Theme.paddingLarge
     anchors.rightMargin: Theme.paddingLarge
@@ -29,10 +33,24 @@ Dialog {
 
         Column {
             anchors.top: header.bottom
-                    anchors.topMargin: Theme.paddingLarge
-                    width: parent.width - Theme.paddingLarge*2
-                    x: Theme.paddingLarge
+            anchors.topMargin: Theme.paddingLarge
+            width: parent.width - Theme.paddingLarge*2
+            x: Theme.paddingLarge
             id: detailCol
+
+            ComboBox {
+                id: combo
+                label: qsTr("Card Type")
+                menu: ContextMenu {
+                    MenuItem {
+                        text: qsTr("Front To Back")
+                    }
+                    MenuItem {
+                        text: qsTr("Front to Back, Back to Front")
+                    }
+                }
+                visible: cardOperation == addOperation
+            }
 
             TextArea {
                 id: question
