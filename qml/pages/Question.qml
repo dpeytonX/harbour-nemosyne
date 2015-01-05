@@ -11,12 +11,14 @@ Dialog {
     property alias answer: answerCard.answer
     property Manager manager;
     property Card card: !!manager ? manager.card : null;
+    property CardDetail cardDetailPage
 
     signal next(int rating)
 
     objectName: "question"
-
+    canAccept: !!card
     acceptDestination: Answer {
+        answer: !!card ? card.answer : ""
         id: answerCard
         onRated: {
             next(rating)
@@ -28,7 +30,18 @@ Dialog {
 
     DynamicLoader {
         id: loader
-        onObjectCompleted: pageStack.push(object)
+        onObjectCompleted: {
+            if(!!object.objectName) {
+                if(object.objectName == "addCard") {
+                    object.accepted.connect(_addCard)
+                    cardDetailPage = object
+                } else if(object.objectName == "editCard") {
+                    object.accepted.connect(_editCard)
+                    cardDetailPage = object
+                }
+            }
+            pageStack.push(object)
+        }
     }
 
     RemorsePopup {
@@ -48,6 +61,7 @@ Dialog {
                 color: Theme.primaryColor
                 id: questionLabel;
                 width: parent.width;
+                text: !!card ? card.question : ""
             }
         }
 
@@ -59,7 +73,9 @@ Dialog {
 
                 onClicked: {
                     Console.info("Add card selected")
-                    loader.create(Qt.createComponent("CardDetail.qml"), questionPage, {})
+                    loader.create(Qt.createComponent("CardDetail.qml"), questionPage, {
+                                      "objectName": "addCard"
+                                  })
                 }
             }
 
@@ -68,7 +84,12 @@ Dialog {
                 visible: canAccept
 
                 onClicked: {
-                    Console.info("Edit card selected")
+                    loader.create(Qt.createComponent("CardDetail.qml"), questionPage, {
+                                      "cardOperation": CardOperations.EditOperation,
+                                      "questionText": question,
+                                      "answerText": answer,
+                                      "objectName": "editCard"
+                                  })
                 }
             }
 
@@ -116,20 +137,12 @@ Dialog {
 
     onNext: {
         Console.log("Question: answer was rated: " + rating)
-        if(rating === undefined) {
+        if(rating == null) {
             rating = -1
         }
 
         manager.next(rating)
         Console.log("Question: card is " + card)
-        if(!card) {
-            canAccept = false
-            return
-        }
-        canAccept = true
-
-        question = card.question
-        answer = card.answer
     }
 
     onManagerChanged: {
@@ -139,4 +152,15 @@ Dialog {
     }
 
     function _next() {next(-1);}
+
+    function _addCard() {
+        Console.log("card added")
+    }
+
+    function _editCard() {
+        card.question = cardDetailPage.questionText
+        card.answer = cardDetailPage.answerText
+        manager.saveCard()
+        Console.log("card editted")
+    }
 }

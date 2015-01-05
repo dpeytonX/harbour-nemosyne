@@ -1,5 +1,6 @@
 import QtQuick 2.1
 import Sailfish.Silica 1.0
+import harbour.nemosyne.Nemosyne 1.0
 import harbour.nemosyne.SailfishWidgets.Components 1.3
 
 /*!
@@ -15,14 +16,11 @@ Dialog {
     property alias answerText: answer.text
     property alias questionText: question.text
     property alias cardType: combo.currentIndex
-    property int addOperation: 0
-    property int editOperation: 1
-    property int cardOperation: addOperation
-    property int f2b: 0
-    property int f2b_b2f: 1
+    property int cardOperation: CardOperations.AddOperation
 
     anchors.leftMargin: Theme.paddingLarge
     anchors.rightMargin: Theme.paddingLarge
+    canAccept: !!questionText && !!answerText
 
     SilicaFlickable {
         anchors.fill: parent
@@ -51,7 +49,7 @@ Dialog {
                         text: qsTr("Front to Back, Back to Front")
                     }
                 }
-                visible: cardOperation == addOperation
+                visible: cardOperation == CardOperations.AddOperation
             }
 
             TextArea {
@@ -59,17 +57,21 @@ Dialog {
                 label: qsTr("Question")
                 placeholderText: label
                 width: detailCol.width
+                softwareInputPanelEnabled: status == DialogStatus.Opened
             }
 
+            Spacer {}
             // The separator is here so that the user can close the keyboard when
             // the text area is too unwieldy to scroll through.
             Separator { width: parent.width / 2; color: Theme.secondaryHighlightColor }
+            Spacer {}
 
             TextArea {
                 id: answer
                 label: qsTr("Answer")
                 placeholderText: label
                 width: detailCol.width
+                softwareInputPanelEnabled: status == DialogStatus.Opened
             }
         }
         VerticalScrollDecorator {}
