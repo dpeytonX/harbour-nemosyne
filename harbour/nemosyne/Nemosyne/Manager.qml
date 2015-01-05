@@ -375,6 +375,10 @@ SQLiteDatabase {
     }
 
     function saveCard() {
+        save(card)
+    }
+
+    function save(card) {
         if(!opened || !card) return;
 
         Console.debug("saving card " + card.seq)
@@ -410,5 +414,11 @@ SQLiteDatabase {
             Console.debug("save:" + "error" + lastError )
             return
         }
+    }
+
+    function addCard(cardType, question, answer) {
+        //TODO: how does Mnemosyne generate its hashes?
+
+        //save(card)
     }
 }
