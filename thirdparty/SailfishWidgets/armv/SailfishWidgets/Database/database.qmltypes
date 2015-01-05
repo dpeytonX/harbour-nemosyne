@@ -62,14 +62,28 @@ Module {
 
         Method { name: "open" }
         Method { name: "close" }
-        Method { name: "create"; parameter: {name: "filePath", type: "string"} }
+        Method { name: "create"
+                 parameter: {name: "filePath"
+                             type: "string"} }
         Method { name: "transaction" }
         Method { name: "commit" }
         Method { name: "exec" }
-        Method { name: "exec"; parameter: {name: "query", type: "string"} }
-        Method { name: "execBatch"; parameter: {name: "batch", type: "variant"}; parameter: {name: "ignoreErrors", type: "bool"}}
-        Method { name: "prepare"; parameter: {name: "query", type: "string"} }
-        Method { name: "bind"; parameter: {name: "key", type: "string"}; parameter: {name: "value", type: "variant"}}
+        Method { name: "exec"
+                 parameter: {name: "query"
+                             type: "string"} }
+        Method { name: "execBatch"
+                 parameter: {name: "batch"
+                             type: "variant"}
+                 parameter: {name: "ignoreErrors"
+                             type: "bool"}}
+        Method { name: "prepare"
+                 parameter: {name: "query"
+                             type: "string"} }
+        Method { name: "bind"
+                 parameter: {name: "key"
+                             type: "string"}
+                 parameter: {name: "value"
+                             type: "variant"}}
 
         
         Signal { name: "openedChanged" }
@@ -131,8 +145,16 @@ Module {
         Method { name: "first" }
         Method { name: "last" }
         Method { name: "next" }
-        Method { name: "seek"; parameter: {name: "index", type: "int"}; parameter: {name: "relative", type: "bool"}}
-        Method { name: "indexOf"; parameter: {name: "field", type: "string"} }
-        Method { name: "value"; parameter: {name: "name", type: "string"} }
+        Method { name: "seek"
+                 parameter: {name: "index"
+                             type: "int"}
+                 parameter: {name: "relative"
+                             type: "bool"}}
+        Method { name: "indexOf"
+                 parameter: {name: "field"
+                             type: "string"} }
+        Method { name: "value"
+                 parameter: {name: "name"
+                             type: "string"} }
     }
 }

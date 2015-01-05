@@ -31,6 +31,10 @@ Dialog {
         onObjectCompleted: pageStack.push(object)
     }
 
+    RemorsePopup {
+        id: remorse
+    }
+
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: pageCol.height
@@ -55,7 +59,7 @@ Dialog {
 
                 onClicked: {
                     Console.info("Add card selected")
-                    loader.create(Qt.createComponent("AddCard.qml"), questionPage, {})
+                    loader.create(Qt.createComponent("CardDetail.qml"), questionPage, {})
                 }
             }
 
@@ -73,7 +77,7 @@ Dialog {
                 visible: canAccept
 
                 onClicked: {
-                    Console.info("Delete card selected")
+                    remorse.execute(qsTr("Deleting card"), manager.deleteCard)
                 }
             }
         }
@@ -112,6 +116,10 @@ Dialog {
 
     onNext: {
         Console.log("Question: answer was rated: " + rating)
+        if(rating === undefined) {
+            rating = -1
+        }
+
         manager.next(rating)
         Console.log("Question: card is " + card)
         if(!card) {
@@ -123,4 +131,12 @@ Dialog {
         question = card.question
         answer = card.answer
     }
+
+    onManagerChanged: {
+        if(!!manager) {
+            manager.deleteCard.connect(_next)
+        }
+    }
+
+    function _next() {next(-1);}
 }

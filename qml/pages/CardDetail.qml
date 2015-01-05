@@ -18,6 +18,8 @@ Dialog {
     property int addOperation: 0
     property int editOperation: 1
     property int cardOperation: addOperation
+    property int f2b: 0
+    property int f2b_b2f: 1
 
     anchors.leftMargin: Theme.paddingLarge
     anchors.rightMargin: Theme.paddingLarge

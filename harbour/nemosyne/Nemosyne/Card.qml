@@ -13,4 +13,5 @@ Item {
     property real easiness
     property string question
     property string answer
+    property int factId
 }

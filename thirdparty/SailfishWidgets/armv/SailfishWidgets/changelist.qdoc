@@ -28,6 +28,8 @@
   \list
   \li Added \l {SQLiteDatabase} and \l {Query} to the Database package
   \li Fixed some warnings with \l {ApplicationSettings}, \l {File}, and \l {Dir}'s documentation.
+  \li Added \c open() \c close() \c readAll() and \c write() methods to \l {File}
+  \li Added \c remove() \c rename() \c copy() methods to \l {File}
   \endlist
 
   SailfishWidgets 1.3

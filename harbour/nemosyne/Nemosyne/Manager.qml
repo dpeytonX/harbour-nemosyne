@@ -27,17 +27,76 @@ SQLiteDatabase {
          */
     signal next(int rating)
     signal initializedDone()
+    signal deleteCard()
 
     DynamicLoader {
         id: cardCreator
         onObjectCompleted: {
             card = object
+            Console.debug("cardCreator: card fact id is " + card.factId)
         }
     }
 
     File {
         id: sqlFile
         fileName: ":/data/nemosyne.sql"
+    }
+
+    onDeleteCard: {
+        Console.info("Manager: delete card selected")
+
+        if(!opened || !card) return
+
+        // Get cards with the same fact id
+        prepare("SELECT _id FROM cards where _fact_id = :factId;")
+        bind(":factId", card.factId)
+
+        if(!exec() || !query.first()) {
+            Console.error(lastError)
+            return
+        }
+
+        var cardIds = []
+        do {
+            cardIds.push(query.value("_id"))
+        } while(query.next())
+
+        // Delete fact data
+        Console.debug("Manager: deleting data for fact " + card.factId)
+        prepare("DELETE FROM data_for_fact where _fact_id = :factId;")
+        bind(":factId", card.factId)
+        if(!exec()) {
+            Console.error(lastError)
+        }
+
+        // Delete the fact itself
+        Console.debug("Manager: deleting fact " + card.factId)
+        prepare("DELETE FROM facts where _id = :factId;")
+        bind(":factId", card.factId)
+        exec()
+        if(!exec()) {
+            Console.error(lastError)
+        }
+
+        // Delete tag associations
+        Console.debug("Manager: deleting tags for cards " + cardIds)
+        prepare("DELETE FROM tags_for_card where _card_id IN (:cardIds);")
+        bind(":cardIds", cardIds)
+        exec()
+        if(!exec()) {
+            Console.error(lastError)
+        }
+
+        // Delete cards
+        Console.debug("Manager: deleting cards with fact id " + card.factId)
+        prepare("DELETE FROM cards where _fact_id = :factId")
+        bind(":factId", card.factId)
+        exec()
+        if(!exec()) {
+            Console.error(lastError)
+        }
+
+        card = null
     }
 
     onValidateDatabase: {
@@ -47,7 +106,7 @@ SQLiteDatabase {
         Console.debug("opening db at " + filePath)
         databaseName = filePath
 
-        if(!open()) return false
+        if(!open()) return
 
         Console.debug("running query on " + databaseName)
 
@@ -63,20 +122,6 @@ SQLiteDatabase {
         if(query.indexOf("value") !== -1) initTrackingValues()
 
         validDb = result
-    }
-
-    function initialize() {
-        if(!sqlFile.exists) {
-            Console.debug("initialize: resource does not exist!")
-            initialized = false
-        }
-
-        sqlFile.open(File.ReadOnly);
-        var commands = sqlFile.readAll().split(';')
-        Console.debug(commands)
-        initialized = execBatch(commands, true)
-        initializedDone()
-        return initialized
     }
 
     onNext: {
@@ -151,8 +196,23 @@ SQLiteDatabase {
                                "acquisitionRepsSinceLapse": query.value("acq_reps_since_lapse"),
                                "retentionRep" : query.value("ret_reps"),
                                "lapses" : query.value("lapses"),
-                               "retentionRepsSinceLapse" : query.value("ret_reps_since_lapse")
+                               "retentionRepsSinceLapse" : query.value("ret_reps_since_lapse"),
+                               "factId" : query.value("_fact_id")
                            })
+    }
+
+    function initialize() {
+        if(!sqlFile.exists) {
+            Console.debug("initialize: resource does not exist!")
+            initialized = false
+        }
+
+        sqlFile.open(File.ReadOnly);
+        var commands = sqlFile.readAll().split(';')
+        Console.debug(commands)
+        initialized = execBatch(commands, true)
+        initializedDone()
+        return initialized
     }
 
     function initTrackingValues() {

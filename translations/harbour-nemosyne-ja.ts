@@ -2,17 +2,16 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name>AddCard</name>
+    <name>Answer</name>
+    <message>
+        <source>rating</source>
+        <translation>評価</translation>
+    </message>
+</context>
+<context>
+    <name>CardDetail</name>
     <message>
         <source>Card Details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Question</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Answer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -27,12 +26,13 @@
         <source>Front to Back, Back to Front</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>Answer</name>
     <message>
-        <source>rating</source>
-        <translation>評価</translation>
+        <source>Question</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Answer</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -160,6 +160,10 @@
     </message>
     <message>
         <source>Add cards to begin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting card</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
