@@ -4,7 +4,6 @@ var appName = "harbour-nemosyne"
 var appIcon = "qrc:///images/desktop.png"
 var appTitle = "Nemosyne"
 var appAuthors = ["Dametrious Peyton", "Thomas Amler - for AboutPage"]
-var appDescription = "A mobile flash card tool"
 var appCopyright = "Dametrious Peyton"
 var appLicense = ["GPLv3"]
 var appProjectInfo = ["https://github.com/prplmnky/harbour-nemosyne",

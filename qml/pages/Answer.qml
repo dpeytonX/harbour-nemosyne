@@ -20,7 +20,6 @@ Page {
             x: Theme.paddingLarge
             Paragraph {
                 color: Theme.primaryColor
-                //height: parent.height;
                 width: parent.width;
                 text: answer
             }

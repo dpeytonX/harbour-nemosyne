@@ -25,6 +25,8 @@ Page {
                 if(settings.recentFile == filePath) {
                     Console.info("Main::openDb: currentFile is equal to recentFile")
                 } else {
+                    var t = Date.now()
+                    Console.info("Main::openDb: reset history " + t)
                     settings.recentFile3 = settings.recentFile2
                     settings.recentFile2 = settings.recentFile1
                     settings.recentFile1 = settings.recentFile
@@ -38,6 +40,7 @@ Page {
                     Console.debug("Main::openDb " + settings.recentFile2)
                     Console.debug("Main::openDb " + settings.recentFile1)
                     Console.debug("Main::openDb " + settings.recentFile)
+                    Console.info("Main::openDb: reset history took " + (Date.now() - t) + "ms")
                 }
 
                 // push new card on page stack
@@ -65,7 +68,7 @@ Page {
     Component {
         id: aboutDialog
         AboutPage {
-            description: qsTr(UIConstants.appDescription)
+            description: qsTr("A mobile flash card tool")
             icon: UIConstants.appIcon
             application: UIConstants.appTitle + " " + UIConstants.appVersion
             copyrightHolder: UIConstants.appCopyright
@@ -164,8 +167,6 @@ Page {
         property string recentFile1: ""
         property string recentFile2: ""
         property string recentFile3: ""
-
-        Component.onCompleted: _cleanHistory()
     }
 
     Dir {id: dir}
@@ -276,6 +277,8 @@ Page {
         }
     }
 
+    Component.onCompleted: _cleanHistory()
+
     //----------Internal Functions---------------
 
 
@@ -310,14 +313,16 @@ Page {
 
     function _cleanHistory() {
         //Cleanup settings from V 1.0
+        var t = Date.now()
+        Console.debug("cleanHistory: start " + t)
         var files = [settings.recentFile, settings.recentFile1, settings.recentFile2, settings.recentFile3]
 
         for(var i = 0; i < files.length; i++) {
+            if(files[i] == "") continue;
             for(var j = i+1; j < files.length; j++) {
                 if(files[i] == files[j]) {
+                    Console.debug("i (" + i + ") and (" + j + ") j are duplicates")
                     files[j] = j == files.length - 1 ? "" : files[j+1]
-                    i = -1;
-                    break;
                 }
             }
         }
@@ -325,5 +330,6 @@ Page {
         settings.recentFile1 = files[1]
         settings.recentFile2 = files[2]
         settings.recentFile3 = files[3]
+        Console.debug("cleanHistory: took " + (Date.now() - t) + "ms")
     }
 }

@@ -139,6 +139,10 @@
         <source>Deleting old database</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>A mobile flash card tool</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Question</name>

@@ -13,3 +13,10 @@
 - Can iterate through flash cards and rate from 0 through 5
 - Maintain a list of recently opened Mnemosyne Databases
 - Share progress with the Desktop Mnemosyne app to Nemosyne. Fully compatible
+
+* Mon Jan  5 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.1.1-1
+- Ability to create a new Mnemosyne compatible database
+- Can add, edit, delete cards
+- Tweaked recent history
+- Created Help, About pages
+- Updated Cover actions to cycle through current flash card

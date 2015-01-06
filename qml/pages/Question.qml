@@ -44,8 +44,6 @@ Dialog {
                 }
             }
 
-            function _next() {next(-1);}
-
             function _addCard() {
                 manager.addCard(cardType, questionText, answerText)
                 if(!card) _next()
@@ -169,4 +167,7 @@ Dialog {
             manager.deleteCard.connect(_next)
         }
     }
+
+
+    function _next() {next(-1);}
 }

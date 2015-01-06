@@ -31,8 +31,6 @@
 #include <QtQuick>
 
 #include <sailfishapp.h>
-#include <stdlib.h>
-#include <time.h>
 
 int main(int argc, char *argv[])
 {
@@ -45,7 +43,6 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-    srand(time(NULL));
     return SailfishApp::main(argc, argv);
 }
 
