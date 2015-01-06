@@ -375,27 +375,37 @@ SQLiteDatabase {
     }
 
     function saveCard() {
-        save(card)
+        save(card, true)
     }
 
-    function save(card) {
+    function save(card, update) {
         if(!opened || !card) return;
 
-        Console.debug("saving card " + card.seq)
+        Console.debug("saving card " + card.seq + ", update: " + update)
 
-        prepare("UPDATE cards SET " +
-                "question = :question, "+
-                "answer = :answer, "+
-                "next_rep = datetime(:next_rep, 'unixepoch'), "+
-                "last_rep = datetime(:last_rep, 'unixepoch'), "+
-                "grade = :grade, "+
-                "easiness = :easiness, "+
-                "acq_reps = :acq_reps, "+
-                "acq_reps_since_lapse = :acq_reps_since_lapse, "+
-                "ret_reps = :ret_reps, "+
-                "lapses = :lapses, "+
-                "ret_reps_since_lapse = :ret_reps_since_lapse "+
-                "WHERE _id = :seq;")
+        if(update)
+            prepare("UPDATE cards SET " +
+                    "question = :question, "+
+                    "answer = :answer, "+
+                    "next_rep = datetime(:next_rep, 'unixepoch'), "+
+                    "last_rep = datetime(:last_rep, 'unixepoch'), "+
+                    "grade = :grade, "+
+                    "easiness = :easiness, "+
+                    "acq_reps = :acq_reps, "+
+                    "acq_reps_since_lapse = :acq_reps_since_lapse, "+
+                    "ret_reps = :ret_reps, "+
+                    "lapses = :lapses, "+
+                    "ret_reps_since_lapse = :ret_reps_since_lapse "+
+                    "WHERE _id = :seq;")
+        else
+            prepare("INSERT INTO cards (creation_time, modification_time," +
+                    "question, answer, next_rep, last_rep, " +
+                    "grade, easiness, acq_reps, acq_reps_since_lapse, " +
+                    "ret_reps, lapses, ret_reps_since_lapse) " +
+                    "VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP," +
+                    ":question,:answer,:next_rep,:last_rep,:grade,"+
+                    ":easiness,:acq_reps,:acq_reps_since_lapse," +
+                    ":ret_reps,:lapses,:ret_reps_since_lapse")
 
         bind(":question", card.question)
         bind(":answer", card.answer)
@@ -408,7 +418,9 @@ SQLiteDatabase {
         bind(":ret_reps", card.retentionRep)
         bind(":lapses", card.lapses)
         bind(":ret_reps_since_lapse", card.retentionRepsSinceLapse)
-        bind(":seq", card.seq)
+
+        if(update)
+            bind(":seq", card.seq)
 
         if(!exec()) {
             Console.debug("save:" + "error" + lastError )
@@ -417,8 +429,49 @@ SQLiteDatabase {
     }
 
     function addCard(cardType, question, answer) {
-        //TODO: how does Mnemosyne generate its hashes?
+        //TODO: use transaction
+        //TODO: create fact entry
+        //TODO: update fact
 
-        //save(card)
+        var card = {
+            grade: -1,
+            nextRep: -1,
+            lastRep: -1,
+            easiness: 2.5,
+            acquisition: 0,
+            retentionRep: 0,
+            lapses: 0,
+            acquisitionRepsSinceLapse: 0,
+            retentionRepsSinceLapse: 0,
+            question: question,
+            answer: answer,
+            //TODO: add to Card.qml definition
+            hash: _randUuid(),
+            cardTypeId: _convertCardType(cardType),
+            factId: "",
+            factViewId: "",
+            tags: ""
+            //END TODO
+        }
+
+        //save(card, false)
+    }
+
+    /*!
+      \internal
+      Copied from Mnemosyne's util.py
+      */
+    function _randUuid() {
+        var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789"
+        var uuid = ""
+        for (var i = 0; i < 22; i++) {
+            uuid += chars.charAt(MathHelper.randomInt(0, 62))
+        }
+        return uuid
+    }
+
+    function _convertCardType(cardType) {
+        //TODO
+        return ""
     }
 }
