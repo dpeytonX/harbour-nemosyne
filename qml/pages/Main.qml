@@ -21,6 +21,7 @@ Page {
             Console.info("Main::openDb: db is valid " + validDb)
             if(validDb) {
                 errorLabel.text = ""
+
                 if(settings.recentFile == filePath) {
                     Console.info("Main::openDb: currentFile is equal to recentFile")
                 } else {
@@ -28,6 +29,9 @@ Page {
                     settings.recentFile2 = settings.recentFile1
                     settings.recentFile1 = settings.recentFile
                     settings.recentFile = filePath;
+                    // Remove duplicates
+                    _cleanHistory()
+
                     Console.debug("Main::openDb " + settings.recentFile + " " + filePath)
                     Console.debug("after")
                     Console.debug("Main::openDb " + settings.recentFile3)
@@ -160,6 +164,8 @@ Page {
         property string recentFile1: ""
         property string recentFile2: ""
         property string recentFile3: ""
+
+        Component.onCompleted: _cleanHistory()
     }
 
     Dir {id: dir}
@@ -300,5 +306,24 @@ Page {
         } else {
             errorLabel.text = qsTr("database could not be opened")
         }
+    }
+
+    function _cleanHistory() {
+        //Cleanup settings from V 1.0
+        var files = [settings.recentFile, settings.recentFile1, settings.recentFile2, settings.recentFile3]
+
+        for(var i = 0; i < files.length; i++) {
+            for(var j = i+1; j < files.length; j++) {
+                if(files[i] == files[j]) {
+                    files[j] = j == files.length - 1 ? "" : files[j+1]
+                    i = -1;
+                    break;
+                }
+            }
+        }
+        settings.recentFile = files[0]
+        settings.recentFile1 = files[1]
+        settings.recentFile2 = files[2]
+        settings.recentFile3 = files[3]
     }
 }

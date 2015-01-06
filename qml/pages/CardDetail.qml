@@ -2,14 +2,12 @@ import QtQuick 2.1
 import Sailfish.Silica 1.0
 import harbour.nemosyne.Nemosyne 1.0
 import harbour.nemosyne.SailfishWidgets.Components 1.3
+import harbour.nemosyne.SailfishWidgets.Settings 1.3
 
 /*!
   \qmltype AddCard
 
   Presents the user with two editable text areas for the question and answer of a flash card.
-
-  TODO: maybe make this a generic card editor page
-  TODO: add card type combo field
   */
 Dialog {
     id: cardDetails
@@ -21,6 +19,14 @@ Dialog {
     anchors.leftMargin: Theme.paddingLarge
     anchors.rightMargin: Theme.paddingLarge
     canAccept: !!questionText && !!answerText
+
+    ApplicationSettings {
+        id: settings
+        applicationName: "harbour-nemosyne"
+        fileName: "settings"
+
+        property int lastCardType: 0
+    }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -39,6 +45,7 @@ Dialog {
             id: detailCol
 
             ComboBox {
+                currentIndex: settings.lastCardType
                 id: combo
                 label: qsTr("Card Type")
                 menu: ContextMenu {
@@ -50,6 +57,7 @@ Dialog {
                     }
                 }
                 visible: cardOperation == CardOperations.AddOperation
+                onCurrentIndexChanged: settings.lastCardType = currentIndex
             }
 
             TextArea {
@@ -60,9 +68,9 @@ Dialog {
                 softwareInputPanelEnabled: status == DialogStatus.Opened
             }
 
-            Spacer {}
             // The separator is here so that the user can close the keyboard when
             // the text area is too unwieldy to scroll through.
+            Spacer {}
             Separator { width: parent.width / 2; color: Theme.secondaryHighlightColor }
             Spacer {}
 

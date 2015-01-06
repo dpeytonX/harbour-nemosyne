@@ -387,8 +387,8 @@ SQLiteDatabase {
             prepare("UPDATE cards SET " +
                     "question = :question, "+
                     "answer = :answer, "+
-                    "next_rep = datetime(:next_rep, 'unixepoch'), "+
-                    "last_rep = datetime(:last_rep, 'unixepoch'), "+
+                    "next_rep = :next_rep, "+
+                    "last_rep = :last_rep, "+
                     "grade = :grade, "+
                     "easiness = :easiness, "+
                     "acq_reps = :acq_reps, "+
@@ -401,11 +401,13 @@ SQLiteDatabase {
             prepare("INSERT INTO cards (creation_time, modification_time," +
                     "question, answer, next_rep, last_rep, " +
                     "grade, easiness, acq_reps, acq_reps_since_lapse, " +
-                    "ret_reps, lapses, ret_reps_since_lapse) " +
-                    "VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP," +
+                    "ret_reps, lapses, ret_reps_since_lapse, "+
+                    "id, card_type_id, _fact_id, fact_view_id, tags) " +
+                    "VALUES (:ctime, :mtime," +
                     ":question,:answer,:next_rep,:last_rep,:grade,"+
                     ":easiness,:acq_reps,:acq_reps_since_lapse," +
-                    ":ret_reps,:lapses,:ret_reps_since_lapse")
+                    ":ret_reps,:lapses,:ret_reps_since_lapse,"+
+                    ":hash, :cardTypeId, :factId, :factViewId, :tags);")
 
         bind(":question", card.question)
         bind(":answer", card.answer)
@@ -421,40 +423,90 @@ SQLiteDatabase {
 
         if(update)
             bind(":seq", card.seq)
+        else {
+            var tstamp = Math.floor(Date.now() / 1000)
+            bind(":ctime", tstamp)
+            bind(":mtime", tstamp)
+            bind(":hash", card.hash)
+            bind(":cardTypeId", card.cardTypeId)
+            bind(":factId", card.factId)
+            bind(":factViewId", card.factViewId)
+            bind(":tags", card.tags)
+        }
 
         if(!exec()) {
-            Console.debug("save:" + "error" + lastError )
+            Console.error("save:" + "error" + lastError )
             return
         }
     }
 
     function addCard(cardType, question, answer) {
-        //TODO: use transaction
-        //TODO: create fact entry
-        //TODO: update fact
+        //TODO: use transactions
+        //transaction()
 
-        var card = {
-            grade: -1,
-            nextRep: -1,
-            lastRep: -1,
-            easiness: 2.5,
-            acquisition: 0,
-            retentionRep: 0,
-            lapses: 0,
-            acquisitionRepsSinceLapse: 0,
-            retentionRepsSinceLapse: 0,
-            question: question,
-            answer: answer,
-            //TODO: add to Card.qml definition
-            hash: _randUuid(),
-            cardTypeId: _convertCardType(cardType),
-            factId: "",
-            factViewId: "",
-            tags: ""
-            //END TODO
+        Console.debug("addCard: create fact entry")
+        prepare("INSERT INTO facts (id) VALUES (:id)")
+
+        var factHash = _randUuid()
+        bind(":id", factHash)
+        if(!exec()) {
+            Console.error("addCard:" + "error" + lastError )
+            return
         }
 
-        //save(card, false)
+        prepare("SELECT * from facts where id = :id ORDER BY _id DESC LIMIT 1")
+        bind(":id", factHash)
+        if(!exec() || !query.first()) {
+            Console.error("addCard:" + "error" + lastError )
+            return
+        }
+        var factId = query.value("_id")
+
+        Console.debug("addCard: create data for fact entry")
+        prepare("INSERT INTO data_for_fact (_fact_id, key, value) VALUES " +
+                "(:fact_id, :key, :value)")
+        bind(":fact_id", factId)
+        bind(":key", "f")
+        bind(":value", question)
+        if(!exec()) {
+            Console.error("addCard:" + "error" + lastError )
+            return
+        }
+        prepare("INSERT INTO data_for_fact (_fact_id, key, value) VALUES " +
+                "(:fact_id, :key, :value)")
+        bind(":fact_id", factId)
+        bind(":key", "b")
+        bind(":value", answer)
+        if(!exec()) {
+            Console.error("addCard:" + "error" + lastError )
+            return
+        }
+
+        Console.debug("addCard: add card")
+        var iter = cardType == CardTypes.FrontToBackAndBackToFront
+        var i = 0
+        do {
+            var card = {
+                grade: -1,
+                nextRep: -1,
+                lastRep: -1,
+                easiness: 2.5,
+                acquisition: 0,
+                retentionRep: 0,
+                lapses: 0,
+                acquisitionRepsSinceLapse: 0,
+                retentionRepsSinceLapse: 0,
+                question: !i ? question : answer,
+                answer: !i ? answer : question,
+                hash: _randUuid(),
+                cardTypeId: _convertCardType(cardType),
+                factId: factId,
+                factViewId: !i ? "2.1" : "2.2",
+                tags: ""
+            }
+            save(card, false)
+            i++
+        } while(iter--)
     }
 
     /*!
@@ -471,7 +523,6 @@ SQLiteDatabase {
     }
 
     function _convertCardType(cardType) {
-        //TODO
-        return ""
+        return cardType == CardTypes.FrontToBackAndBackToFront ? "2" : "1"
     }
 }

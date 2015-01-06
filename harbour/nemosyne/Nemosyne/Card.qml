@@ -14,4 +14,8 @@ Item {
     property string question
     property string answer
     property int factId
+    property string hash
+    property int cardTypeId
+    property int factViewId
+    property string tags
 }

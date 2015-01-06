@@ -11,7 +11,6 @@ Dialog {
     property alias answer: answerCard.answer
     property Manager manager;
     property Card card: !!manager ? manager.card : null;
-    property CardDetail cardDetailPage
 
     signal next(int rating)
 
@@ -30,17 +29,37 @@ Dialog {
 
     DynamicLoader {
         id: loader
-        onObjectCompleted: {
-            if(!!object.objectName) {
-                if(object.objectName == "addCard") {
-                    object.accepted.connect(_addCard)
-                    cardDetailPage = object
-                } else if(object.objectName == "editCard") {
-                    object.accepted.connect(_editCard)
-                    cardDetailPage = object
+        onObjectCompleted: pageStack.push(object)
+    }
+
+    Component {
+        id: cardDetailPage
+
+        CardDetail {
+            onAccepted: {
+                if(objectName == "addCard") {
+                    _addCard()
+                } else if(objectName == "editCard") {
+                    _editCard()
                 }
             }
-            pageStack.push(object)
+
+            function _next() {next(-1);}
+
+            function _addCard() {
+                manager.addCard(cardType, questionText, answerText)
+                if(!card) _next()
+                Console.log("card added")
+                manager.initTrackingValues()
+            }
+
+            function _editCard() {
+                card.question = questionText
+                card.answer = answerText
+                manager.saveCard()
+                Console.log("card editted")
+                manager.initTrackingValues()
+            }
         }
     }
 
@@ -73,7 +92,7 @@ Dialog {
 
                 onClicked: {
                     Console.info("Add card selected")
-                    loader.create(Qt.createComponent("CardDetail.qml"), questionPage, {
+                    loader.create(cardDetailPage, questionPage, {
                                       "objectName": "addCard"
                                   })
                 }
@@ -84,7 +103,7 @@ Dialog {
                 visible: canAccept
 
                 onClicked: {
-                    loader.create(Qt.createComponent("CardDetail.qml"), questionPage, {
+                    loader.create(cardDetailPage, questionPage, {
                                       "cardOperation": CardOperations.EditOperation,
                                       "questionText": question,
                                       "answerText": answer,
@@ -149,18 +168,5 @@ Dialog {
         if(!!manager) {
             manager.deleteCard.connect(_next)
         }
-    }
-
-    function _next() {next(-1);}
-
-    function _addCard() {
-        Console.log("card added")
-    }
-
-    function _editCard() {
-        card.question = cardDetailPage.questionText
-        card.answer = cardDetailPage.answerText
-        manager.saveCard()
-        Console.log("card editted")
     }
 }
