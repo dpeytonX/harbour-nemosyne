@@ -17,11 +17,11 @@ Page {
     Manager {
         id:manager
 
-        onValidateDatabase: {
-            Console.info("Main::openDb: db is valid " + validDb)
-            if(validDb) {
+        onDatabaseValid: {
+            Console.info("Main::openDb: db is valid " + valid)
+            if(valid) {
                 errorLabel.text = ""
-
+                var filePath = currentFile.absoluteFilePath
                 if(settings.recentFile == filePath) {
                     Console.info("Main::openDb: currentFile is equal to recentFile")
                 } else {

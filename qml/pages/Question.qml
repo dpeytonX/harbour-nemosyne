@@ -188,7 +188,7 @@ Dialog {
 
     onManagerChanged: {
         if(!!manager) {
-            manager.deleteCard.connect(_next)
+            manager.cardDeleted.connect(_next)
         }
     }
 
