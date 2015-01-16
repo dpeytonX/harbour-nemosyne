@@ -5,7 +5,7 @@ Mnemosyne port to Sailfish OS. Mnemosyne is a flash card program (written in Qt)
 
 This project is GPLv3 unless otherwise indicated on the file itself. Files with other licenses are copyrighted to their respective owners.
 <p>
-Version 1.1
+Version 1.2.1
 <p>
 <img src="http://www.gnu.org/graphics/gplv3-127x51.png" width="254" height="102" />
 
@@ -14,6 +14,7 @@ To get the latest updates you can always download this project and compile a bin
 
 <h3>Stable Releases</h3>
 <ul>
+  <li>1.1</li>
   <li>1.0</li>
 </ul>
 
@@ -33,4 +34,4 @@ You can contribute in one of two ways:
 
 
 <br>
-Copyright ©2014 Dametrious Peyton. All Rights Reserved
+Copyright ©2014-2015 Dametrious Peyton. All Rights Reserved

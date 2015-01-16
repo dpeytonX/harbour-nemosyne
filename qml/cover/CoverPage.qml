@@ -68,7 +68,7 @@ StandardCover {
             iconSource: IconThemes.iconCoverPrevious
             onTriggered: {
                 if(isAnswer(pageStack.currentPage)) {
-                    cardDisplay.text = ""
+                    cardDisplay.text = " "
                     pageStack.pop();
                 }
             }
@@ -78,7 +78,7 @@ StandardCover {
             iconSource: IconThemes.iconCoverNext
             onTriggered: {
                 if(isQuestion(pageStack.currentPage)) {
-                    cardDisplay.text = ""
+                    cardDisplay.text = " "
                     pageStack.currentPage.accept()
                 }
             }

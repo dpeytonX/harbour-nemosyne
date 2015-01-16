@@ -1,6 +1,8 @@
 import QtQuick 2.1
 import Sailfish.Silica 1.0
 import harbour.nemosyne.SailfishWidgets.Components 1.3
+import harbour.nemosyne.SailfishWidgets.Settings 1.3
+import harbour.nemosyne.Nemosyne 1.0
 
 Page {
     property string answer
@@ -8,6 +10,16 @@ Page {
     signal rated(int rating)
 
     objectName: "answer"
+
+    ApplicationSettings {
+        id: settings
+        applicationName: "harbour-nemosyne"
+        fileName: "settings"
+
+        property int defaultFontSizeId: 0
+    }
+
+    FontHandler {id: fh}
 
     SilicaFlickable {
         anchors.fill: parent
@@ -21,6 +33,7 @@ Page {
             Paragraph {
                 color: Theme.primaryColor
                 width: parent.width;
+                font.pixelSize: fh.fontIndices[settings.defaultFontSizeId]
                 text: answer
             }
 

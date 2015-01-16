@@ -81,11 +81,6 @@ Page {
     }
 
     Component {
-        id: helpDialog
-        Help {}
-    }
-
-    Component {
         id: newDbDialog
         Dialog {
             DialogHeader {
@@ -263,17 +258,26 @@ Page {
 
             StandardMenuItem {
                 text: qsTr("Help")
-                onClicked: {
-                    loader.create(helpDialog, main, {})
-                }
+                onClicked: loader.create(Qt.createComponent("Help.qml"), main, {})
             }
 
             StandardMenuItem {
                 text: qsTr("About")
+                onClicked: loader.create(aboutDialog, main, {})
+            }
+        }
+
+        PushUpMenu {
+            id: pushy
+
+            StandardMenuItem {
+                text: qsTr("Settings")
                 onClicked: {
-                    loader.create(aboutDialog, main, {})
+                    Console.debug("Settings clicked")
+                    loader.create(Qt.createComponent("Settings.qml"), main, {})
                 }
             }
+
         }
     }
 

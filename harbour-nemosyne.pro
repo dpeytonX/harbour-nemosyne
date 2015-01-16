@@ -16,7 +16,7 @@ CONFIG += sailfishapp
 
 QT += sql
 
-#QMAKE_CXXFLAGS += "-std=c++0x"
+QMAKE_CXXFLAGS += "-std=c++0x"
 
 SOURCES += src/harbour-nemosyne.cpp
 
@@ -26,7 +26,8 @@ OTHER_FILES += qml/harbour-nemosyne.qml \
     rpm/* \
     translations/*.ts \
     harbour/nemosyne/* \
-    harbour-nemosyne.desktop
+    harbour-nemosyne.desktop \
+    README.md
 
 QML_IMPORT_PATH = .
 nemosyne.files = harbour

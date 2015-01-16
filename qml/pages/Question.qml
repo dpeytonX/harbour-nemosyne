@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 import harbour.nemosyne.QmlLogger 2.0
 import harbour.nemosyne.SailfishWidgets.Components 1.3
 import harbour.nemosyne.SailfishWidgets.Utilities 1.3
+import harbour.nemosyne.SailfishWidgets.Settings 1.3
 import harbour.nemosyne.Nemosyne 1.0
 
 Dialog {
@@ -25,6 +26,14 @@ Dialog {
         }
 
         Component.onCompleted: next(-1)
+    }
+
+    ApplicationSettings {
+        id: settings
+        applicationName: "harbour-nemosyne"
+        fileName: "settings"
+
+        property int defaultFontSizeId: 0
     }
 
     DynamicLoader {
@@ -61,9 +70,9 @@ Dialog {
         }
     }
 
-    RemorsePopup {
-        id: remorse
-    }
+    FontHandler {id: fh}
+
+    RemorsePopup {id: remorse}
 
     SilicaFlickable {
         anchors.fill: parent
@@ -77,6 +86,7 @@ Dialog {
             Paragraph {
                 color: Theme.primaryColor
                 id: questionLabel;
+                font.pixelSize: fh.fontIndices[settings.defaultFontSizeId]
                 width: parent.width;
                 text: !!card ? card.question : ""
             }
@@ -120,6 +130,19 @@ Dialog {
             }
         }
 
+        PushUpMenu {
+            id: pushy
+
+            StandardMenuItem {
+                text: qsTr("Settings")
+                onClicked: {
+                    Console.debug("Settings clicked")
+                    loader.create(Qt.createComponent("Settings.qml"), questionPage, {})
+                }
+            }
+
+        }
+
         VerticalScrollDecorator {}
     }
 
@@ -145,7 +168,8 @@ Dialog {
         anchors.left: parent.left
         anchors.leftMargin: Theme.paddingLarge
         width: parent.width - Theme.paddingLarge * 2
-        visible: canAccept
+        visible: canAccept && !pushy.active
+        z: -100
 
         scheduled: manager.scheduled
         active: manager.active
