@@ -154,7 +154,7 @@ SQLiteDatabase {
         if(!query.valid) {
             Console.debug("searching in unmemorized pool")
             result = exec("SELECT * FROM cards WHERE grade < 2 AND active=1 " +
-                          "ORDER BY next_rep DESC LIMIT 1;");
+                          "ORDER BY next_rep ASC LIMIT 1;");
 
             if(!result) {
                 Console.error("next: " + "unmemorized stack " + lastError)
