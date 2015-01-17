@@ -21,14 +21,14 @@
 - Created Help, About pages
 - Updated Cover actions to cycle through current flash card
 
-* Mon Jan 16 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.2.1-1
+* Thu Jan 16 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.2.1-1
 - Fixed Cover Action so it doesn't display "No Cards" when flipping between card displays
 - Add font size settings
 
-* Mon Jan 16 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.2.2-1
+* Thu Jan 16 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.2.2-1
 - Found bug with timing constants being set to 0. Could cause next repetition to be uncalculated.
 
-* Mon Jan 16 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.2.3-1
+* Thu Jan 16 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.2.3-1
 - Added new rating system by emulating the Sailfish Silica page navigation paradigm
 - Check "Use Indicators" within the Settings page
 - Added help content
