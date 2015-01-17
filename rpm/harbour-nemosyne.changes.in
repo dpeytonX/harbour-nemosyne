@@ -27,3 +27,8 @@
 
 * Mon Jan 16 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.2.2-1
 - Found bug with timing constants being set to 0. Could cause next repetition to be uncalculated.
+
+* Mon Jan 16 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.2.3-1
+- Added new rating system by emulating the Sailfish Silica page navigation paradigm
+- Check "Use Indicators" within the Settings page
+- Added help content

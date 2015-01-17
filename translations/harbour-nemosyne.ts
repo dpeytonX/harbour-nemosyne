@@ -7,6 +7,10 @@
         <source>rating</source>
         <translation>Rating</translation>
     </message>
+    <message>
+        <source>Rate</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CardDetail</name>
@@ -66,6 +70,14 @@
     </message>
     <message>
         <source>New databases will be created at the following path: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Score cards by providing a rating from 0 to 5. A rating of 0 indicates that you do not recall ever seeing the card. Whereas, a rating of 5 indicates complete recognition. Your score will determine how frequently a card re-appears in subsequent trainings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rating</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -187,6 +199,14 @@
     </message>
     <message>
         <source>Font Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rate cards by indicators instead of push-up menu</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -15,7 +15,7 @@ Name:       harbour-nemosyne
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Mobile Flash Cards
 Version:    1.2
-Release:    2
+Release:    3
 Group:      Applications/Productivity
 License:    GPLv3
 URL:        https://github.com/prplmnky/harbour-nemosyne
