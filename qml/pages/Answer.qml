@@ -3,13 +3,16 @@ import Sailfish.Silica 1.0
 import harbour.nemosyne.SailfishWidgets.Components 1.3
 import harbour.nemosyne.SailfishWidgets.Settings 1.3
 import harbour.nemosyne.Nemosyne 1.0
+import harbour.nemosyne.QmlLogger 2.0
 
 Page {
+    property alias ratingVisible: settings.slideRatings
     property string answer
 
     signal rated(int rating)
 
     objectName: "answer"
+    id: root
 
     ApplicationSettings {
         id: settings
@@ -17,19 +20,29 @@ Page {
         fileName: "settings"
 
         property int defaultFontSizeId: 0
+        property bool slideRatings: false
     }
 
     FontHandler {id: fh}
 
-    SilicaFlickable {
-        anchors.fill: parent
+    PageHeader {
+        id: header;
+        title: ratingVisible ? qsTr("Rate") : ""
+    }
 
-        PageHeader {id: header; title:""}
+    SilicaFlickable {
+        id: sf
+        width: parent.width - (ratingVisible ? ratingCol.width : 0)
+        height: parent.height - header.height
+        y: header.height
+        // Hackish, but the only way to prevent ratingCol from taking over the screen
+        contentHeight: Math.max(height - Theme.paddingLarge * 2, contentCol.childrenRect.height)
 
         Column {
-            anchors.top: header.bottom
-            width: parent.width - Theme.paddingLarge * 2
+            id: contentCol
+            width: parent.width - Theme.paddingSmall - Theme.paddingLarge
             x: Theme.paddingLarge
+
             Paragraph {
                 color: Theme.primaryColor
                 width: parent.width;
@@ -37,16 +50,9 @@ Page {
                 text: answer
             }
 
-            Component {
-                id: pushMenuItem
-                StandardMenuItem {
-                    property int value
-                    onClicked: rated(value)
-                }
-            }
-
             PushUpMenu {
                 id: pushMenu
+                visible: !ratingVisible
 
                 StandardMenuItem {
                     text: qsTr("rating")
@@ -64,5 +70,35 @@ Page {
         }
 
         VerticalScrollDecorator {}
+    }
+
+    Column {
+        id: ratingCol
+        spacing: Theme.paddingLarge
+        visible: ratingVisible
+        x: 0
+        y: sf.y
+        z: sf.z - 10 //ratingCol should always subordinate to prevent stealing
+
+        Repeater {
+            model: [5, 4, 3, 2, 1, 0]
+            delegate: PageIndicator {
+                property int value: modelData
+                page: root
+                text: value
+                onAccepted: rated(value)
+
+                Component.onCompleted: {
+                    ratingCol.width = Math.max(ratingCol.width, contentWidth)
+                    pageStack.busyChanged.connect(_reset)
+                }
+
+                function _reset() {
+                    if(!pageStack || pageStack.busy || pageStack.currentPage != root) return
+
+                    reset() //reset the indicator
+                }
+            }
+        }
     }
 }

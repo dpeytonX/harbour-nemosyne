@@ -14,9 +14,11 @@ Page {
         fileName: "settings"
 
         property int defaultFontSizeId: 0
+        property bool slideRatings: false
     }
 
     Binding { target: settings; property: "defaultFontSizeId"; value: fontCombo.currentIndex }
+    Binding { target: settings; property: "slideRatings"; value: useSliders.checked }
 
     FontHandler {
         id: fh
@@ -41,6 +43,13 @@ Page {
                     StandardMenuItem { text: fh.fontSizes[index] }
                 }
             }
+        }
+
+        TextSwitch {
+            id: useSliders
+            description: qsTr("Rate cards by indicators instead of push-up menu")
+            text: qsTr("Use Indicators")
+            checked: settings.slideRatings
         }
     }
 }

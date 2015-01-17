@@ -277,7 +277,6 @@ Page {
                     loader.create(Qt.createComponent("Settings.qml"), main, {})
                 }
             }
-
         }
     }
 

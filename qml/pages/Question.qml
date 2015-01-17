@@ -80,7 +80,6 @@ Dialog {
 
         PageColumn {
             id: pageCol
-            //anchors.top: header.bottom
             title: ""
 
             Paragraph {
