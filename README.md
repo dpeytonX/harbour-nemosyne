@@ -23,11 +23,17 @@ To get the latest updates you can always download this project and compile a bin
 
 This application is open source,  but please do contribute to active development!
 <p>
-You can contribute in one of two ways:
+You can contribute in any of the following ways:
 <ul>
 <li>Fork this branch and make pull request! (Please create an issue ticket first, though)
+<li>Provide Translations
 <li>Donate Bitcoins
 </ul>
+
+<h3>Translations</h3>
+<p>
+You can add translations on at <a href="https://www.transifex.com/projects/p/harbour-nemosyne/">Transifex</a>. I will incorporate translations into the application and give contributors an honorable mention within the application!
+
 <p>
 <img src="bitcoinaddy.png" />
 <p>
