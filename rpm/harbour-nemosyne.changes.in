@@ -32,3 +32,6 @@
 - Added new rating system by emulating the Sailfish Silica page navigation paradigm
 - Check "Use Indicators" within the Settings page
 - Added help content
+
+* Fri Feb 13 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.3.0-1
+- Moving PageIndicator into common library

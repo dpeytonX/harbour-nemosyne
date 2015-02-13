@@ -11,6 +11,7 @@ InformationalLabel 1.1 InformationalLabel.qml
 LabelButton 1.2 LabelButton.qml
 PageColumn 1.1 PageColumn_11.qml
 PageColumn 1.3 PageColumn.qml
+PageIndicator 1.3 PageIndicator.qml
 Paragraph 1.1 Paragraph.qml
 RadioGroup 1.1 RadioGroup_11.qml
 RadioGroup 1.3 RadioGroup.qml
