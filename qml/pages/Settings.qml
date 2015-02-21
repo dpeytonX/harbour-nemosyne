@@ -15,6 +15,9 @@ Page {
 
         property int defaultFontSizeId: 0
         property bool slideRatings: false
+        property int resetHour: 0
+        property int resetMinute: 0
+        property string timeText: "00:00"
     }
 
     Binding { target: settings; property: "defaultFontSizeId"; value: fontCombo.currentIndex }
@@ -24,6 +27,22 @@ Page {
         id: fh
         Component.onCompleted: {
             Console.log(fontSizes)
+        }
+    }
+
+    Component {
+        id: timePicker
+        TimePickerDialog {
+            property int h: settings.resetHour
+
+            hour: hourMode === DateTime.TwelveHours ? (h == 12 ? 12 : h % 12) : h
+            minute: settings.resetMinute
+
+            onAccepted: {
+                settings.resetHour = hour
+                settings.resetMinute = minute
+                settings.timeText = timeText
+            }
         }
     }
 
@@ -50,6 +69,20 @@ Page {
             description: qsTr("Rate cards by indicators instead of push-up menu")
             text: qsTr("Use Indicators")
             checked: settings.slideRatings
+        }
+
+        InformationalLabel {
+            color: Theme.primaryColor
+            text: qsTr("Card Reset Time")
+        }
+
+        LabelButton {
+            id: button
+            text: settings.timeText
+
+            onClicked: {
+                pageStack.push(timePicker, {})
+            }
         }
     }
 }
