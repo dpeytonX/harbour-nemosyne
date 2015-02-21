@@ -71,17 +71,21 @@ Page {
             checked: settings.slideRatings
         }
 
-        InformationalLabel {
-            color: Theme.primaryColor
-            text: qsTr("Card Reset Time")
-        }
+        Row {
+            spacing: Theme.paddingLarge
 
-        LabelButton {
-            id: button
-            text: settings.timeText
+            InformationalLabel {
+                color: Theme.primaryColor
+                text: qsTr("Card Reset Time")
+            }
 
-            onClicked: {
-                pageStack.push(timePicker, {})
+            LabelButton {
+                id: button
+                text: settings.timeText
+
+                onClicked: {
+                    pageStack.push(timePicker, {})
+                }
             }
         }
     }
