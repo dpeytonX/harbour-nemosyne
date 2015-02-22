@@ -4,6 +4,7 @@ import harbour.nemosyne.QmlLogger 2.0
 import harbour.nemosyne.SailfishWidgets.Database 1.3
 import harbour.nemosyne.SailfishWidgets.FileManagement 1.3
 import harbour.nemosyne.SailfishWidgets.Utilities 1.3
+import harbour.nemosyne.SailfishWidgets.Settings 1.3
 import harbour.nemosyne.SailfishWidgets.JS 1.3
 
 SQLiteDatabase {
@@ -22,6 +23,16 @@ SQLiteDatabase {
     signal cardDeleted()
     signal cardAdded()
     signal databaseValid(bool valid)
+
+    ApplicationSettings {
+        id: settings
+        applicationName: "harbour-nemosyne"
+        fileName: "settings"
+
+        property int resetHour: 0
+        property int resetMinute: 0
+        property string timeText: "00:00"
+    }
 
     DynamicLoader {
         id: cardCreator
@@ -120,6 +131,7 @@ SQLiteDatabase {
         databaseValid(result)
     }
 
+
     /*!
           The Mnemosyne 2.3 algorithm is more complex allowing for randomization of
           cards on a stack and avoiding sister cards.
@@ -143,11 +155,22 @@ SQLiteDatabase {
 
         initTrackingValues();
 
+        //strftime('%s',datetime('now', 'start of day', '-1 day'))
+        var resetDate = new Date();
+        resetDate.setHours(settings.resetHour)
+        resetDate.setMinutes(settings.resetMinute)
+        resetDate = new Date(resetDate.getTime() - 1000*60*60*24)
+        var utcDate = new Date(resetDate.getUTCFullYear(), resetDate.getUTCMonth(), resetDate.getUTCDate(), resetDate.getUTCHours(), resetDate.getUTCMinutes(), resetDate.getUTCSeconds(), resetDate.getUTCMilliseconds())
+
+        Console.debug("Current date: " + resetDate.getTime() / 1000)
+        Console.debug("Current UTC date: " + utcDate.getTime() / 1000)
         Console.debug("searching in graded pool")
-        var result = exec("SELECT * FROM cards WHERE grade>=2 " +
-                          "AND strftime('%s',datetime('now', 'start of day', '-1 day')) >=next_rep AND active=1 " +
+        prepare("SELECT * FROM cards WHERE grade>=2 " +
+                          "AND :nextRep >= next_rep AND active=1 " +
                           "ORDER BY next_rep DESC LIMIT 1;")
-        if(!result) {
+        bind(":nextRep", utcDate.getTime() / 1000)
+        var result;
+        if(!(result = exec())) {
             Console.error("next: " + "memory stack " + lastError)
             return
         }
