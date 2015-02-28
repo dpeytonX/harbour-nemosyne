@@ -34,6 +34,9 @@ Dialog {
         fileName: "settings"
 
         property int defaultFontSizeId: 0
+        property string timeText: "00:00"
+
+        onTimeTextChanged: _next()
     }
 
     DynamicLoader {

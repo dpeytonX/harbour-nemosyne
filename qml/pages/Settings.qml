@@ -17,6 +17,7 @@ Page {
         property bool slideRatings: false
         property int resetHour: 0
         property int resetMinute: 0
+        property int hourMode: DateTime.DefaultHours
         property string timeText: "00:00"
     }
 

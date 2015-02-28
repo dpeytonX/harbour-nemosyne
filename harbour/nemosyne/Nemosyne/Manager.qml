@@ -1,4 +1,5 @@
 import QtQuick 2.1
+import Sailfish.Silica 1.0
 import harbour.nemosyne.Nemosyne 1.0
 import harbour.nemosyne.QmlLogger 2.0
 import harbour.nemosyne.SailfishWidgets.Database 1.3
@@ -29,6 +30,7 @@ SQLiteDatabase {
         applicationName: "harbour-nemosyne"
         fileName: "settings"
 
+        property int hourMode: DefaultTime.DefaultHours
         property int resetHour: 0
         property int resetMinute: 0
         property string timeText: "00:00"
@@ -155,11 +157,9 @@ SQLiteDatabase {
 
         initTrackingValues();
 
-        //strftime('%s',datetime('now', 'start of day', '-1 day'))
-        var resetDate = new Date();
+        var resetDate = new Date(Date.now() - 1000*60*60*24)
         resetDate.setHours(settings.resetHour)
         resetDate.setMinutes(settings.resetMinute)
-        resetDate = new Date(resetDate.getTime() - 1000*60*60*24)
         var utcDate = new Date(resetDate.getUTCFullYear(), resetDate.getUTCMonth(), resetDate.getUTCDate(), resetDate.getUTCHours(), resetDate.getUTCMinutes(), resetDate.getUTCSeconds(), resetDate.getUTCMilliseconds())
 
         Console.debug("Current date: " + resetDate.getTime() / 1000)
@@ -168,7 +168,7 @@ SQLiteDatabase {
         prepare("SELECT * FROM cards WHERE grade>=2 " +
                           "AND :nextRep >= next_rep AND active=1 " +
                           "ORDER BY next_rep DESC LIMIT 1;")
-        bind(":nextRep", utcDate.getTime() / 1000)
+        bind(":nextRep", resetDate.getTime() / 1000)
         var result;
         if(!(result = exec())) {
             Console.error("next: " + "memory stack " + lastError)
