@@ -209,6 +209,10 @@
         <source>Rate cards by indicators instead of push-up menu</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Card Reset Time</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>StatusBar</name>
