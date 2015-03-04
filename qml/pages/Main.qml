@@ -131,12 +131,16 @@ Page {
         }
     }
 
+    Settings {
+        id: settingsPage
+    }
+
     //Not wrapping in Component since it's a pain to use signal connects
     BusyPage {
         id: loading
         title: qsTr("opening database")
-        acceptDestination: Component{ Question {} }
-        acceptDestinationProperties: {"manager": manager}
+        acceptDestination: Component{ Question {  } }
+        acceptDestinationProperties: {"manager": manager, "settingsPage": settingsPage}
         acceptDestinationReplaceTarget: main
         showNavigationIndicator: false
 
@@ -148,10 +152,6 @@ Page {
                 errorLabel.text = qsTr("database was not provided")
             }
         }
-    }
-
-    Settings {
-        id: settingsPage
     }
 
 

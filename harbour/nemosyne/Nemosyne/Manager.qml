@@ -564,8 +564,8 @@ SQLiteDatabase {
     }
 
     function _getResetDateUTC() {
-        // Current time minus one day
-        var curDate = new Date(Date.now() - 1000*60*60*24)
+        // Current time + utc offset
+        var curDate = new Date(Date.now() + new Date().getTimezoneOffset() * 60 * 1000)//Date.now())// - 1000*60*60*24)
 
         // Get reset time
         var resetDate = new Date(curDate.getTime())
@@ -574,14 +574,9 @@ SQLiteDatabase {
         resetDate.setSeconds(0)
         resetDate.setMilliseconds(0)
 
-        // If reset time < current time, then make the UTC go to the closest midnight
-        if(resetDate.getTime() < curDate.getTime()) {
-            resetDate = new Date(resetDate.getTime() - 1000*60*60*24)
-        }
-
-        // If -GMT then subtract time by TZ offset
-        // If +GMT then add TZ offset to time
         var tzMins = resetDate.getTimezoneOffset()
+
+        // Reverse the offset
         var utcDate = new Date(resetDate.getTime() - tzMins * 60 * 1000)
 
         Console.debug("Current date: " + curDate.toString())

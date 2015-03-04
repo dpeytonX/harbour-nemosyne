@@ -11,6 +11,7 @@ Dialog {
     property alias question: questionLabel.text
     property alias answer: answerCard.answer
     property Manager manager;
+    property Settings settingsPage;
     property Card card: !!manager ? manager.card : null;
 
     signal next(int rating)
@@ -139,7 +140,7 @@ Dialog {
                 text: qsTr("Settings")
                 onClicked: {
                     Console.debug("Settings clicked")
-                    loader.create(Qt.createComponent("Settings.qml"), questionPage, {})
+                    pageStack.push(settingsPage)
                 }
             }
 
