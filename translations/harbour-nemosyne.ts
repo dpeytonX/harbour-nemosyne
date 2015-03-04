@@ -202,11 +202,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use Indicators</source>
+        <source>Rate cards by indicators instead of push-up menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Rate cards by indicators instead of push-up menu</source>
+        <source>Use Indicators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

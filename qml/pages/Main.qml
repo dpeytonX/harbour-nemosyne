@@ -150,6 +150,10 @@ Page {
         }
     }
 
+    Settings {
+        id: settingsPage
+    }
+
 
     // --------- QSettings ----------------------
     ApplicationSettings {
@@ -274,7 +278,7 @@ Page {
                 text: qsTr("Settings")
                 onClicked: {
                     Console.debug("Settings clicked")
-                    loader.create(Qt.createComponent("Settings.qml"), main, {})
+                    pageStack.push(settingsPage)
                 }
             }
         }

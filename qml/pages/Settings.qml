@@ -24,7 +24,7 @@ Page {
     Binding { target: settings; property: "defaultFontSizeId"; value: fontCombo.currentIndex }
     Binding { target: settings; property: "slideRatings"; value: useSliders.checked }
 
-    FontHandler {
+   FontHandler {
         id: fh
         Component.onCompleted: {
             Console.log(fontSizes)
@@ -36,6 +36,7 @@ Page {
         TimePickerDialog {
             property int h: settings.resetHour
 
+            hourMode: settings.hourMode
             hour: hourMode === DateTime.TwelveHours ? (h == 12 ? 12 : h % 12) : h
             minute: settings.resetMinute
 
@@ -43,6 +44,7 @@ Page {
                 settings.resetHour = hour
                 settings.resetMinute = minute
                 settings.timeText = timeText
+                settings.hourMode = hourMode
             }
         }
     }

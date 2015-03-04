@@ -157,20 +157,16 @@ SQLiteDatabase {
 
         initTrackingValues();
 
-        var resetDate = new Date(Date.now() - 1000*60*60*24)
-        resetDate.setHours(settings.resetHour)
-        resetDate.setMinutes(settings.resetMinute)
-        var utcDate = new Date(resetDate.getUTCFullYear(), resetDate.getUTCMonth(), resetDate.getUTCDate(), resetDate.getUTCHours(), resetDate.getUTCMinutes(), resetDate.getUTCSeconds(), resetDate.getUTCMilliseconds())
+        var utcDate = _getResetDateUTC()
 
-        Console.debug("Current date: " + resetDate.getTime() / 1000)
-        Console.debug("Current UTC date: " + utcDate.getTime() / 1000)
         Console.debug("searching in graded pool")
         prepare("SELECT * FROM cards WHERE grade>=2 " +
-                          "AND :nextRep >= next_rep AND active=1 " +
-                          "ORDER BY next_rep DESC LIMIT 1;")
-        bind(":nextRep", resetDate.getTime() / 1000)
-        var result;
-        if(!(result = exec())) {
+                "AND :next_rep >= next_rep AND active=1 " +
+                "ORDER BY next_rep DESC LIMIT 1;")
+        bind(":next_rep", utcDate.getTime() / 1000)
+
+        var result = exec();
+        if(!result) {
             Console.error("next: " + "memory stack " + lastError)
             return
         }
@@ -245,7 +241,13 @@ SQLiteDatabase {
 
         //scheduled
         Console.info("checking scheduled pool")
-        var result = exec("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND strftime('%s',datetime('now', 'start of day', '-1 day'))>=next_rep AND active=1;")
+
+        var utcDate = _getResetDateUTC()
+
+        prepare("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND :next_rep>=next_rep AND active=1;")
+        bind(":next_rep", utcDate.getTime() / 1000)
+        var result = exec()
+
         if(!result || query.indexOf("count") === -1) {
             Console.debug("initTracking " + lastError)
             return
@@ -559,5 +561,35 @@ SQLiteDatabase {
 
     function _convertCardType(cardType) {
         return cardType == CardTypes.FrontToBackAndBackToFront ? "2" : "1"
+    }
+
+    function _getResetDateUTC() {
+        // Current time minus one day
+        var curDate = new Date(Date.now() - 1000*60*60*24)
+
+        // Get reset time
+        var resetDate = new Date(curDate.getTime())
+        resetDate.setHours(settings.resetHour)
+        resetDate.setMinutes(settings.resetMinute)
+        resetDate.setSeconds(0)
+        resetDate.setMilliseconds(0)
+
+        // If reset time < current time, then make the UTC go to the closest midnight
+        if(resetDate.getTime() < curDate.getTime()) {
+            resetDate = new Date(resetDate.getTime() - 1000*60*60*24)
+        }
+
+        // If -GMT then subtract time by TZ offset
+        // If +GMT then add TZ offset to time
+        var tzMins = resetDate.getTimezoneOffset()
+        var utcDate = new Date(resetDate.getTime() - tzMins * 60 * 1000)
+
+        Console.debug("Current date: " + curDate.toString())
+        Console.debug("Reset date: " + resetDate.toString())
+        Console.debug("Reset date UTC: " + resetDate.toUTCString())
+        Console.debug("UTC date: " + utcDate.toUTCString())
+        Console.debug("UTC date ts: " + utcDate.getTime() / 1000)
+
+        return utcDate
     }
 }
