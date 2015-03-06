@@ -39,3 +39,6 @@
 * Wed Mar 04 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.3.1-1
 - Fix for slow settings page on device
 - Address timezone issue with retrieving latest cards
+
+* Fri Mar 06 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.4.0-1
+- Allow screen orientation switching
