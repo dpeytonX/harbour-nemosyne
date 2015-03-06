@@ -6,6 +6,7 @@ import harbour.nemosyne.SailfishWidgets.Components 1.3
 import harbour.nemosyne.SailfishWidgets.Settings 1.3
 
 Page {
+    allowedOrientations: Orientation.All
     id: settingsPage
 
     ApplicationSettings {

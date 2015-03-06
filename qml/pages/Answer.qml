@@ -6,6 +6,7 @@ import harbour.nemosyne.Nemosyne 1.0
 import harbour.nemosyne.QmlLogger 2.0
 
 Page {
+    allowedOrientations: Orientation.All
     property alias ratingVisible: settings.slideRatings
     property string answer
 
@@ -74,29 +75,40 @@ Page {
 
     Column {
         id: ratingCol
-        spacing: Theme.paddingLarge
+        spacing: orientation == Orientation.Portrait || orientation == Orientation.PortraitInverted ? Theme.paddingLarge : 0
         visible: ratingVisible
         x: 0
         y: sf.y
         z: sf.z - 10 //ratingCol should always subordinate to prevent stealing
 
         Repeater {
-            model: [5, 4, 3, 2, 1, 0]
+            model: UIConstants.ratings
             delegate: PageIndicator {
                 property int value: modelData
+                property int defaultHeight: 0
+                property int landscape: (root.height - header.height - Theme.paddingLarge)/UIConstants.ratings.length
                 page: root
                 text: value
                 onAccepted: rated(value)
+                onHeightChanged: Console.debug("Answer: height " + height)
 
                 Component.onCompleted: {
                     ratingCol.width = Math.max(ratingCol.width, contentWidth)
+                    defaultHeight = height
+                    _resize()
                     pageStack.busyChanged.connect(_reset)
+                    orientationChanged.connect(_resize)
                 }
 
                 function _reset() {
                     if(!pageStack || pageStack.busy || pageStack.currentPage != root) return
 
                     reset() //reset the indicator
+                }
+
+                function _resize() {
+                    height = orientation == Orientation.Portrait || orientation == Orientation.PortraitInverted ?
+                                defaultHeight : landscape
                 }
             }
         }
