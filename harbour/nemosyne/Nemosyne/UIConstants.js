@@ -15,3 +15,4 @@ var appVersion = "1.4.0"
 var appYear = 2015
 
 var defaultDb = "nemosyne.db"
+var ratings = [5, 4, 3, 2, 1, 0]

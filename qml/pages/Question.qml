@@ -7,6 +7,7 @@ import harbour.nemosyne.SailfishWidgets.Settings 1.3
 import harbour.nemosyne.Nemosyne 1.0
 
 Dialog {
+    allowedOrientations: Orientation.All
     id: questionPage
     property alias question: questionLabel.text
     property alias answer: answerCard.answer

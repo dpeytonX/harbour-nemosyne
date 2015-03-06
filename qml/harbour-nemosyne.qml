@@ -36,6 +36,7 @@ import "pages"
 
 ApplicationWindow
 {
+    allowedOrientations: Orientation.All
     initialPage: Component { Main { } }
     cover: cp.createObject(this, {"pageStack": pageStack})
 

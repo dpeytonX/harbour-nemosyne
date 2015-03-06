@@ -8,6 +8,7 @@ import harbour.nemosyne.SailfishWidgets.Utilities 1.3
 import harbour.nemosyne.QmlLogger 2.0
 
 Page {
+    allowedOrientations: Orientation.All
     id: main
     readonly property string dataPath: dir.XdgData + "/" + UIConstants.defaultDb
     property File currentFile

@@ -75,6 +75,7 @@ Dialog {
     */
     property variant navigatePage: !!pageStack.find(function(p) { return p == this;}) ? pageStack.previousPage(this) : null
 
+    allowedOrientations: Orientation.All
     acceptDestinationReplaceTarget: navigatePage
     acceptDestinationAction: PageStackAction.Replace
     canAccept: false
