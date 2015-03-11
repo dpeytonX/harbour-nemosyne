@@ -5,7 +5,8 @@ var appIcon = "qrc:///images/desktop.png"
 var appTitle = "Nemosyne"
 var appAuthors = ["Dametrious Peyton", "Thomas Amler - for AboutPage",
                   "jansol - for Rating Indicator Idea",
-                  "ChMe - for Customizable Font Idea"]
+                  "ChMe - for Customizable Font Idea",
+                  "TylerTemp - Chinese l10n (Transifex)"]
 var appCopyright = "Dametrious Peyton"
 var appLicense = ["GPLv3"]
 var appProjectInfo = ["https://github.com/prplmnky/harbour-nemosyne",
