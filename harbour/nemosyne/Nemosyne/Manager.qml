@@ -42,6 +42,10 @@ SQLiteDatabase {
             card = object
             Console.debug("cardCreator: card fact id is " + card.factId)
         }
+
+        onError: {
+            Console.error("Error creating object: " + errorString)
+        }
     }
 
     File {
@@ -205,21 +209,7 @@ SQLiteDatabase {
 
         Console.debug("next " + query)
 
-        cardCreator.create(Qt.createComponent("Card.qml"), this, {
-                               "seq" : query.value("_id"),
-                               "question" : query.value("question"),
-                               "answer" : query.value("answer"),
-                               "nextRep" : query.value("next_rep"),
-                               "lastRep" : query.value("last_rep"),
-                               "grade" : query.value("grade"),
-                               "easiness" : query.value("easiness"),
-                               "acquisition" : query.value("acq_reps"),
-                               "acquisitionRepsSinceLapse": query.value("acq_reps_since_lapse"),
-                               "retentionRep" : query.value("ret_reps"),
-                               "lapses" : query.value("lapses"),
-                               "retentionRepsSinceLapse" : query.value("ret_reps_since_lapse"),
-                               "factId" : query.value("_fact_id")
-                           })
+        cardCreator.create(Qt.createComponent("Card.qml"), this, _queryToCard(query))
     }
 
     function initialize() {
@@ -350,6 +340,34 @@ SQLiteDatabase {
         } while(iter--)
 
         cardAdded()
+    }
+
+    //TODO
+    function search(text) {
+        Console.debug("Searching for " + text)
+        prepare("SELECT * FROM cards WHERE question LIKE :qText " +
+                "OR answer LIKE :aText")
+        bind(":qText", "%"+text+"%")
+        bind(":aText", "%"+text+"%")
+
+        if(!exec()) {
+            Console.error("Could not search." + lastError)
+            return []
+        }
+
+        if(!query.first()) {
+            Console.error("Could not search. No first record " + query.lastError)
+            return []
+        }
+
+        Console.info ("text matched " + query.size + " records")
+        var resultList = []
+        while(query.valid) {
+            resultList.push(_queryToCard(query))
+            query.next()
+        }
+
+        return resultList
     }
 
     // Internal functions
@@ -586,5 +604,23 @@ SQLiteDatabase {
         Console.debug("UTC date ts: " + utcDate.getTime() / 1000)
 
         return utcDate
+    }
+
+    function _queryToCard(query) {
+        return {
+            "seq" : query.value("_id"),
+            "question" : query.value("question"),
+            "answer" : query.value("answer"),
+            "nextRep" : query.value("next_rep"),
+            "lastRep" : query.value("last_rep"),
+            "grade" : query.value("grade"),
+            "easiness" : query.value("easiness"),
+            "acquisition" : query.value("acq_reps"),
+            "acquisitionRepsSinceLapse": query.value("acq_reps_since_lapse"),
+            "retentionRep" : query.value("ret_reps"),
+            "lapses" : query.value("lapses"),
+            "retentionRepsSinceLapse" : query.value("ret_reps_since_lapse"),
+            "factId" : query.value("_fact_id")
+        }
     }
 }

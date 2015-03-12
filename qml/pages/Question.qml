@@ -100,6 +100,15 @@ Dialog {
             id: cardOps
 
             StandardMenuItem {
+                text: qsTr("Search")
+
+                onClicked: {
+                    Console.info("Search selected")
+                    loader.create(Qt.createComponent("Search.qml"), questionPage, {"manager": manager})
+                }
+            }
+
+            StandardMenuItem {
                 text: qsTr("Add Card(s)")
 
                 onClicked: {
