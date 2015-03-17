@@ -342,30 +342,33 @@ SQLiteDatabase {
         cardAdded()
     }
 
-    //TODO
     function search(text) {
+        text = "%" + text + "%"
         Console.debug("Searching for " + text)
-        prepare("SELECT * FROM cards WHERE question LIKE :qText " +
-                "OR answer LIKE :aText")
-        bind(":qText", "%"+text+"%")
-        bind(":aText", "%"+text+"%")
+        prepare("SELECT * FROM cards WHERE question LIKE :q_text " +
+                "OR answer LIKE :a_text;")
+        bind(":q_text", text)
+        bind(":a_text", text)
 
         if(!exec()) {
             Console.error("Could not search." + lastError)
             return []
         }
 
+        Console.info ("text matched " + query.size + " records")
+
         if(!query.first()) {
             Console.error("Could not search. No first record " + query.lastError)
             return []
         }
 
-        Console.info ("text matched " + query.size + " records")
         var resultList = []
         while(query.valid) {
+            Console.debug("query result: " + _queryToCard(query))
             resultList.push(_queryToCard(query))
             query.next()
         }
+        Console.debug("query result: " + resultList)
 
         return resultList
     }
@@ -608,19 +611,19 @@ SQLiteDatabase {
 
     function _queryToCard(query) {
         return {
-            "seq" : query.value("_id"),
+            "seq" : Number(query.value("_id")),
             "question" : query.value("question"),
             "answer" : query.value("answer"),
-            "nextRep" : query.value("next_rep"),
-            "lastRep" : query.value("last_rep"),
-            "grade" : query.value("grade"),
-            "easiness" : query.value("easiness"),
-            "acquisition" : query.value("acq_reps"),
-            "acquisitionRepsSinceLapse": query.value("acq_reps_since_lapse"),
-            "retentionRep" : query.value("ret_reps"),
-            "lapses" : query.value("lapses"),
-            "retentionRepsSinceLapse" : query.value("ret_reps_since_lapse"),
-            "factId" : query.value("_fact_id")
+            "nextRep" : Number(query.value("next_rep")),
+            "lastRep" : Number(query.value("last_rep")),
+            "grade" : Number(query.value("grade")),
+            "easiness" : Number(query.value("easiness")),
+            "acquisition" : Number(query.value("acq_reps")),
+            "acquisitionRepsSinceLapse": Number(query.value("acq_reps_since_lapse")),
+            "retentionRep" : Number(query.value("ret_reps")),
+            "lapses" : Number(query.value("lapses")),
+            "retentionRepsSinceLapse" : Number(query.value("ret_reps_since_lapse")),
+            "factId" : Number(query.value("_fact_id"))
         }
     }
 }

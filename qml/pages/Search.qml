@@ -8,10 +8,13 @@ Page {
     property Manager manager
 
     allowedOrientations: Orientation.All
+    id: root
+
     StandardListView {
         anchors.fill: parent
 
         header: SearchField {
+            id: search
             width: parent.width
 
             onTextChanged: {
@@ -19,6 +22,7 @@ Page {
                     Console.info("text = " + text)
                     listModel.update(manager.search(text))
                 }
+                focus()
             }
         }
 
@@ -29,6 +33,15 @@ Page {
                 clear()
                 for(var i = 0; i < content.length; i++)
                     append(content[i])
+            }
+        }
+
+        delegate: ListItem {
+            width: root.width - Theme.paddingLarge * 2
+            x: Theme.paddingLarge
+
+            LabelButton {
+                text: model.question;
             }
         }
 
