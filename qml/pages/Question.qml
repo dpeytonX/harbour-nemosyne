@@ -6,9 +6,10 @@ import harbour.nemosyne.SailfishWidgets.Utilities 1.3
 import harbour.nemosyne.SailfishWidgets.Settings 1.3
 import harbour.nemosyne.Nemosyne 1.0
 
+/**
+  TODO: Consider breaking Question into a ViewOnly vs Testable hierarchy
+  */
 Dialog {
-    allowedOrientations: Orientation.All
-    id: questionPage
     property alias question: questionLabel.text
     property alias answer: answerCard.answer
     property bool viewOnly: false
@@ -18,6 +19,8 @@ Dialog {
 
     signal next(int rating)
 
+    allowedOrientations: Orientation.All
+    id: questionPage
     objectName: "question"
     canAccept: !!card
     acceptDestination: Answer {
@@ -53,11 +56,10 @@ Dialog {
 
         CardDetail {
             onAccepted: {
-                if(objectName == "addCard") {
+                if(objectName == "addCard")
                     _addCard()
-                } else if(objectName == "editCard") {
+                else if(objectName == "editCard")
                     _editCard()
-                }
             }
 
             function _addCard() {
@@ -77,9 +79,9 @@ Dialog {
         }
     }
 
-    FontHandler {id: fh}
+    FontHandler { id: fh }
 
-    RemorsePopup {id: remorse}
+    RemorsePopup { id: remorse }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -143,9 +145,7 @@ Dialog {
                 text: qsTr("Delete")
                 visible: canAccept
 
-                onClicked: {
-                    remorse.execute(qsTr("Deleting card"), manager.deleteCard)
-                }
+                onClicked: remorse.execute(qsTr("Deleting card"), _delete)
             }
         }
 
@@ -197,20 +197,27 @@ Dialog {
 
     onNext: {
         Console.log("Question: answer was rated: " + rating)
-        if(rating == null) {
+        if(rating == null)
             rating = -1
-        }
 
         manager.next(rating)
         Console.log("Question: card is " + card)
     }
 
     onManagerChanged: {
-        if(!!manager) {
-            manager.cardDeleted.connect(_next)
-        }
+        if(!!manager)
+            manager.cardDeleted.connect(_deleted)
     }
 
 
-    function _next() {next(-1);}
+    function _next() { next(-1); }
+
+    function _delete() { manager.deleteCard(card) }
+
+    function _deleted() {
+        if(viewOnly)
+            close()
+        else
+            _next()
+    }
 }

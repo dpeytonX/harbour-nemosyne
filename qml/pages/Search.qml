@@ -15,6 +15,7 @@ Page {
         id: question
         Question {
             objectName: "question"
+            onRejected: _search(pageCol.text)
         }
     }
 
@@ -54,6 +55,7 @@ Page {
     }
 
     PageColumn {
+        property alias text: search.text
         id: pageCol
         title: qsTr("Search")
         z: 1000
@@ -63,15 +65,7 @@ Page {
             width: parent.width
             z:1000
 
-            onTextChanged: {
-                Console.debug("search text = " + text)
-                if(text.length >= 3) {
-                    listModel.update(manager.search(text))
-                } else if(text.length === 0) {
-                    listModel.update([])
-                }
-            }
-
+            onTextChanged: _search(text)
         }
     }
 
@@ -108,5 +102,17 @@ Page {
 
 
         VerticalScrollDecorator {}
+    }
+
+    /*!
+      \internal
+    */
+    function _search(text) {
+        Console.debug("search text = " + text)
+        if(text.length >= 3) {
+            listModel.update(manager.search(text))
+        } else if(text.length === 0) {
+            listModel.update([])
+        }
     }
 }

@@ -53,24 +53,12 @@ SQLiteDatabase {
         fileName: ":/data/nemosyne.sql"
     }
 
-    function deleteCard() {
+    function deleteCard(card) {
         Console.info("Manager: delete card selected")
 
         if(!opened || !card) return
 
-        // Get cards with the same fact id
-        prepare("SELECT _id FROM cards where _fact_id = :factId;")
-        bind(":factId", card.factId)
-
-        if(!exec() || !query.first()) {
-            Console.error(lastError)
-            return
-        }
-
-        var cardIds = []
-        do {
-            cardIds.push(query.value("_id"))
-        } while(query.next())
+        var cardIds = _getSiblingCards(card)
 
         // Delete fact data
         Console.debug("Manager: deleting data for fact " + card.factId)
@@ -84,7 +72,6 @@ SQLiteDatabase {
         Console.debug("Manager: deleting fact " + card.factId)
         prepare("DELETE FROM facts where _id = :factId;")
         bind(":factId", card.factId)
-        exec()
         if(!exec()) {
             Console.error(lastError)
         }
@@ -93,7 +80,6 @@ SQLiteDatabase {
         Console.debug("Manager: deleting tags for cards " + cardIds)
         prepare("DELETE FROM tags_for_card where _card_id IN (:cardIds);")
         bind(":cardIds", cardIds)
-        exec()
         if(!exec()) {
             Console.error(lastError)
         }
@@ -102,7 +88,6 @@ SQLiteDatabase {
         Console.debug("Manager: deleting cards with fact id " + card.factId)
         prepare("DELETE FROM cards where _fact_id = :factId")
         bind(":factId", card.factId)
-        exec()
         if(!exec()) {
             Console.error(lastError)
         }
@@ -376,6 +361,29 @@ SQLiteDatabase {
 
     // Internal functions
 
+
+    /*
+      \internal
+    */
+    function _getSiblingCards(card) {
+        // Get cards with the same fact id
+        prepare("SELECT _id FROM cards where _fact_id = :factId;")
+        bind(":factId", card.factId)
+
+        if(!exec() || !query.first()) {
+            Console.error(lastError)
+            return
+        }
+
+        var cardIds = []
+        do {
+            cardIds.push(query.value("_id"))
+        } while(query.next())
+
+        return cardIds;
+    }
+
+
     /*!
       \internal
     */
@@ -565,6 +573,26 @@ SQLiteDatabase {
         if(!exec()) {
             Console.error("save:" + "error" + lastError )
             return
+        }
+
+        if(update) {
+            var cardIds = _getSiblingCards(card)
+            Console.debug("save: sibling cards " + cardIds.toString())
+            for(var cardId in cardIds) {
+                if(cardId != card.seq) {
+                    //reverse the question and answer text and save
+                    prepare("UPDATE cards SET " +
+                            "question = :answer, "+
+                            "answer = :question " +
+                            "WHERE _id = :seq;")
+                    bind(":answer", card.answer)
+                    bind(":question", card.question)
+                    bind(":seq", cardId)
+                    if(!exec()) {
+                        Console.error("save: error updating sibling card " + cardId + " " + lastError)
+                    }
+                }
+            }
         }
     }
 
