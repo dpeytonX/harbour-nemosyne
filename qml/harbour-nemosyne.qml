@@ -42,12 +42,8 @@ ApplicationWindow
 
     Component {
         id: cp
-        CoverPage {
-
-        }
+        CoverPage { }
     }
 
-    Component.onCompleted: Console.LOG_PRIORITY = Console.DEBUG
+    Component.onCompleted: Console.LOG_PRIORITY = Console.INFO
 }
-
-

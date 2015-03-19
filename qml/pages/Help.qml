@@ -57,6 +57,15 @@ Page {
                 width: parent.width
                 text: qsTr("Score cards by providing a rating from 0 to 5. A rating of 0 indicates that you do not recall ever seeing the card. Whereas, a rating of 5 indicates complete recognition. Your score will determine how frequently a card re-appears in subsequent trainings.")
             }
+
+            SectionHeader {
+                text: qsTr("Search")
+            }
+
+            Paragraph {
+                width: parent.width
+                text: qsTr("You may search through your card database by typing the search term in the tool bar. Matching cards will be displayed in a list view. Clicking an entry will bring up the question and answer texts.")
+            }
         }
     }
 }

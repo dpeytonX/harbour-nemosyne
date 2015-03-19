@@ -42,6 +42,10 @@ SQLiteDatabase {
             card = object
             Console.debug("cardCreator: card fact id is " + card.factId)
         }
+
+        onError: {
+            Console.error("Error creating object: " + errorString)
+        }
     }
 
     File {
@@ -205,21 +209,7 @@ SQLiteDatabase {
 
         Console.debug("next " + query)
 
-        cardCreator.create(Qt.createComponent("Card.qml"), this, {
-                               "seq" : query.value("_id"),
-                               "question" : query.value("question"),
-                               "answer" : query.value("answer"),
-                               "nextRep" : query.value("next_rep"),
-                               "lastRep" : query.value("last_rep"),
-                               "grade" : query.value("grade"),
-                               "easiness" : query.value("easiness"),
-                               "acquisition" : query.value("acq_reps"),
-                               "acquisitionRepsSinceLapse": query.value("acq_reps_since_lapse"),
-                               "retentionRep" : query.value("ret_reps"),
-                               "lapses" : query.value("lapses"),
-                               "retentionRepsSinceLapse" : query.value("ret_reps_since_lapse"),
-                               "factId" : query.value("_fact_id")
-                           })
+        cardCreator.create(Qt.createComponent("Card.qml"), this, _queryToCard(query))
     }
 
     function initialize() {
@@ -277,8 +267,8 @@ SQLiteDatabase {
         unmemorized = query.value("count");
     }
 
-    function saveCard() {
-        _save(card, true)
+    function saveCard(myCard) {
+        _save(myCard == null ? card : myCard, true)
     }
 
     function addCard(cardType, question, answer) {
@@ -350,6 +340,38 @@ SQLiteDatabase {
         } while(iter--)
 
         cardAdded()
+    }
+
+    function search(text) {
+        text = "%" + text + "%"
+        Console.debug("Searching for " + text)
+        prepare("SELECT * FROM cards WHERE question LIKE :q_text " +
+                "OR answer LIKE :a_text;")
+        bind(":q_text", text)
+        bind(":a_text", text)
+
+        if(!exec()) {
+            Console.error("Could not search." + lastError)
+            return []
+        }
+
+        Console.info ("text matched " + query.size + " records")
+
+        if(!query.first()) {
+            Console.error("Could not search. No first record " + query.lastError)
+            return []
+        }
+
+        var resultList = []
+        while(query.valid) {
+            var obj = _queryToCard(query);
+            Console.debug("query result: " + obj)
+            resultList.push(obj)
+            query.next()
+        }
+        Console.debug("query result: " + resultList)
+
+        return resultList
     }
 
     // Internal functions
@@ -586,5 +608,23 @@ SQLiteDatabase {
         Console.debug("UTC date ts: " + utcDate.getTime() / 1000)
 
         return utcDate
+    }
+
+    function _queryToCard(query) {
+        return {
+            "seq" : Number(query.value("_id")),
+            "question" : query.value("question"),
+            "answer" : query.value("answer"),
+            "nextRep" : Number(query.value("next_rep")),
+            "lastRep" : Number(query.value("last_rep")),
+            "grade" : Number(query.value("grade")),
+            "easiness" : Number(query.value("easiness")),
+            "acquisition" : Number(query.value("acq_reps")),
+            "acquisitionRepsSinceLapse": Number(query.value("acq_reps_since_lapse")),
+            "retentionRep" : Number(query.value("ret_reps")),
+            "lapses" : Number(query.value("lapses")),
+            "retentionRepsSinceLapse" : Number(query.value("ret_reps_since_lapse")),
+            "factId" : Number(query.value("_fact_id"))
+        }
     }
 }
