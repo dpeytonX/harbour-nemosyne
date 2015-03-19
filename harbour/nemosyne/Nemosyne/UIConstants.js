@@ -6,10 +6,12 @@ var appTitle = "Nemosyne"
 var appAuthors = ["Dametrious Peyton", "Thomas Amler - for AboutPage",
                   "jansol - for Rating Indicator Idea",
                   "ChMe - for Customizable Font Idea",
-                  "TylerTemp - Chinese l10n (Transifex)"]
+                  "TylerTemp - Chinese l10n (Transifex)",
+                  "Vistaus - Dutch l10n (Transifex)"]
 var appCopyright = "Dametrious Peyton"
 var appLicense = ["GPLv3"]
 var appProjectInfo = ["https://github.com/prplmnky/harbour-nemosyne",
+                      "https://www.transifex.com/projects/p/harbour-nemosyne",
                       "https://github.com/prplmnky/sailfish-widgets",
                       "https://github.com/Armadill0/harbour-tasklist"]
 var appVersion = "1.4.0"
