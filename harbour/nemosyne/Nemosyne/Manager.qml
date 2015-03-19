@@ -267,8 +267,8 @@ SQLiteDatabase {
         unmemorized = query.value("count");
     }
 
-    function saveCard() {
-        _save(card, true)
+    function saveCard(myCard) {
+        _save(myCard == null ? card : myCard, true)
     }
 
     function addCard(cardType, question, answer) {
@@ -364,8 +364,9 @@ SQLiteDatabase {
 
         var resultList = []
         while(query.valid) {
-            Console.debug("query result: " + _queryToCard(query))
-            resultList.push(_queryToCard(query))
+            var obj = _queryToCard(query);
+            Console.debug("query result: " + obj)
+            resultList.push(obj)
             query.next()
         }
         Console.debug("query result: " + resultList)

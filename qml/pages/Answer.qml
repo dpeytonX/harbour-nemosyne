@@ -5,9 +5,8 @@ import harbour.nemosyne.SailfishWidgets.Settings 1.3
 import harbour.nemosyne.Nemosyne 1.0
 import harbour.nemosyne.QmlLogger 2.0
 
-Page {
-    allowedOrientations: Orientation.All
-    property alias ratingVisible: settings.slideRatings
+Note {
+    property bool ratingVisible: settings.slideRatings && !viewOnly
     property string answer
 
     signal rated(int rating)
@@ -53,7 +52,7 @@ Page {
 
             PushUpMenu {
                 id: pushMenu
-                visible: !ratingVisible
+                visible: !viewOnly && !ratingVisible
 
                 StandardMenuItem {
                     text: qsTr("rating")

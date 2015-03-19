@@ -11,6 +11,7 @@ Dialog {
     id: questionPage
     property alias question: questionLabel.text
     property alias answer: answerCard.answer
+    property bool viewOnly: false
     property Manager manager;
     property Settings settingsPage;
     property Card card: !!manager ? manager.card : null;
@@ -22,6 +23,7 @@ Dialog {
     acceptDestination: Answer {
         answer: !!card ? card.answer : ""
         id: answerCard
+        viewOnly: questionPage.viewOnly
         onRated: {
             next(rating)
             pageStack.navigateBack()
@@ -68,7 +70,7 @@ Dialog {
             function _editCard() {
                 card.question = questionText
                 card.answer = answerText
-                manager.saveCard()
+                manager.saveCard(card)
                 Console.log("card editted")
                 manager.initTrackingValues()
             }
@@ -100,6 +102,8 @@ Dialog {
             id: cardOps
 
             StandardMenuItem {
+                enabled: !viewOnly
+                visible: !viewOnly
                 text: qsTr("Search")
 
                 onClicked: {
@@ -109,6 +113,8 @@ Dialog {
             }
 
             StandardMenuItem {
+                enabled: !viewOnly
+                visible: !viewOnly
                 text: qsTr("Add Card(s)")
 
                 onClicked: {
@@ -181,7 +187,7 @@ Dialog {
         anchors.left: parent.left
         anchors.leftMargin: Theme.paddingLarge
         width: parent.width - Theme.paddingLarge * 2
-        visible: canAccept && !pushy.active
+        visible: canAccept && !pushy.active && !viewOnly
         z: -100
 
         scheduled: manager.scheduled

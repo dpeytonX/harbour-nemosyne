@@ -37,11 +37,17 @@ BackgroundItem {
        \qmlproperty alias LabelButton::text
       An alias to the internal label's \c {text}
     */
-  property alias text: lbl.text
+    property alias text: lbl.text
     /*!
        \qmlproperty alias LabelButton::color
       An alias to the internal label's \c {color}
     */
-  property alias color: lbl.color
-  InformationalLabel {id: lbl; text: item.text}
+    property alias color: lbl.color
+
+    /*!
+      \qmlproperty alias LabelButton::truncationMode
+      An alias to the internal label's \c {truncationMode}
+    */
+    property alias truncationMode: lbl.truncationMode
+    InformationalLabel {id: lbl; text: item.text}
 }
