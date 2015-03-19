@@ -42,3 +42,9 @@
 
 * Fri Mar 06 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.4.0-1
 - Allow screen orientation switching
+
+* Wed Mar 18 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.4.0-2
+- Added search feature
+
+* Thu Mar 19 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.4.1-1
+- Auto open recent database

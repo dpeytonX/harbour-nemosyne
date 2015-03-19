@@ -16,6 +16,7 @@ Page {
 
         property int defaultFontSizeId: 0
         property bool slideRatings: false
+        property bool autoOpenDb: false
         property int resetHour: 0
         property int resetMinute: 0
         property int hourMode: DateTime.DefaultHours
@@ -24,6 +25,7 @@ Page {
 
     Binding { target: settings; property: "defaultFontSizeId"; value: fontCombo.currentIndex }
     Binding { target: settings; property: "slideRatings"; value: useSliders.checked }
+    Binding { target: settings; property: "autoOpenDb"; value: openDb.checked }
 
    FontHandler {
         id: fh
@@ -91,6 +93,13 @@ Page {
                     pageStack.push(timePicker, {})
                 }
             }
+        }
+
+        TextSwitch {
+            id: openDb
+            description: qsTr("Automatically open the most recently database at launch")
+            text: qsTr("Quick Launch")
+            checked: settings.autoOpenDb
         }
     }
 }

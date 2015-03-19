@@ -162,7 +162,7 @@ Page {
         applicationName: "harbour-nemosyne"
         fileName: "settings"
 
-        property bool openRecent: true
+        property bool autoOpenDb: false
         property string recentFile: ""
         property string recentFile1: ""
         property string recentFile2: ""
@@ -285,10 +285,28 @@ Page {
         }
     }
 
-    Component.onCompleted: _cleanHistory()
+    Component.onCompleted: {
+        _cleanHistory()
+        pageStack.busyChanged.connect(autoRun)
+        pageStack.currentPageChanged.connect(autoRun)
+        statusChanged.connect(autoRun)
+    }
 
     //----------Internal Functions---------------
 
+    function autoRun() {
+        Console.info("pagestack animating: " + pageStack.acceptAnimationRunning)
+        Console.info("pagestack busy: " + pageStack.busy)
+        Console.info("pagestack page: " + pageStack.currentPage)
+        Console.info("pagestack active: " + main.status)
+        if(main.status == PageStatus.Active && !pageStack.busy && pageStack.currentPage == main && settings.autoOpenDb && !!recentFile) {
+            Console.info("Main: auto opening " + recentFile.absoluteFilePath)
+            process(recentFile)
+            statusChanged.disconnect(autoRun)
+            pageStack.busyChanged.disconnect(autoRun)
+            pageStack.currentPageChanged.disconnect(autoRun)
+        }
+    }
 
     function process(file) {
         currentFile = file
