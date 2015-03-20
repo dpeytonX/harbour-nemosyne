@@ -78,6 +78,7 @@ Page {
         anchors.topMargin: Theme.paddingLarge * 2
         anchors.top: pageCol.bottom
         anchors.bottom: root.bottom
+        placeHolderText: ""
         width: root.width - Theme.paddingLarge * 2
         x: Theme.paddingLarge
         z: 0
