@@ -367,6 +367,7 @@ SQLiteDatabase {
     */
     function _getSiblingCards(card) {
         // Get cards with the same fact id
+        Console.debug("finding siblings for " + card.factId)
         prepare("SELECT _id FROM cards where _fact_id = :factId;")
         bind(":factId", card.factId)
 
@@ -577,8 +578,9 @@ SQLiteDatabase {
 
         if(update) {
             var cardIds = _getSiblingCards(card)
-            Console.debug("save: sibling cards " + cardIds.toString())
-            for(var cardId in cardIds) {
+            for(var i = 0; i < cardIds.length; i++) {
+                var cardId = cardIds[i]
+                Console.debug("save: sibling cards " + cardId)
                 if(cardId != card.seq) {
                     //reverse the question and answer text and save
                     prepare("UPDATE cards SET " +

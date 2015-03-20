@@ -9,13 +9,17 @@ Page {
     property Manager manager
 
     allowedOrientations: Orientation.All
+    objectName: "search"
     id: root
 
     Component {
         id: question
         Question {
             objectName: "question"
-            onRejected: _search(pageCol.text)
+            onRejected: {
+                listModel.clear()
+                _search(pageCol.text)
+            }
         }
     }
 

@@ -216,7 +216,7 @@ Dialog {
 
     function _deleted() {
         if(viewOnly)
-            close()
+            reject()
         else
             _next()
     }

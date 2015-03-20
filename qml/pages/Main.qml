@@ -295,16 +295,16 @@ Page {
     //----------Internal Functions---------------
 
     function autoRun() {
-        Console.info("pagestack animating: " + pageStack.acceptAnimationRunning)
-        Console.info("pagestack busy: " + pageStack.busy)
-        Console.info("pagestack page: " + pageStack.currentPage)
-        Console.info("pagestack active: " + main.status)
+        Console.debug("pagestack animating: " + pageStack.acceptAnimationRunning)
+        Console.debug("pagestack busy: " + pageStack.busy)
+        Console.debug("pagestack page: " + pageStack.currentPage)
+        Console.debug("pagestack active: " + main.status)
         if(main.status == PageStatus.Active && !pageStack.busy && pageStack.currentPage == main && settings.autoOpenDb && !!recentFile) {
             Console.info("Main: auto opening " + recentFile.absoluteFilePath)
-            process(recentFile)
             statusChanged.disconnect(autoRun)
             pageStack.busyChanged.disconnect(autoRun)
             pageStack.currentPageChanged.disconnect(autoRun)
+            process(recentFile)
         }
     }
 
