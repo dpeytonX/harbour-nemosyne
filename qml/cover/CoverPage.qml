@@ -44,10 +44,11 @@ StandardCover {
     displayDefault: !(!!pageStack.currentPage && dbActive && !!cardDisplay.text)
 
     Subtext {
+        id: smallText
         anchors.top: label.bottom
         anchors.topMargin: Theme.paddingSmall
         anchors.horizontalCenter: parent.horizontalCenter
-        text: dbActive ? qsTr("No Cards") : qsTr("no database")
+        text: updateSmallText()
         visible: displayDefault
     }
 
@@ -99,11 +100,31 @@ StandardCover {
         return page.objectName == "answer";
     }
 
+    function isSearch(page) {
+        return page.objectName == "search";
+    }
+
     function updateText() {
         if(!!pageStack.currentPage) {
+            console.log("objectName: " + pageStack.currentPage.objectName)
             if(isQuestion(pageStack.currentPage)) cardDisplay.text = pageStack.currentPage.question
             else if(isAnswer(pageStack.currentPage)) cardDisplay.text = pageStack.currentPage.answer
+            else if(isSearch(pageStack.currentPage)){
+                if(pageStack.currentPage.count > 5)
+                    cardDisplay.text = qsTr("Search found %n results", "", pageStack.currentPage.count)
+                else if(pageStack.currentPage.count > 0)
+                    cardDisplay.text = pageStack.currentPage.results.slice(0, 5).join("\n")
+                else
+                    cardDisplay.text = ""
+            }
         }
+    }
+
+    function updateSmallText() {
+        if(!!pageStack.currentPage && isSearch(pageStack.currentPage)) {
+            return qsTr("No search results")
+        }
+        return dbActive ? qsTr("No Cards") : qsTr("no database")
     }
 }
 

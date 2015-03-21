@@ -43,9 +43,7 @@ SQLiteDatabase {
             Console.debug("cardCreator: card fact id is " + card.factId)
         }
 
-        onError: {
-            Console.error("Error creating object: " + errorString)
-        }
+        onError: Console.error("Error creating object: " + errorString)
     }
 
     File {
@@ -64,33 +62,25 @@ SQLiteDatabase {
         Console.debug("Manager: deleting data for fact " + card.factId)
         prepare("DELETE FROM data_for_fact where _fact_id = :factId;")
         bind(":factId", card.factId)
-        if(!exec()) {
-            Console.error(lastError)
-        }
+        if(!exec()) Console.error(lastError)
 
         // Delete the fact itself
         Console.debug("Manager: deleting fact " + card.factId)
         prepare("DELETE FROM facts where _id = :factId;")
         bind(":factId", card.factId)
-        if(!exec()) {
-            Console.error(lastError)
-        }
+        if(!exec()) Console.error(lastError)
 
         // Delete tag associations
         Console.debug("Manager: deleting tags for cards " + cardIds)
         prepare("DELETE FROM tags_for_card where _card_id IN (:cardIds);")
         bind(":cardIds", cardIds)
-        if(!exec()) {
-            Console.error(lastError)
-        }
+        if(!exec()) Console.error(lastError)
 
         // Delete cards
         Console.debug("Manager: deleting cards with fact id " + card.factId)
         prepare("DELETE FROM cards where _fact_id = :factId")
         bind(":factId", card.factId)
-        if(!exec()) {
-            Console.error(lastError)
-        }
+        if(!exec()) Console.error(lastError)
 
         card = null
         cardDeleted()
