@@ -36,7 +36,7 @@ import harbour.nemosyne.Nemosyne 1.0
 
 StandardCover {
     property variant pageStack
-    property bool dbActive: pageStack.currentPage.objectName == "question" || pageStack.currentPage.objectName == "answer"
+    property bool dbActive: ["question", "answer", "search"].indexOf(pageStack.currentPage.objectName) != -1
 
     id: cp
     coverTitle: UIConstants.appTitle
