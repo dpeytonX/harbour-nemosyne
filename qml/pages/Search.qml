@@ -7,14 +7,21 @@ import harbour.nemosyne.Nemosyne 1.0
 
 Page {
     property Manager manager
+    property int count: 0
+    property var results: []
 
     allowedOrientations: Orientation.All
+    objectName: "search"
     id: root
 
     Component {
         id: question
         Question {
             objectName: "question"
+            onRejected: {
+                listModel.clear()
+                _search(pageCol.text)
+            }
         }
     }
 
@@ -54,6 +61,7 @@ Page {
     }
 
     PageColumn {
+        property alias text: search.text
         id: pageCol
         title: qsTr("Search")
         z: 1000
@@ -63,15 +71,7 @@ Page {
             width: parent.width
             z:1000
 
-            onTextChanged: {
-                Console.debug("search text = " + text)
-                if(text.length >= 3) {
-                    listModel.update(manager.search(text))
-                } else if(text.length === 0) {
-                    listModel.update([])
-                }
-            }
-
+            onTextChanged: _search(text)
         }
     }
 
@@ -80,6 +80,7 @@ Page {
         anchors.topMargin: Theme.paddingLarge * 2
         anchors.top: pageCol.bottom
         anchors.bottom: root.bottom
+        placeHolderText: ""
         width: root.width - Theme.paddingLarge * 2
         x: Theme.paddingLarge
         z: 0
@@ -108,5 +109,26 @@ Page {
 
 
         VerticalScrollDecorator {}
+    }
+
+    /*!
+      \internal
+    */
+    function _search(text) {
+        Console.debug("search text = " + text)
+        if(text.length >= 3) {
+            var content = manager.search(text)
+            results = []
+            for(var i = 0; i < content.length; i++) {
+                results.push(content[i].question)
+            }
+
+            count = results.length
+            listModel.update(content)
+        } else if(text.length === 0) {
+            results = []
+            count = results.length
+            listModel.update([])
+        }
     }
 }

@@ -10,6 +10,7 @@ import harbour.nemosyne.QmlLogger 2.0
 Page {
     allowedOrientations: Orientation.All
     id: main
+    objectName: "main"
     readonly property string dataPath: dir.XdgData + "/" + UIConstants.defaultDb
     property File currentFile
 
@@ -162,7 +163,7 @@ Page {
         applicationName: "harbour-nemosyne"
         fileName: "settings"
 
-        property bool openRecent: true
+        property bool autoOpenDb: false
         property string recentFile: ""
         property string recentFile1: ""
         property string recentFile2: ""
@@ -285,10 +286,28 @@ Page {
         }
     }
 
-    Component.onCompleted: _cleanHistory()
+    Component.onCompleted: {
+        _cleanHistory()
+        pageStack.busyChanged.connect(autoRun)
+        pageStack.currentPageChanged.connect(autoRun)
+        statusChanged.connect(autoRun)
+    }
 
     //----------Internal Functions---------------
 
+    function autoRun() {
+        Console.debug("pagestack animating: " + pageStack.acceptAnimationRunning)
+        Console.debug("pagestack busy: " + pageStack.busy)
+        Console.debug("pagestack page: " + pageStack.currentPage)
+        Console.debug("pagestack active: " + main.status)
+        if(main.status == PageStatus.Active && !pageStack.busy && pageStack.currentPage == main && settings.autoOpenDb && !!recentFile) {
+            Console.info("Main: auto opening " + recentFile.absoluteFilePath)
+            statusChanged.disconnect(autoRun)
+            pageStack.busyChanged.disconnect(autoRun)
+            pageStack.currentPageChanged.disconnect(autoRun)
+            process(recentFile)
+        }
+    }
 
     function process(file) {
         currentFile = file

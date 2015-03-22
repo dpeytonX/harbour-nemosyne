@@ -1,33 +1,3 @@
-/*
-  Copyright (C) 2013 Jolla Ltd.
-  Contact: Thomas Perl <thomas.perl@jollamobile.com>
-  All rights reserved.
-
-  You may use this file under the terms of BSD license as follows:
-
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
-      documentation and/or other materials provided with the distribution.
-    * Neither the name of the Jolla Ltd nor the
-      names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR
-  ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 import QtQuick 2.1
 import Sailfish.Silica 1.0
 import harbour.nemosyne.SailfishWidgets.Components 1.3
@@ -36,7 +6,9 @@ import harbour.nemosyne.Nemosyne 1.0
 
 StandardCover {
     property variant pageStack
-    property bool dbActive: pageStack.currentPage.objectName == "question" || pageStack.currentPage.objectName == "answer"
+    property bool dbActive: !!pageStack.currentPage && !isMain(pageStack.currentPage)
+    property int appState: !!Qt.application.state ? Qt.application.state :
+                                                    (Qt.application.active ? 1 : 0) //VM compat
 
     id: cp
     coverTitle: UIConstants.appTitle
@@ -44,10 +16,11 @@ StandardCover {
     displayDefault: !(!!pageStack.currentPage && dbActive && !!cardDisplay.text)
 
     Subtext {
+        id: smallText
         anchors.top: label.bottom
         anchors.topMargin: Theme.paddingSmall
         anchors.horizontalCenter: parent.horizontalCenter
-        text: dbActive ? qsTr("No Cards") : qsTr("no database")
+        text: updateSmallText()
         visible: displayDefault
     }
 
@@ -62,7 +35,7 @@ StandardCover {
     }
 
     CoverActionList {
-        enabled: !displayDefault
+        enabled: !displayDefault && !isSearch(pageStack.currentPage)
 
         CoverAction {
             iconSource: IconThemes.iconCoverPrevious
@@ -91,19 +64,55 @@ StandardCover {
         }
     }
 
+    onAppStateChanged: {
+        if((!!Qt.ApplicationActive && appState != Qt.ApplicationActive) || appState === 0)
+            updateText()
+    }
+
     function isQuestion(page) {
-        return page.objectName == "question";
+        return !!page && page.objectName == "question";
     }
 
     function isAnswer(page) {
-        return page.objectName == "answer";
+        return !!page && page.objectName == "answer";
+    }
+
+    function isSearch(page) {
+        return !!page && page.objectName == "search";
+    }
+
+    function isMain(page) {
+        return !!page && page.objectName == "main";
     }
 
     function updateText() {
-        if(!!pageStack.currentPage) {
-            if(isQuestion(pageStack.currentPage)) cardDisplay.text = pageStack.currentPage.question
-            else if(isAnswer(pageStack.currentPage)) cardDisplay.text = pageStack.currentPage.answer
+        var curPage = pageStack.currentPage
+        if(curPage == null) return
+
+        console.log("updateText: objectName: " + curPage.objectName)
+        if(isQuestion(curPage)) cardDisplay.text = curPage.question
+        else if(isAnswer(curPage)) cardDisplay.text = curPage.answer
+        else if(isSearch(curPage)) {
+            console.log("updateText: showing " + curPage.count + " results")
+            if(curPage.count > 0)
+                cardDisplay.text = curPage.results.join("\n")
+            else
+                cardDisplay.text = ""
         }
+        else cardDisplay.text = ""
+    }
+
+    function updateSmallText() {
+        if(!!pageStack.currentPage && isSearch(pageStack.currentPage)) {
+            return qsTr("No search results")
+        }
+        if(dbActive) {
+            if(isQuestion(pageStack.currentPage) || isAnswer(pageStack.currentPage))
+                return qsTr("No Cards") // question or answer page with no text
+            else
+                return ""
+        }
+        return qsTr("no database") //main page
     }
 }
 
