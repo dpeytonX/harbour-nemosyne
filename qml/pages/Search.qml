@@ -7,6 +7,8 @@ import harbour.nemosyne.Nemosyne 1.0
 
 Page {
     property Manager manager
+    property int count: 0
+    property var results: []
 
     allowedOrientations: Orientation.All
     objectName: "search"
@@ -115,8 +117,17 @@ Page {
     function _search(text) {
         Console.debug("search text = " + text)
         if(text.length >= 3) {
-            listModel.update(manager.search(text))
+            var content = manager.search(text)
+            results = []
+            for(var i = 0; i < content.length; i++) {
+                results.push(content[i].question)
+            }
+
+            count = results.length
+            listModel.update(content)
         } else if(text.length === 0) {
+            results = []
+            count = results.length
             listModel.update([])
         }
     }

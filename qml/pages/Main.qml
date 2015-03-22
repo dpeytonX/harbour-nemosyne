@@ -10,6 +10,7 @@ import harbour.nemosyne.QmlLogger 2.0
 Page {
     allowedOrientations: Orientation.All
     id: main
+    objectName: "main"
     readonly property string dataPath: dir.XdgData + "/" + UIConstants.defaultDb
     property File currentFile
 
