@@ -6,9 +6,9 @@ import harbour.nemosyne.Nemosyne 1.0
 
 StandardCover {
     property variant pageStack
-    property bool dbActive: ["question", "answer", "search"].indexOf(pageStack.currentPage.objectName) != -1
+    property bool dbActive: !!pageStack.currentPage && !isMain(pageStack.currentPage)
     property int appState: !!Qt.application.state ? Qt.application.state :
-                                                     (Qt.application.active ? 1 : 0) //VM compat
+                                                    (Qt.application.active ? 1 : 0) //VM compat
 
     id: cp
     coverTitle: UIConstants.appTitle
@@ -81,6 +81,10 @@ StandardCover {
         return !!page && page.objectName == "search";
     }
 
+    function isMain(page) {
+        return !!page && page.objectName == "main";
+    }
+
     function updateText() {
         var curPage = pageStack.currentPage
         if(curPage == null) return
@@ -89,18 +93,26 @@ StandardCover {
         if(isQuestion(curPage)) cardDisplay.text = curPage.question
         else if(isAnswer(curPage)) cardDisplay.text = curPage.answer
         else if(isSearch(curPage)) {
+            console.log("updateText: showing " + curPage.count + " results")
             if(curPage.count > 0)
-                cardDisplay.text = curPage.results.slice(0, 5).join("\n")
+                cardDisplay.text = curPage.results.join("\n")
             else
                 cardDisplay.text = ""
         }
+        else cardDisplay.text = ""
     }
 
     function updateSmallText() {
         if(!!pageStack.currentPage && isSearch(pageStack.currentPage)) {
             return qsTr("No search results")
         }
-        return dbActive ? qsTr("No Cards") : qsTr("no database")
+        if(dbActive) {
+            if(isQuestion(pageStack.currentPage) || isAnswer(pageStack.currentPage))
+                return qsTr("No Cards") // question or answer page with no text
+            else
+                return ""
+        }
+        return qsTr("no database") //main page
     }
 }
 
