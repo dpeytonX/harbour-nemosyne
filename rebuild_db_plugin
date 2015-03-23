@@ -1,0 +1,9 @@
+#!/bin/bash
+
+curdir=`pwd`
+cd ../sailfish_widgets
+./make database
+cd $curdir
+
+cp ../sailfish_widgets/build/database/i486/libdatabase.so thirdparty/SailfishWidgets/i486/SailfishWidgets/Database/
+cp ../sailfish_widgets/build/database/armv/libdatabase.so thirdparty/SailfishWidgets/armv/SailfishWidgets/Database/

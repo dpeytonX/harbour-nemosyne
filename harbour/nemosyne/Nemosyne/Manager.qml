@@ -56,32 +56,51 @@ SQLiteDatabase {
 
         if(!opened || !card) return
 
+        transaction()
+
         var cardIds = _getSiblingCards(card)
 
         // Delete fact data
         Console.debug("Manager: deleting data for fact " + card.factId)
         prepare("DELETE FROM data_for_fact where _fact_id = :factId;")
         bind(":factId", card.factId)
-        if(!exec()) Console.error(lastError)
+        if(!exec()) {
+            Console.error(lastError)
+            rollback()
+            return
+        }
 
         // Delete the fact itself
         Console.debug("Manager: deleting fact " + card.factId)
         prepare("DELETE FROM facts where _id = :factId;")
         bind(":factId", card.factId)
-        if(!exec()) Console.error(lastError)
+        if(!exec()) {
+            Console.error(lastError)
+            rollback()
+            return
+        }
 
         // Delete tag associations
         Console.debug("Manager: deleting tags for cards " + cardIds)
         prepare("DELETE FROM tags_for_card where _card_id IN (:cardIds);")
         bind(":cardIds", cardIds)
-        if(!exec()) Console.error(lastError)
+        if(!exec()) {
+            Console.error(lastError)
+            rollback()
+            return
+        }
 
         // Delete cards
         Console.debug("Manager: deleting cards with fact id " + card.factId)
         prepare("DELETE FROM cards where _fact_id = :factId")
         bind(":factId", card.factId)
-        if(!exec()) Console.error(lastError)
+        if(!exec()) {
+            Console.error(lastError)
+            rollback()
+            return
+        }
 
+        commit()
         card = null
         cardDeleted()
     }
@@ -247,8 +266,7 @@ SQLiteDatabase {
     }
 
     function addCard(cardType, question, answer) {
-        //TODO: use transactions
-        //transaction()
+        transaction()
 
         Console.debug("addCard: create fact entry")
         prepare("INSERT INTO facts (id) VALUES (:id)")
@@ -257,6 +275,7 @@ SQLiteDatabase {
         bind(":id", factHash)
         if(!exec()) {
             Console.error("addCard:" + "error" + lastError )
+            rollback()
             return
         }
 
@@ -264,6 +283,7 @@ SQLiteDatabase {
         bind(":id", factHash)
         if(!exec() || !query.first()) {
             Console.error("addCard:" + "error" + lastError )
+            rollback()
             return
         }
         var factId = query.value("_id")
@@ -276,6 +296,7 @@ SQLiteDatabase {
         bind(":value", question)
         if(!exec()) {
             Console.error("addCard:" + "error" + lastError )
+            rollback()
             return
         }
         prepare("INSERT INTO data_for_fact (_fact_id, key, value) VALUES " +
@@ -285,6 +306,7 @@ SQLiteDatabase {
         bind(":value", answer)
         if(!exec()) {
             Console.error("addCard:" + "error" + lastError )
+            rollback()
             return
         }
 
@@ -310,10 +332,17 @@ SQLiteDatabase {
                                             factViewId: !i ? "2.1" : "2.2",
                                                              tags: ""
             }
-            _save(card, false)
+
+            if(!_save(card, false)) {
+                Console.error("addCard: error " + lastError)
+                rollback()
+                return
+            }
+
             i++
         } while(iter--)
 
+        commit()
         cardAdded()
     }
 
@@ -506,7 +535,7 @@ SQLiteDatabase {
       \internal
     */
     function _save(card, update) {
-        if(!opened || !card) return;
+        if(!opened || !card) return false
 
         Console.debug("saving card " + card.seq + ", update: " + update)
 
@@ -563,7 +592,7 @@ SQLiteDatabase {
 
         if(!exec()) {
             Console.error("save:" + "error" + lastError )
-            return
+            return false
         }
 
         if(update) {
@@ -582,6 +611,7 @@ SQLiteDatabase {
                     bind(":seq", cardId)
                     if(!exec()) {
                         Console.error("save: error updating sibling card " + cardId + " " + lastError)
+                        return false
                     }
                 }
             }
