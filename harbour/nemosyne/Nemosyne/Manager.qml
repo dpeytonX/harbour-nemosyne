@@ -221,10 +221,11 @@ SQLiteDatabase {
     }
 
     function initTrackingValues() {
+        Console.debug("initTrackingValues " + opened)
         if(!opened) return
 
         //scheduled
-        Console.info("checking scheduled pool")
+        Console.info("initTrackingValues: checking scheduled pool")
 
         var utcDate = _getResetDateUTC()
 
@@ -232,8 +233,10 @@ SQLiteDatabase {
         bind(":next_rep", utcDate.getTime() / 1000)
         var result = exec()
 
+        Console.debug("initTrackingValues: fields: " + query.fieldCount + " size: " + query.size)
+
         if(!result || query.indexOf("count") === -1) {
-            Console.debug("initTracking " + lastError)
+            Console.debug("initTrackingValues: error " + lastError)
             return
         }
         query.first()
