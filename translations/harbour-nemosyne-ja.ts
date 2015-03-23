@@ -9,34 +9,34 @@
     </message>
     <message>
         <source>Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>評価</translation>
     </message>
 </context>
 <context>
     <name>CardDetail</name>
     <message>
         <source>Card Details</source>
-        <translation type="unfinished"></translation>
+        <translation>詳細</translation>
     </message>
     <message>
         <source>Card Type</source>
-        <translation type="unfinished"></translation>
+        <translation>種類</translation>
     </message>
     <message>
         <source>Front To Back</source>
-        <translation type="unfinished"></translation>
+        <translation>片方</translation>
     </message>
     <message>
         <source>Front to Back, Back to Front</source>
-        <translation type="unfinished"></translation>
+        <translation>双方</translation>
     </message>
     <message>
         <source>Question</source>
-        <translation type="unfinished"></translation>
+        <translation>問題</translation>
     </message>
     <message>
         <source>Answer</source>
-        <translation type="unfinished"></translation>
+        <translation>解答</translation>
     </message>
 </context>
 <context>
@@ -47,14 +47,14 @@
     </message>
     <message>
         <source>No Cards</source>
-        <translation type="unfinished"></translation>
+        <translation>カードはありません</translation>
     </message>
 </context>
 <context>
     <name>Help</name>
     <message>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>ヘルプ</translation>
     </message>
     <message>
         <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
@@ -62,31 +62,31 @@
     </message>
     <message>
         <source>Importing Mnemosyne 2.x Database</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnemosyne 2.xのデータベースを取り込むとは</translation>
     </message>
     <message>
         <source>Starting a New Database</source>
-        <translation type="unfinished"></translation>
+        <translation>新規なデータベースを生成するとは</translation>
     </message>
     <message>
         <source>New databases will be created at the following path: </source>
-        <translation type="unfinished"></translation>
+        <translation>新規なデータベースは下記のパースで生成されます。</translation>
     </message>
     <message>
         <source>Score cards by providing a rating from 0 to 5. A rating of 0 indicates that you do not recall ever seeing the card. Whereas, a rating of 5 indicates complete recognition. Your score will determine how frequently a card re-appears in subsequent trainings.</source>
-        <translation type="unfinished"></translation>
+        <translation>カードの解答がどれだけ複雑か評価できます。ゼロはカードを見たことがないのを意味する一歩で五はあなたが問題なしで思い出せるのを意味します。評価によってカードがどんなに早く再び現れるのが変わります。</translation>
     </message>
     <message>
         <source>Rating</source>
-        <translation type="unfinished"></translation>
+        <translation>評価の制度</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>検索の機能</translation>
     </message>
     <message>
         <source>You may search through your card database by typing the search term in the tool bar. Matching cards will be displayed in a list view. Clicking an entry will bring up the question and answer texts.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -141,15 +141,15 @@
     </message>
     <message>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>ヘルプ</translation>
     </message>
     <message>
         <source>new db</source>
-        <translation type="unfinished"></translation>
+        <translation>新規なデータベース</translation>
     </message>
     <message>
         <source>database could not be initialized</source>
-        <translation type="unfinished"></translation>
+        <translation>データベースを初期化するのに不具合がありました。</translation>
     </message>
     <message>
         <source>This action will delete the pre-existing database. Are you sure?</source>
@@ -165,7 +165,7 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>設定</translation>
     </message>
 </context>
 <context>

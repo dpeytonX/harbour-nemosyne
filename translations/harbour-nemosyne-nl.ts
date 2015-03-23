@@ -203,11 +203,4 @@
         <translation>Actief</translation>
     </message>
 </context>
-<context>
-    <name>Temp</name>
-    <message>
-        <source>rating</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
 </TS>

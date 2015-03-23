@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>评分</translation>
     </message>
 </context>
 <context>
