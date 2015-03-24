@@ -64,8 +64,7 @@ SQLiteDatabase {
         prepare("DELETE FROM data_for_fact where _fact_id = :factId;")
         bind(":factId", card.factId)
         if(!exec()) {
-            Console.error(lastError)
-            rollback()
+            _rollback()
             return
         }
 
@@ -74,8 +73,7 @@ SQLiteDatabase {
         prepare("DELETE FROM facts where _id = :factId;")
         bind(":factId", card.factId)
         if(!exec()) {
-            Console.error(lastError)
-            rollback()
+            _rollback()
             return
         }
 
@@ -84,8 +82,7 @@ SQLiteDatabase {
         prepare("DELETE FROM tags_for_card where _card_id IN (:cardIds);")
         bind(":cardIds", cardIds)
         if(!exec()) {
-            Console.error(lastError)
-            rollback()
+            _rollback()
             return
         }
 
@@ -94,8 +91,7 @@ SQLiteDatabase {
         prepare("DELETE FROM cards where _fact_id = :factId")
         bind(":factId", card.factId)
         if(!exec()) {
-            Console.error(lastError)
-            rollback()
+            _rollback()
             return
         }
 
@@ -228,14 +224,9 @@ SQLiteDatabase {
 
         //scheduled
         Console.info("checking scheduled pool")
-        var result = prepare("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND :next_rep >= next_rep AND active=1;")
-        if(!result) {
-            Console.error("initTracking " + lastError)
-        }
+        prepare("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND :next_rep >= next_rep AND active=1;")
         bind(":next_rep", utcDate.getTime() / 1000)
-        Console.debug("lastQuery: " + query.lastQuery)
-        result = exec()
-        Console.debug("executedQuery: " + query.executedQuery)
+        var result = exec()
 
         if(!result || query.indexOf("count") === -1) {
             Console.error("initTracking " + lastError)
@@ -248,7 +239,7 @@ SQLiteDatabase {
         Console.info("checking active pool")
         result = exec("SELECT count(*) AS count FROM cards WHERE active=1;")
         if(!result || query.indexOf("count") === -1) {
-            Console.debug("initTrackingValues: error " + lastError)
+            Console.error("initTrackingValues: error " + lastError)
             return
         }
         query.first()
@@ -258,7 +249,7 @@ SQLiteDatabase {
         Console.info("checking unmemorized pool")
         result = exec("SELECT count(*) AS count FROM cards WHERE grade < 2 AND active=1;")
         if(!result || query.indexOf("count") === -1) {
-            Console.debug("initTracking " + lastError)
+            Console.error("initTracking " + lastError)
             return
         }
         query.first()
@@ -296,8 +287,7 @@ SQLiteDatabase {
         bind(":key", "f")
         bind(":value", question)
         if(!exec()) {
-            Console.error("addCard:" + "error" + lastError )
-            rollback()
+            _rollback()
             return
         }
         prepare("INSERT INTO data_for_fact (_fact_id, key, value) VALUES " +
@@ -306,8 +296,7 @@ SQLiteDatabase {
         bind(":key", "b")
         bind(":value", answer)
         if(!exec()) {
-            Console.error("addCard:" + "error" + lastError )
-            rollback()
+            _rollback()
             return
         }
 
@@ -335,8 +324,7 @@ SQLiteDatabase {
             }
 
             if(!_save(card, false)) {
-                Console.error("addCard: error " + lastError)
-                rollback()
+                _rollback()
                 return
             }
 
@@ -679,5 +667,10 @@ SQLiteDatabase {
             "retentionRepsSinceLapse" : Number(query.value("ret_reps_since_lapse")),
             "factId" : Number(query.value("_fact_id"))
         }
+    }
+
+    function _rollback() {
+        Console.error(lastError)
+        rollback()
     }
 }
