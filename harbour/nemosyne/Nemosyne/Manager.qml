@@ -56,10 +56,9 @@ SQLiteDatabase {
 
         if(!opened || !card) return
 
-        transaction()
-
         var cardIds = _getSiblingCards(card)
 
+        transaction()
         // Delete fact data
         Console.debug("Manager: deleting data for fact " + card.factId)
         prepare("DELETE FROM data_for_fact where _fact_id = :factId;")
@@ -224,30 +223,32 @@ SQLiteDatabase {
         Console.debug("initTrackingValues " + opened)
         if(!opened) return
 
-        //scheduled
-        Console.info("initTrackingValues: checking scheduled pool")
-
         var utcDate = _getResetDateUTC()
 
-        prepare("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND :next_rep>=next_rep AND active=1;")
-        bind(":next_rep", utcDate.getTime() / 1000)
-        var result = exec()
 
-        Console.debug("initTrackingValues: fields: " + query.fieldCount + " size: " + query.size)
+        //scheduled
+        Console.info("checking scheduled pool")
+        var result = prepare("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND :next_rep >= next_rep AND active=1;")
+        if(!result) {
+            Console.error("initTracking " + lastError)
+        }
+        bind(":next_rep", utcDate.getTime() / 1000)
+        Console.debug("lastQuery: " + query.lastQuery)
+        result = exec()
+        Console.debug("executedQuery: " + query.executedQuery)
 
         if(!result || query.indexOf("count") === -1) {
-            Console.debug("initTrackingValues: error " + lastError)
+            Console.error("initTracking " + lastError)
             return
         }
         query.first()
         scheduled = query.value("count")
 
         //active
-        result = exec("SELECT count(*) AS count FROM cards WHERE active=1;")
-
         Console.info("checking active pool")
+        result = exec("SELECT count(*) AS count FROM cards WHERE active=1;")
         if(!result || query.indexOf("count") === -1) {
-            Console.debug("initTracking " + lastError)
+            Console.debug("initTrackingValues: error " + lastError)
             return
         }
         query.first()
@@ -269,8 +270,6 @@ SQLiteDatabase {
     }
 
     function addCard(cardType, question, answer) {
-        transaction()
-
         Console.debug("addCard: create fact entry")
         prepare("INSERT INTO facts (id) VALUES (:id)")
 
@@ -278,7 +277,6 @@ SQLiteDatabase {
         bind(":id", factHash)
         if(!exec()) {
             Console.error("addCard:" + "error" + lastError )
-            rollback()
             return
         }
 
@@ -286,11 +284,11 @@ SQLiteDatabase {
         bind(":id", factHash)
         if(!exec() || !query.first()) {
             Console.error("addCard:" + "error" + lastError )
-            rollback()
             return
         }
         var factId = query.value("_id")
 
+        transaction()
         Console.debug("addCard: create data for fact entry")
         prepare("INSERT INTO data_for_fact (_fact_id, key, value) VALUES " +
                 "(:fact_id, :key, :value)")
@@ -619,6 +617,8 @@ SQLiteDatabase {
                 }
             }
         }
+
+        return true
     }
 
     /*!

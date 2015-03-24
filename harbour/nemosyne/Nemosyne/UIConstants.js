@@ -14,7 +14,7 @@ var appProjectInfo = ["https://github.com/prplmnky/harbour-nemosyne",
                       "https://www.transifex.com/projects/p/harbour-nemosyne",
                       "https://github.com/prplmnky/sailfish-widgets",
                       "https://github.com/Armadill0/harbour-tasklist"]
-var appVersion = "1.4.1"
+var appVersion = "1.5.0"
 var appYear = 2015
 
 var defaultDb = "nemosyne.db"
