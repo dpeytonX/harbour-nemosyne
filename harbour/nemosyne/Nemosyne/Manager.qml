@@ -58,30 +58,44 @@ SQLiteDatabase {
 
         var cardIds = _getSiblingCards(card)
 
+        transaction()
         // Delete fact data
         Console.debug("Manager: deleting data for fact " + card.factId)
         prepare("DELETE FROM data_for_fact where _fact_id = :factId;")
         bind(":factId", card.factId)
-        if(!exec()) Console.error(lastError)
+        if(!exec()) {
+            _rollback()
+            return
+        }
 
         // Delete the fact itself
         Console.debug("Manager: deleting fact " + card.factId)
         prepare("DELETE FROM facts where _id = :factId;")
         bind(":factId", card.factId)
-        if(!exec()) Console.error(lastError)
+        if(!exec()) {
+            _rollback()
+            return
+        }
 
         // Delete tag associations
         Console.debug("Manager: deleting tags for cards " + cardIds)
         prepare("DELETE FROM tags_for_card where _card_id IN (:cardIds);")
         bind(":cardIds", cardIds)
-        if(!exec()) Console.error(lastError)
+        if(!exec()) {
+            _rollback()
+            return
+        }
 
         // Delete cards
         Console.debug("Manager: deleting cards with fact id " + card.factId)
         prepare("DELETE FROM cards where _fact_id = :factId")
         bind(":factId", card.factId)
-        if(!exec()) Console.error(lastError)
+        if(!exec()) {
+            _rollback()
+            return
+        }
 
+        commit()
         card = null
         cardDeleted()
     }
@@ -202,30 +216,30 @@ SQLiteDatabase {
     }
 
     function initTrackingValues() {
+        Console.debug("initTrackingValues " + opened)
         if(!opened) return
-
-        //scheduled
-        Console.info("checking scheduled pool")
 
         var utcDate = _getResetDateUTC()
 
-        prepare("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND :next_rep>=next_rep AND active=1;")
+
+        //scheduled
+        Console.info("checking scheduled pool")
+        prepare("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND :next_rep >= next_rep AND active=1;")
         bind(":next_rep", utcDate.getTime() / 1000)
         var result = exec()
 
         if(!result || query.indexOf("count") === -1) {
-            Console.debug("initTracking " + lastError)
+            Console.error("initTracking " + lastError)
             return
         }
         query.first()
         scheduled = query.value("count")
 
         //active
-        result = exec("SELECT count(*) AS count FROM cards WHERE active=1;")
-
         Console.info("checking active pool")
+        result = exec("SELECT count(*) AS count FROM cards WHERE active=1;")
         if(!result || query.indexOf("count") === -1) {
-            Console.debug("initTracking " + lastError)
+            Console.error("initTrackingValues: error " + lastError)
             return
         }
         query.first()
@@ -235,7 +249,7 @@ SQLiteDatabase {
         Console.info("checking unmemorized pool")
         result = exec("SELECT count(*) AS count FROM cards WHERE grade < 2 AND active=1;")
         if(!result || query.indexOf("count") === -1) {
-            Console.debug("initTracking " + lastError)
+            Console.error("initTracking " + lastError)
             return
         }
         query.first()
@@ -247,9 +261,6 @@ SQLiteDatabase {
     }
 
     function addCard(cardType, question, answer) {
-        //TODO: use transactions
-        //transaction()
-
         Console.debug("addCard: create fact entry")
         prepare("INSERT INTO facts (id) VALUES (:id)")
 
@@ -268,6 +279,7 @@ SQLiteDatabase {
         }
         var factId = query.value("_id")
 
+        transaction()
         Console.debug("addCard: create data for fact entry")
         prepare("INSERT INTO data_for_fact (_fact_id, key, value) VALUES " +
                 "(:fact_id, :key, :value)")
@@ -275,7 +287,7 @@ SQLiteDatabase {
         bind(":key", "f")
         bind(":value", question)
         if(!exec()) {
-            Console.error("addCard:" + "error" + lastError )
+            _rollback()
             return
         }
         prepare("INSERT INTO data_for_fact (_fact_id, key, value) VALUES " +
@@ -284,7 +296,7 @@ SQLiteDatabase {
         bind(":key", "b")
         bind(":value", answer)
         if(!exec()) {
-            Console.error("addCard:" + "error" + lastError )
+            _rollback()
             return
         }
 
@@ -310,10 +322,16 @@ SQLiteDatabase {
                                             factViewId: !i ? "2.1" : "2.2",
                                                              tags: ""
             }
-            _save(card, false)
+
+            if(!_save(card, false)) {
+                _rollback()
+                return
+            }
+
             i++
         } while(iter--)
 
+        commit()
         cardAdded()
     }
 
@@ -506,7 +524,7 @@ SQLiteDatabase {
       \internal
     */
     function _save(card, update) {
-        if(!opened || !card) return;
+        if(!opened || !card) return false
 
         Console.debug("saving card " + card.seq + ", update: " + update)
 
@@ -563,7 +581,7 @@ SQLiteDatabase {
 
         if(!exec()) {
             Console.error("save:" + "error" + lastError )
-            return
+            return false
         }
 
         if(update) {
@@ -582,10 +600,13 @@ SQLiteDatabase {
                     bind(":seq", cardId)
                     if(!exec()) {
                         Console.error("save: error updating sibling card " + cardId + " " + lastError)
+                        return false
                     }
                 }
             }
         }
+
+        return true
     }
 
     /*!
@@ -646,5 +667,10 @@ SQLiteDatabase {
             "retentionRepsSinceLapse" : Number(query.value("ret_reps_since_lapse")),
             "factId" : Number(query.value("_fact_id"))
         }
+    }
+
+    function _rollback() {
+        Console.error(lastError)
+        rollback()
     }
 }

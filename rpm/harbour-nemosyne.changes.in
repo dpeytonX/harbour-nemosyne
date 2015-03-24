@@ -50,3 +50,6 @@
 - Auto open recent database
 - Front-to-back cards edit sibling back-to-front cards
 - Updated cover display when a card is not the active page
+
+* Mon Mar 23 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.5.0-1
+- Added transaction support
