@@ -204,24 +204,10 @@ SQLiteDatabase {
     function initTrackingValues() {
         if(!opened) return
 
-        //scheduled
-        Console.info("checking scheduled pool")
-
         var utcDate = _getResetDateUTC()
 
-        prepare("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND :next_rep>=next_rep AND active=1;")
-        bind(":next_rep", utcDate.getTime() / 1000)
-        var result = exec()
-
-        if(!result || query.indexOf("count") === -1) {
-            Console.debug("initTracking " + lastError)
-            return
-        }
-        query.first()
-        scheduled = query.value("count")
-
         //active
-        result = exec("SELECT count(*) AS count FROM cards WHERE active=1;")
+        var result = exec("SELECT count(*) AS count FROM cards WHERE active=1;")
 
         Console.info("checking active pool")
         if(!result || query.indexOf("count") === -1) {
@@ -230,6 +216,25 @@ SQLiteDatabase {
         }
         query.first()
         active = query.value("count")
+
+        //scheduled
+        Console.info("checking scheduled pool")
+        result = prepare("SELECT count(*) AS count FROM cards WHERE grade >= 2 AND :next_rep >= next_rep AND active=1;")
+        if(!result) {
+            Console.error("initTracking " + lastError)
+        }
+        bind(":next_rep", utcDate.getTime() / 1000)
+        Console.debug("lastQuery: " + query.lastQuery)
+        result = exec()
+        Console.debug("executedQuery: " + query.executedQuery)
+
+        if(!result || query.indexOf("count") === -1) {
+            Console.error("initTracking " + lastError)
+            return
+        }
+        query.first()
+        scheduled = query.value("count")
+
 
         //unmemorized
         Console.info("checking unmemorized pool")
