@@ -49,6 +49,10 @@
         <source>No Cards</source>
         <translation>カードはありません</translation>
     </message>
+    <message>
+        <source>No search results</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Help</name>
@@ -196,25 +200,25 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">設定</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">検索の機能</translation>
     </message>
 </context>
 <context>
     <name>Search</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">検索の機能</translation>
     </message>
 </context>
 <context>
     <name>Settings</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">設定</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -230,6 +234,14 @@
     </message>
     <message>
         <source>Card Reset Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically open the most recently database at launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quick Launch</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

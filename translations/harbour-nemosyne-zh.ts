@@ -49,6 +49,10 @@
         <source>No Cards</source>
         <translation>没有卡片</translation>
     </message>
+    <message>
+        <source>No search results</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Help</name>
@@ -230,6 +234,14 @@
     </message>
     <message>
         <source>Card Reset Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically open the most recently database at launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quick Launch</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

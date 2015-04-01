@@ -29,6 +29,8 @@
 */
 
 #include <QtQuick>
+#include <QLocale>
+#include <QDebug>
 
 #include <sailfishapp.h>
 
@@ -42,6 +44,23 @@ int main(int argc, char *argv[])
     //   - SailfishApp::pathTo(QString) to get a QUrl to a resource file
     //
     // To display the view, call "show()" (will show fullscreen on device).
+
+    qDebug() << sysLocale << uiLanguage;
+
+    // As a neat trick, you can have SailfishApp generate the QApp here, and still
+    // bootstrap your QtQuick stuff using SailfishApp::main
+    QGuiApplication *app = SailfishApp::application(argc, argv);
+
+    //Locale setup
+    // Find the app specific locale (system setting)
+    // If it is empty or the same the system locale, leave
+    // Else
+    //   match the locale to a qm file
+    //   If match found
+    //     Load the translation
+    QLocale locale = QLocale::system();
+    QString sysLocale = locale.name();
+    QStringList uiLanguage = locale.uiLanguages();
 
     return SailfishApp::main(argc, argv);
 }

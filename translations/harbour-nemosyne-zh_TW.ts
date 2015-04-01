@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_TW" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_TW">
 <context>
     <name>Answer</name>
     <message>
@@ -46,6 +48,10 @@
     <message>
         <source>No Cards</source>
         <translation>無字卡</translation>
+    </message>
+    <message>
+        <source>No search results</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -131,7 +137,7 @@
     </message>
     <message>
         <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
-        <translation>首先從您的電腦中複製mnemosyne.db檔至裝置，而後您就可以開始字卡學習了。當然也可以將mnemosyne.db檔複製回電腦中複習。</translation>
+        <translation type="vanished">首先從您的電腦中複製mnemosyne.db檔至裝置，而後您就可以開始字卡學習了。當然也可以將mnemosyne.db檔複製回電腦中複習。</translation>
     </message>
     <message>
         <source>About</source>
@@ -229,6 +235,14 @@
     <message>
         <source>Card Reset Time</source>
         <translation>字卡重設時間</translation>
+    </message>
+    <message>
+        <source>Automatically open the most recently database at launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quick Launch</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
