@@ -62,6 +62,75 @@ int main(int argc, char *argv[])
     QString sysLocale = locale.name();
     QStringList uiLanguage = locale.uiLanguages();
 
+    /* Sample code from ownkeepass
+     *  QTranslator translator;
+if (settingsPublic::Languages::SYSTEM_DEFAULT != okpSettings->language()) {
+switch (okpSettings->language()) {
+// LANG_CA
+case settingsPublic::Languages::CA:
+translator.load("harbour-ownkeepass-ca.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_ZH_CN
+case settingsPublic::Languages::ZH_CN:
+translator.load("harbour-ownkeepass-zh_CN.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_CS_CZ
+case settingsPublic::Languages::CS_CZ:
+translator.load("harbour-ownkeepass-cs_CZ.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_DA
+case settingsPublic::Languages::DA:
+translator.load("harbour-ownkeepass-da.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_NL_NL
+case settingsPublic::Languages::NL_NL:
+translator.load("harbour-ownkeepass-nl_NL.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_EN_GB - using default ts file
+// LANG_FI_FI
+case settingsPublic::Languages::FI_FI:
+translator.load("harbour-ownkeepass-fi_FI.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_FR_FR
+case settingsPublic::Languages::FR_FR:
+translator.load("harbour-ownkeepass-fr_FR.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_DE_DE
+case settingsPublic::Languages::DE_DE:
+translator.load("harbour-ownkeepass-de_DE.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_IT
+case settingsPublic::Languages::IT:
+translator.load("harbour-ownkeepass-it.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_PL_PL
+case settingsPublic::Languages::PL_PL:
+translator.load("harbour-ownkeepass-pl_PL.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_RU
+case settingsPublic::Languages::RU:
+translator.load("harbour-ownkeepass-ru.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_ES
+case settingsPublic::Languages::ES:
+translator.load("harbour-ownkeepass-es.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_SV_SE
+case settingsPublic::Languages::SV_SE:
+translator.load("harbour-ownkeepass-sv_SE.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+// LANG_UK_UA
+case settingsPublic::Languages::UK_UA:
+translator.load("harbour-ownkeepass-uk_UA.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+default:
+translator.load("harbour-ownkeepass.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+break;
+}
+// install translator for specific language
+// otherwise the system language will be se
+*/
+
     return SailfishApp::main(argc, argv);
 }
 
