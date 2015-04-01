@@ -21,6 +21,7 @@ Page {
         property int resetMinute: 0
         property int hourMode: DateTime.DefaultHours
         property string timeText: "00:00"
+        property string locale: "zh"
     }
 
     Binding { target: settings; property: "defaultFontSizeId"; value: fontCombo.currentIndex }

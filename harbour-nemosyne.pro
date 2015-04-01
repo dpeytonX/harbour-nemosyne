@@ -18,7 +18,8 @@ QT += sql
 
 QMAKE_CXXFLAGS += "-std=c++0x"
 
-SOURCES += src/harbour-nemosyne.cpp
+SOURCES += src/harbour-nemosyne.cpp \
+    src/languageselector.cpp
 
 OTHER_FILES += qml/harbour-nemosyne.qml \
     qml/cover/CoverPage.qml \
@@ -45,3 +46,6 @@ TRANSLATIONS += translations/harbour-nemosyne-ja.ts \
 RESOURCES += \
     images.qrc \
     data.qrc
+
+HEADERS += \
+    src/languageselector.h
