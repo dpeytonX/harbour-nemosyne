@@ -24,6 +24,23 @@
 
   \startpage
 
+  SailfishWidgets 1.3.4
+  \list
+  \li Added install and make scripts for automated builds
+  \li Added debug vs release build command for the make script
+  \li Release tarball will include the header files
+  \li \l {SQLiteDatabase} has \c rollback() method
+  \li Simplified \l {SQLiteDatabase} so that only a single \l {Query} object is maintained
+  \li Fixed bug in Qt 5.1 builds from using two internal Query objects
+  \li Added \c {finish()} , \c {close()} , \c {lastQuery}, \c {executedQuery}, \c {fieldSize} to \l {Query}
+  \endlist
+
+  SailfishWidgets 1.3.3
+  \list
+  \li \l {BusyPage} will allow any orientation
+  \li \l {LabelButton} now has the \c {truncationMode} property
+  \endlist
+
   SailfishWidgets 1.3.2
   \list
   \li Added \l {PageIndicator}
