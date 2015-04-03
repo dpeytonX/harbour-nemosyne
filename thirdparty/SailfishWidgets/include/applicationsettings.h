@@ -55,13 +55,15 @@ public:
 
     QString fileName() const;
 
+    QSettings* settings() const;
+
     void componentComplete();
 
     void setApplicationName(QString appName);
 
     void setFileName(QString fileName);
 
-    void handleProperty(const QQmlProperty& qmlProperty, bool overwrite=true);
+    Q_INVOKABLE QVariant value(const QString& setting);
 
 public slots:
     void refresh();
@@ -82,6 +84,7 @@ signals:
 private:
     void firstLoad();
     bool isSettingsValid();
+    void handleProperty(const QQmlProperty& qmlProperty, bool overwrite=true);
 
     static QList<ApplicationSettings*> s_allSettings;
 
