@@ -2,9 +2,11 @@
 #define LANGUAGESELECTOR_H
 
 #include <QObject>
+#include <QDir>
 #include <QCoreApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <QStringList>
 #include <sailfishapp.h>
 
 class LanguageSelector : public QObject
@@ -28,6 +30,13 @@ public:
 
     Q_INVOKABLE inline QString getCountry(const QString& locale) const {
         return QLocale(locale).nativeCountryName();
+    }
+
+    Q_INVOKABLE QStringList getTranslationLocales() {
+        QStringList translatorFiles();
+        QDir dir(SailfishApp::pathTo(QString("translations")).toString());
+        //TODO: get list of .qm files and extract the locale
+        return translatorFiles;
     }
 
 private:
