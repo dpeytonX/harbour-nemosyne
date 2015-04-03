@@ -16,6 +16,8 @@ CONFIG += sailfishapp
 
 QT += sql
 
+INCLUDEPATH += thirdparty/SailfishWidgets/include
+
 QMAKE_CXXFLAGS += "-std=c++0x"
 
 SOURCES += src/harbour-nemosyne.cpp \

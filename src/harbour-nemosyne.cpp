@@ -33,6 +33,7 @@
 #include <QTranslator>
 
 #include "languageselector.h"
+#include <applicationsettings.h>
 
 #include <sailfishapp.h>
 
@@ -52,8 +53,14 @@ int main(int argc, char *argv[])
     // As a neat trick, you can have SailfishApp generate the QApp here, and still
     // bootstrap your QtQuick stuff using SailfishApp::main
 
-    LanguageSelector::installLanguage("harbour-nemosyne", "zh", SailfishApp::application(argc, argv));
-    qmlRegisterType<LanguageSelector>("harbour.nemosyne.Nemosyne", 1, 0, "LanguageSelector");
+    ApplicationSettings settings;
+    settings.setApplicationName("harbour-nemosyne");
+    settings.setFileName("settings");
+    QVariant appLocale = settings.property("locale");
+    if(appLocale != nullptr && appLocale != QVariant::Invalid && !appLocale.toString().isEmpty()) {
+        if(LanguageSelector::installLanguage("harbour-nemosyne", appLocale.toString(), SailfishApp::application(argc, argv)))
+        qmlRegisterType<LanguageSelector>("harbour.nemosyne.Nemosyne", 1, 0, "LanguageSelector");
+    }
 
     //Locale setup
     // Find the app specific locale (system setting)

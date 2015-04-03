@@ -14,9 +14,12 @@ class LanguageSelector : public QObject
 public:
     explicit LanguageSelector(QObject *parent=0);
 
-    static inline void installLanguage(const QString& appName, const QString& locale, QCoreApplication* app) {
-        m_translator.load(appName + "-" + locale + ".qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
-        app->installTranslator(&m_translator);
+    static inline bool installLanguage(const QString& appName, const QString& locale, QCoreApplication* app) {
+        if(m_translator.load(appName + "-" + locale + ".qm", SailfishApp::pathTo(QString("translations")).toLocalFile())) {
+          app->installTranslator(&m_translator);
+          return true;
+        }
+        return false;
     }
 
     Q_INVOKABLE inline QString getLanguage(const QString& locale) const {
