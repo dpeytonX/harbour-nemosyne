@@ -29,15 +29,14 @@
 */
 
 #include <QtQuick>
+#include <QDebug>
 #include <QLocale>
 #include <QTranslator>
 
-#include "languageselector.h"
 #include <applicationsettings.h>
+#include "languageselector.h"
 
 #include <sailfishapp.h>
-
-// TODO: add include headers for SWL application settings
 
 int main(int argc, char *argv[])
 {
@@ -57,7 +56,8 @@ int main(int argc, char *argv[])
     settings.setApplicationName("harbour-nemosyne");
     settings.setFileName("settings");
     QVariant appLocale = settings.property("locale");
-    if(appLocale != nullptr && appLocale != QVariant::Invalid && !appLocale.toString().isEmpty()) {
+    qDebug() << "Found locale " << appLocale;
+    if(appLocale != QVariant::Invalid && !appLocale.toString().isEmpty()) {
         if(LanguageSelector::installLanguage("harbour-nemosyne", appLocale.toString(), SailfishApp::application(argc, argv)))
         qmlRegisterType<LanguageSelector>("harbour.nemosyne.Nemosyne", 1, 0, "LanguageSelector");
     }

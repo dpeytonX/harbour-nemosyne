@@ -7,6 +7,8 @@ Name:       harbour-nemosyne
 
 # >> macros
 %define __provides_exclude_from ^%{_datadir}/.*$
+%define __requires_exclude libapplicationsettings.so
+# define __requires_exclude ^libFoo|libBar|libFooBar.*$
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
@@ -31,7 +33,6 @@ BuildRequires:  desktop-file-utils
 
 %description
 Mnemosyne Compatible Flash Card Application for SailfishOS
-
 
 %prep
 %setup -q -n %{name}-%{version}
