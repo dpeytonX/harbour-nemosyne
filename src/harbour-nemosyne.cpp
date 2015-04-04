@@ -61,6 +61,11 @@ int main(int argc, char *argv[])
     if(appLocale != QVariant::Invalid && !appLocale.toString().isEmpty()) {
         LanguageSelector::installLanguage("harbour-nemosyne", appLocale.toString(), SailfishApp::application(argc, argv));
     }
+    else {
+        SailfishApp::application(argc, argv);
+    }
+
+    qDebug() << "Installed locales " << LanguageSelector(QCoreApplication::instance()).getTranslationLocales("harbour-nemosyne");
 
     qmlRegisterType<LanguageSelector>("harbour.nemosyne.Nemosyne", 1, 0, "LanguageSelector");
 

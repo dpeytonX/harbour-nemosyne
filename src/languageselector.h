@@ -2,6 +2,7 @@
 #define LANGUAGESELECTOR_H
 
 #include <QObject>
+#include <QDebug>
 #include <QDir>
 #include <QCoreApplication>
 #include <QLocale>
@@ -32,11 +33,17 @@ public:
         return QLocale(locale).nativeCountryName();
     }
 
-    Q_INVOKABLE QStringList getTranslationLocales() {
-        QStringList translatorFiles();
-        QDir dir(SailfishApp::pathTo(QString("translations")).toString());
-        //TODO: get list of .qm files and extract the locale
-        return translatorFiles;
+    Q_INVOKABLE QStringList getTranslationLocales(const QString& app) {
+        QStringList locales;
+        QDir dir(SailfishApp::pathTo(QString("translations")).toLocalFile());
+        QStringList qmlFiles = dir.entryList();
+        for(const QString& qmlFile : qmlFiles) {
+          int posQm = qmlFile.lastIndexOf(".qm");
+          if(app.size() >= qmlFile.size() || posQm == -1) continue;
+          locales.append(qmlFile.mid(app.size() + 1, posQm - app.size() - 1));
+        }
+
+        return locales;
     }
 
 private:
