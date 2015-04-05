@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
         LanguageSelector::installLanguage("harbour-nemosyne", appLocale.toString(), SailfishApp::application(argc, argv));
     }
     else {
-        SailfishApp::application(argc, argv);
+        LanguageSelector::installLanguage("harbour-nemosyne", "", SailfishApp::application(argc, argv));
     }
 
     qDebug() << "Installed locales " << LanguageSelector(QCoreApplication::instance()).getTranslationLocales("harbour-nemosyne");

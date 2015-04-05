@@ -18,9 +18,9 @@ public:
     explicit LanguageSelector(QObject *parent=0);
 
     static inline bool installLanguage(const QString& appName, const QString& locale, QCoreApplication* app) {
-        if(m_translator.load(appName + "-" + locale + ".qm", SailfishApp::pathTo(QString("translations")).toLocalFile())) {
-          app->installTranslator(&m_translator);
-          return true;
+        if(m_translator.load(appName + (locale.isEmpty() ? ".qm" : ("-" + locale + ".qm")), SailfishApp::pathTo(QString("translations")).toLocalFile())) {
+            app->installTranslator(&m_translator);
+            return true;
         }
         return false;
     }
@@ -47,9 +47,9 @@ public:
         QDir dir(SailfishApp::pathTo(QString("translations")).toLocalFile());
         QStringList qmlFiles = dir.entryList();
         for(const QString& qmlFile : qmlFiles) {
-          int posQm = qmlFile.lastIndexOf(".qm");
-          if(app.size() >= qmlFile.size() || posQm == -1) continue;
-          locales.append(qmlFile.mid(app.size() + 1, posQm - app.size() - 1));
+            int posQm = qmlFile.lastIndexOf(".qm");
+            if(app.size() >= qmlFile.size() || app.size() >= posQm || posQm == -1) continue;
+            locales.append(qmlFile.mid(app.size() + 1, posQm - app.size() - 1));
         }
 
         return locales;

@@ -63,7 +63,8 @@ linux:i486 {
 # following CONFIG line
 
 CONFIG += sailfishapp sailfishapp_i18n
-TRANSLATIONS += translations/harbour-nemosyne-ja.ts \
+TRANSLATIONS += translations/harbour-nemosyne.ts \
+                translations/harbour-nemosyne-ja.ts \
                 translations/harbour-nemosyne-nl.ts \
                 translations/harbour-nemosyne-zh.ts \
                 translations/harbour-nemosyne-zh_TW.ts

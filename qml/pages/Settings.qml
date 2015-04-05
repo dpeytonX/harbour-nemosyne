@@ -38,9 +38,6 @@ Page {
 
     FontHandler {
         id: fh
-        Component.onCompleted: {
-            Console.log(fontSizes)
-        }
     }
 
     LanguageSelector {
