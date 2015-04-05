@@ -43,15 +43,15 @@
     <name>CoverPage</name>
     <message>
         <source>no database</source>
-        <translation>データベースは開いていない</translation>
+        <translation>開いていない</translation>
     </message>
     <message>
         <source>No Cards</source>
-        <translation>カードはありません</translation>
+        <translation>カードはない</translation>
     </message>
     <message>
         <source>No search results</source>
-        <translation>結果はありません</translation>
+        <translation>結果はない</translation>
     </message>
 </context>
 <context>
@@ -113,7 +113,7 @@
     </message>
     <message>
         <source>open existing database</source>
-        <translation>既存するデータベースに参照</translation>
+        <translation>既存するファイルに参照</translation>
     </message>
     <message>
         <source>nemosyne</source>
@@ -125,7 +125,7 @@
     </message>
     <message>
         <source>database could not be opened</source>
-        <translation>ファイルが開くことはできません</translation>
+        <translation>ファイルが開けません</translation>
     </message>
     <message>
         <source>opening database</source>
@@ -149,7 +149,7 @@
     </message>
     <message>
         <source>database could not be initialized</source>
-        <translation>データベースを初期化するのに不具合がありました。</translation>
+        <translation>データベースを初期化するのに不具合がありました</translation>
     </message>
     <message>
         <source>This action will delete the pre-existing database. Are you sure?</source>
@@ -188,11 +188,11 @@
     </message>
     <message>
         <source>Add cards to begin</source>
-        <translation>始めるにはカードを追加してください。</translation>
+        <translation>始めるにはカードを追加してください</translation>
     </message>
     <message>
         <source>Deleting card</source>
-        <translation>カードを削除しています。</translation>
+        <translation>カードを削除しています</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -222,7 +222,7 @@
     </message>
     <message>
         <source>Rate cards by indicators instead of push-up menu</source>
-        <translation>パッシュウップメニューの代わりに、ガラスが使用出来る</translation>
+        <translation>パッシュウップメニューの代わりに、ガラスが使用できます</translation>
     </message>
     <message>
         <source>Use Indicators</source>

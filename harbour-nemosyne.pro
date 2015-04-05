@@ -44,15 +44,17 @@ nemosyne.path = /usr/share/$${TARGET}
 INSTALLS += nemosyne
 
 # Deployment folders
-linux-g++ {
-  LIBS += -L$$PWD/thirdparty/SailfishWidgets/i486/SailfishWidgets/Settings -lapplicationsettings
-  nemosynelibs.files = $$PWD/thirdparty/SailfishWidgets/i486/SailfishWidgets/Settings/libapplicationsettings.so
+linux:meego {
+  message( $$(MER_SSH_TARGET_NAME) )
+  LIBS += -L$$PWD/thirdparty/SailfishWidgets/armv/SailfishWidgets/Settings -lapplicationsettings
+  nemosynelibs.files = $$PWD/thirdparty/SailfishWidgets/armv/SailfishWidgets/Settings/libapplicationsettings.so
   nemosynelibs.path = /usr/share/$${TARGET}/lib
   INSTALLS += nemosynelibs
 }
-else:linux-g++-32 {
-  LIBS += -L$$PWD/thirdparty/SailfishWidgets/armv/SailfishWidgets/Settings -lapplicationsettings
-  nemosynelibs.files = $$PWD/thirdparty/SailfishWidgets/armv/SailfishWidgets/Settings/libapplicationsettings.so
+linux:i486 {
+  message( $$(MER_SSH_TARGET_NAME) )
+  LIBS += -L$$PWD/thirdparty/SailfishWidgets/i486/SailfishWidgets/Settings -lapplicationsettings
+  nemosynelibs.files = $$PWD/thirdparty/SailfishWidgets/i486/SailfishWidgets/Settings/libapplicationsettings.so
   nemosynelibs.path = /usr/share/$${TARGET}/lib
   INSTALLS += nemosynelibs
 }
