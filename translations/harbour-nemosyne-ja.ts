@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="ja">
 <context>
     <name>Answer</name>
     <message>
@@ -140,12 +140,12 @@
         <translation>アプリについて</translation>
     </message>
     <message>
-        <source>Help</source>
-        <translation>ヘルプ</translation>
-    </message>
-    <message>
         <source>new db</source>
         <translation>新規なデータベース</translation>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation>ヘルプ</translation>
     </message>
     <message>
         <source>database could not be initialized</source>
@@ -160,12 +160,12 @@
         <translation>データベースを削除しています</translation>
     </message>
     <message>
-        <source>Settings</source>
-        <translation>設定</translation>
-    </message>
-    <message>
         <source>A mobile flash card tool</source>
         <translation>フラッシュカード</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>設定</translation>
     </message>
 </context>
 <context>

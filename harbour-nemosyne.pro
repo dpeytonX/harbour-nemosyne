@@ -44,8 +44,8 @@ nemosyne.path = /usr/share/$${TARGET}
 INSTALLS += nemosyne
 
 # Deployment folders
-linux:meego {
-  message( $$(MER_SSH_TARGET_NAME) )
+linux-g++ {
+  message( armv )
   LIBS += -L$$PWD/thirdparty/SailfishWidgets/armv/SailfishWidgets/Settings -lapplicationsettings
   nemosynelibs.files = $$PWD/thirdparty/SailfishWidgets/armv/SailfishWidgets/Settings/libapplicationsettings.so
   nemosynelibs.path = /usr/share/$${TARGET}/lib

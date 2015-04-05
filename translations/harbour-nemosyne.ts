@@ -136,10 +136,6 @@
         <translation>Database was not provided</translation>
     </message>
     <message>
-        <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
-        <translation type="vanished">First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</translation>
-    </message>
-    <message>
         <source>About</source>
         <translation>About</translation>
     </message>
