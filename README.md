@@ -43,9 +43,9 @@ You can add translations on at <a href="https://www.transifex.com/projects/p/har
 <p>
 <code>1PFqgHeGrtXLYvMge2mTT1FohKuuoKmUN5</code>
 
-<img src="snapshot2.png" />
+<img src="store/snapshot2.png" />
 
-<img src="snapshot3.png" />
+<img src="store/snapshot3.png" />
 
 
 <br>
