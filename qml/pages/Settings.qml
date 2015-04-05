@@ -124,7 +124,7 @@ Page {
 
             ComboBox {
                 id: languageCombo
-                description: qsTr("Switching languages requires a system restart")
+                description: qsTr("Switching languages requires an application restart")
                 label: qsTr("Language")
                 width: settingsPage.width
 
@@ -134,8 +134,7 @@ Page {
                     Repeater {
                         model: languages
                         StandardMenuItem {
-                            text: index == 0 ? modelData :
-                                               (ls.getLanguage(modelData).length == 0 ? "" : (ls.getLanguage(modelData) + " (" + ls.getCountry(modelData) + ")"))
+                            text: index == 0 ? modelData : ls.getPrettyName(modelData)
                             onClicked: settings.locale = index == 0 ? "" : modelData
                         }
                     }

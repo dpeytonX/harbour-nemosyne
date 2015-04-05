@@ -25,6 +25,15 @@ public:
         return false;
     }
 
+    Q_INVOKABLE inline QString getPrettyName(const QString& locale) const {
+        QString lang(getLanguage(locale));
+        QString ctry(getCountry(locale));
+        if(ctry.isEmpty()) {
+            return lang;
+        }
+        return lang + " (" + ctry + ")";
+    }
+
     Q_INVOKABLE inline QString getLanguage(const QString& locale) const {
         return QLocale(locale).nativeLanguageName();
     }

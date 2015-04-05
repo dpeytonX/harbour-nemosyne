@@ -253,7 +253,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Switching languages requires a system restart</source>
+        <source>Switching languages requires an application restart</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
