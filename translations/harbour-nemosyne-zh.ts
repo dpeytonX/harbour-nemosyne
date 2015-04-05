@@ -49,6 +49,10 @@
         <source>No Cards</source>
         <translation>没有卡片</translation>
     </message>
+    <message>
+        <source>No search results</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Help</name>
@@ -230,6 +234,46 @@
     </message>
     <message>
         <source>Card Reset Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically open the most recently database at launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quick Launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switching languages requires an application restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Application Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extra Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Huge</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

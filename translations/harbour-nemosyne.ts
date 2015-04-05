@@ -9,34 +9,34 @@
     </message>
     <message>
         <source>Rate</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>CardDetail</name>
     <message>
         <source>Card Details</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Card Type</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Front To Back</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Front to Back, Back to Front</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Question</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Answer</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -47,46 +47,50 @@
     </message>
     <message>
         <source>No Cards</source>
-        <translation ></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <source>No search results</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Help</name>
     <message>
         <source>Help</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
-        <translation >First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</translation>
+        <translation>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</translation>
     </message>
     <message>
         <source>Importing Mnemosyne 2.x Database</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Starting a New Database</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>New databases will be created at the following path: </source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Score cards by providing a rating from 0 to 5. A rating of 0 indicates that you do not recall ever seeing the card. Whereas, a rating of 5 indicates complete recognition. Your score will determine how frequently a card re-appears in subsequent trainings.</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Rating</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Search</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>You may search through your card database by typing the search term in the tool bar. Matching cards will be displayed in a list view. Clicking an entry will bring up the question and answer texts.</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -133,7 +137,7 @@
     </message>
     <message>
         <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
-        <translation>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</translation>
+        <translation type="vanished">First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</translation>
     </message>
     <message>
         <source>About</source>
@@ -145,27 +149,27 @@
     </message>
     <message>
         <source>Help</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>database could not be initialized</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>This action will delete the pre-existing database. Are you sure?</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Deleting old database</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>A mobile flash card tool</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -176,61 +180,101 @@
     </message>
     <message>
         <source>Add Card(s)</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Add cards to begin</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Deleting card</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Search</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>Search</name>
     <message>
         <source>Search</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>Settings</name>
     <message>
         <source>Settings</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Rate cards by indicators instead of push-up menu</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Use Indicators</source>
-        <translation ></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Card Reset Time</source>
-        <translation ></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Automatically open the most recently database at launch</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Quick Launch</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Switching languages requires an application restart</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Application Default</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Extra Large</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Huge</source>
+        <translation></translation>
     </message>
 </context>
 <context>

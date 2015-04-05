@@ -7,6 +7,7 @@ Row{
     property int scheduled
     property int active
     spacing: Theme.paddingMedium
+    id: root
 
     Column {
 
@@ -15,7 +16,7 @@ Row{
 
             Subtext {
                 text: qsTr("scheduled")
-                width: 200
+                width: Math.min(500, root.width * .6)
             }
 
             Subtext {
@@ -29,7 +30,7 @@ Row{
 
             Subtext {
                 text: qsTr("unmemorized")
-                width: 200
+                width: Math.min(500, root.width * .6)
             }
 
             Subtext {
@@ -43,7 +44,7 @@ Row{
 
             Subtext {
                 text: qsTr("active")
-                width: 200
+                width: Math.min(500, root.width * .6)
             }
 
             Subtext {

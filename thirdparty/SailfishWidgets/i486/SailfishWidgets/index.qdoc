@@ -3,7 +3,7 @@
   \title Sailfish Widgets
   \brief Sailfish Library Extension
 
-  SailfishWidgets 1.3.2
+  SailfishWidgets 1.3.4
 
   This is a library that aims to speed up Sailfish OS Development
 
@@ -91,5 +91,5 @@
   \li \l {Query}
   \endlist
 
-  Change List \l {ChangeList}
+  \l {ChangeList}
 */

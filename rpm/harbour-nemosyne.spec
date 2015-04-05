@@ -7,6 +7,8 @@ Name:       harbour-nemosyne
 
 # >> macros
 %define __provides_exclude_from ^%{_datadir}/.*$
+%define __requires_exclude libapplicationsettings.so
+# define __requires_exclude ^libFoo|libBar|libFooBar.*$
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
@@ -15,7 +17,7 @@ Name:       harbour-nemosyne
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Mobile Flash Cards
 Version:    1.5
-Release:    0
+Release:    1
 Group:      Applications/Productivity
 License:    GPLv3
 URL:        https://github.com/prplmnky/harbour-nemosyne
@@ -31,7 +33,6 @@ BuildRequires:  desktop-file-utils
 
 %description
 Mnemosyne Compatible Flash Card Application for SailfishOS
-
 
 %prep
 %setup -q -n %{name}-%{version}

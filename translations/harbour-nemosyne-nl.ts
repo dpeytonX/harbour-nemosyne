@@ -1,9 +1,15 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="nl_NL" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl_NL">
 <context>
     <name>Answer</name>
     <message>
         <source>rating</source>
         <translation>Waardering</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -43,6 +49,10 @@
         <source>No Cards</source>
         <translation>Geen kaarten</translation>
     </message>
+    <message>
+        <source>No search results</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Help</name>
@@ -65,6 +75,22 @@
     <message>
         <source>New databases will be created at the following path: </source>
         <translation>Nieuwe databases zullen worden gecreëerd op de volgende locatie:</translation>
+    </message>
+    <message>
+        <source>Rating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Score cards by providing a rating from 0 to 5. A rating of 0 indicates that you do not recall ever seeing the card. Whereas, a rating of 5 indicates complete recognition. Your score will determine how frequently a card re-appears in subsequent trainings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You may search through your card database by typing the search term in the tool bar. Matching cards will be displayed in a list view. Clicking an entry will bring up the question and answer texts.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -176,6 +202,17 @@
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Search</name>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Settings</name>
@@ -186,6 +223,58 @@
     <message>
         <source>Font Size</source>
         <translation>Lettertypegrootte</translation>
+    </message>
+    <message>
+        <source>Rate cards by indicators instead of push-up menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Card Reset Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically open the most recently database at launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quick Launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switching languages requires an application restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Application Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extra Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Huge</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

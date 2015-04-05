@@ -53,3 +53,9 @@
 
 * Mon Mar 23 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.5.0-1
 - Added transaction support
+
+* Mon Mar 30 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.5.0-2
+- Inserted Chinese localization (Taiwan)
+
+* Wed Apr  1 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.5.1-1
+- Add Settings for Application Language
