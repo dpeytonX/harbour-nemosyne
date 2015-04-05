@@ -238,23 +238,43 @@
     </message>
     <message>
         <source>Automatically open the most recently database at launch</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Quick Launch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>System Default</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Switching languages requires an application restart</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Application Default</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Extra Large</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Huge</source>
+        <translation></translation>
     </message>
 </context>
 <context>

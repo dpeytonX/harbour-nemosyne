@@ -51,7 +51,7 @@
     </message>
     <message>
         <source>No search results</source>
-        <translation type="unfinished"></translation>
+        <translation>結果はありません</translation>
     </message>
 </context>
 <context>
@@ -62,11 +62,11 @@
     </message>
     <message>
         <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
-        <translation type="unfinished">ご利用いただきありがとうございます。まずはパソコンから本体にmnemosyne.dbというファイルをコピーしてください。それから、下のボタンを押してコピーしたデータベースを選んでフラシュカードを勉強することができるようになります。</translation>
+        <translation>ご利用いただきありがとうございます。まずはパソコンから本体にmnemosyne.dbというファイルをコピーしてください。それから、下のボタンを押してコピーしたデータベースを選んでフラシュカードを勉強することができるようになります。</translation>
     </message>
     <message>
         <source>Importing Mnemosyne 2.x Database</source>
-        <translation>Mnemosyne 2.xのデータベースを取り込むとは</translation>
+        <translation>データベースを取り込むとは</translation>
     </message>
     <message>
         <source>Starting a New Database</source>
@@ -90,7 +90,7 @@
     </message>
     <message>
         <source>You may search through your card database by typing the search term in the tool bar. Matching cards will be displayed in a list view. Clicking an entry will bring up the question and answer texts.</source>
-        <translation></translation>
+        <translation>カードに用語で検索できます。検索の後、合っていたカードの一覧は現れます。項目をクリックされたら、そのカードの情報が表示されます。</translation>
     </message>
 </context>
 <context>
@@ -136,10 +136,6 @@
         <translation>データベースは指摘されていませんでした</translation>
     </message>
     <message>
-        <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
-        <translation type="vanished">ご利用いただきありがとうございます。まずはパソコンから本体にmnemosyne.dbというファイルをコピーしてください。それから、下のボタンを押してコピーしたデータベースを選んでフラシュカードを勉強することができるようになります。</translation>
-    </message>
-    <message>
         <source>About</source>
         <translation>アプリについて</translation>
     </message>
@@ -157,19 +153,19 @@
     </message>
     <message>
         <source>This action will delete the pre-existing database. Are you sure?</source>
-        <translation type="unfinished"></translation>
+        <translation>既存したデータベースが消えます。よろしいですか。</translation>
     </message>
     <message>
         <source>Deleting old database</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A mobile flash card tool</source>
-        <translation type="unfinished"></translation>
+        <translation>データベースを削除しています</translation>
     </message>
     <message>
         <source>Settings</source>
         <translation>設定</translation>
+    </message>
+    <message>
+        <source>A mobile flash card tool</source>
+        <translation>フラッシュカード</translation>
     </message>
 </context>
 <context>
@@ -180,81 +176,101 @@
     </message>
     <message>
         <source>Add Card(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>追加</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>編集</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>消去</translation>
     </message>
     <message>
         <source>Add cards to begin</source>
-        <translation type="unfinished"></translation>
+        <translation>始めるにはカードを追加してください。</translation>
     </message>
     <message>
         <source>Deleting card</source>
-        <translation type="unfinished"></translation>
+        <translation>カードを削除しています。</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">設定</translation>
+        <translation>設定</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">検索の機能</translation>
+        <translation>検索の機能</translation>
     </message>
 </context>
 <context>
     <name>Search</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished">検索の機能</translation>
+        <translation>検索の機能</translation>
     </message>
 </context>
 <context>
     <name>Settings</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">設定</translation>
+        <translation>設定</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation type="unfinished"></translation>
+        <translation>フォントのサイズ</translation>
     </message>
     <message>
         <source>Rate cards by indicators instead of push-up menu</source>
-        <translation type="unfinished"></translation>
+        <translation>パッシュウップメニューの代わりに、ガラスが使用出来る</translation>
     </message>
     <message>
         <source>Use Indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>ガラスを使用</translation>
     </message>
     <message>
         <source>Card Reset Time</source>
-        <translation type="unfinished"></translation>
+        <translation>リセットの時刻</translation>
     </message>
     <message>
         <source>Automatically open the most recently database at launch</source>
-        <translation type="unfinished"></translation>
+        <translation>自動的に最近使ったデータベースを開く</translation>
     </message>
     <message>
         <source>Quick Launch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>System Default</source>
-        <translation type="unfinished"></translation>
+        <translation>クイック・スタート</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>言語</translation>
     </message>
     <message>
         <source>Switching languages requires an application restart</source>
-        <translation type="unfinished"></translation>
+        <translation>言語を変えるにはアップリの再起動が必要</translation>
+    </message>
+    <message>
+        <source>Application Default</source>
+        <translation>アップリの規定</translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation>小</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>中</translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation>大</translation>
+    </message>
+    <message>
+        <source>Extra Large</source>
+        <translation>大大</translation>
+    </message>
+    <message>
+        <source>Huge</source>
+        <translation>莫大</translation>
     </message>
 </context>
 <context>

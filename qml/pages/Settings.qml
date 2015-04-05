@@ -6,7 +6,14 @@ import harbour.nemosyne.SailfishWidgets.Components 1.3
 import harbour.nemosyne.SailfishWidgets.Settings 1.3
 
 Page {
-    property var languages: [qsTr("System Default")].concat(ls.getTranslationLocales(UIConstants.appName))
+    property var languages: [qsTr("Application Default")].concat(ls.getTranslationLocales(UIConstants.appName))
+    property variant fontSizes: [
+        qsTr("Small"),
+        qsTr("Medium"),
+        qsTr("Large"),
+        qsTr("Extra Large"),
+        qsTr("Huge")
+    ]
     allowedOrientations: Orientation.All
     id: settingsPage
 
@@ -85,7 +92,7 @@ Page {
                 menu: ContextMenu {
                     Repeater {
                         model: fh.fontIndices
-                        StandardMenuItem { text: fh.fontSizes[index] }
+                        StandardMenuItem { text: fontSizes[index] }
                     }
                 }
             }
