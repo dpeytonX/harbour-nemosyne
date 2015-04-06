@@ -14,6 +14,13 @@ This project is GPLv3 unless otherwise indicated on the file itself. Files with 
 <h2>Current Release</h2>
 To get the latest updates you can always download this project and compile a binary. The official releases are tagged with to coincide with the official package that is up on the Jolla Store.
 
+<h3>Road Map</h3>
+version 1.5
+<ul>
+  <li>Anki Support</li>
+  <li>Application Interface Language Selection - <strong>DONE</strong></li>
+</ul>
+
 <h3>Stable Releases</h3>
 <ul>
   <li>1.4.1</li>
