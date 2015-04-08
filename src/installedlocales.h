@@ -2,6 +2,8 @@
 #define LOCALEHELPER_H
 
 #include <QObject>
+#include <QQmlListProperty>
+#include <QList>
 
 #include "locale.h"
 
@@ -22,6 +24,18 @@ class InstalledLocales : public QObject
 public:
     InstalledLocales(QObject* parent=0);
 
+    Locale* localeAt(QQmlListProperty<Locale> *property, int index) {
+        return nullptr;
+    }
+
+    void localeClear(QQmlListProperty<Locale> *property) {
+
+    }
+
+    int localeCount(QQmlListProperty<Locale> *property) {
+        return 0;
+    }
+
     /* TODO:This needs to return a QQmlListProperty
      * Q_INVOKABLE QStringList getTranslationLocales(const QString& app) {
         QStringList locales;
@@ -34,9 +48,9 @@ public:
         }
 
         return locales;
-    }
+    }*/
 private:
-
+    QList<Locale> m_availableLocales;
 };
 
 #endif // LOCALEHELPER_H

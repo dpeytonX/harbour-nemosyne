@@ -47,12 +47,18 @@ public:
         return QLocale(locale).nativeCountryName();
     }
 
+    friend bool operator==(const Locale& lhs, const Locale& rhs);
+
 signals:
     void localeChanged();
 
 protected:
     QString m_locale;
 };
+
+inline bool operator==(const Locale& lhs, const Locale& rhs) {
+    return lhs.locale == rhs.locale;
+}
 
 /*!
  * Applications usually have a default translation file which is not suffixed with a country/region specifier.
