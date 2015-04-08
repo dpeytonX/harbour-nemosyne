@@ -24,7 +24,7 @@ public:
         }
         return false;
     }
-
+/*
     Q_INVOKABLE inline QString getPrettyName(const QString& locale) const {
         QString lang(getLanguage(locale));
         QString ctry(getCountry(locale));
@@ -41,7 +41,7 @@ public:
     Q_INVOKABLE inline QString getCountry(const QString& locale) const {
         return QLocale(locale).nativeCountryName();
     }
-
+*/
     Q_INVOKABLE QStringList getTranslationLocales(const QString& app) {
         QStringList locales;
         QDir dir(SailfishApp::pathTo(QString("translations")).toLocalFile());
