@@ -65,6 +65,8 @@ public:
 
     Q_INVOKABLE QVariant value(const QString& setting);
 
+    Q_INVOKABLE bool isValid(const QString& property);
+
 public slots:
     void refresh();
 

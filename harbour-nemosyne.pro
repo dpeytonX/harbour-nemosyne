@@ -19,18 +19,14 @@ QMAKE_CXXFLAGS += "-std=c++0x"
 INCLUDEPATH += thirdparty/SailfishWidgets/include
 
 SOURCES += src/harbour-nemosyne.cpp \
-    src/languageselector.cpp \
-    src/locale.cpp \
-    src/installedlocales.cpp
+    src/sailfishmain.cpp
 
 RESOURCES += \
     images.qrc \
     data.qrc
 
 HEADERS += \
-    src/languageselector.h \
-    src/locale.h \
-    src/installedlocales.h
+    src/sailfishmain.h
 
 OTHER_FILES += qml/harbour-nemosyne.qml \
     qml/cover/CoverPage.qml \

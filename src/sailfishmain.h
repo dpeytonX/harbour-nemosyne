@@ -1,5 +1,5 @@
 /***************************************************************************
-** This file is part of Nemosyne
+** This file is part of SailfishWidgets
 **
 ** Copyright (c) 2015 Dametrious Peyton
 **
@@ -19,24 +19,20 @@
 ** $QT_END_LICENSE$
 **
 **************************************************************************/
-import QtQuick 2.1
 
-Item {
-    property int acquisition
-    property int acquisitionRepsSinceLapse
-    property int grade
-    property int lapses
-    property int lastRep
-    property int nextRep
-    property int retentionRep
-    property int retentionRepsSinceLapse
-    property int seq
-    property real easiness
-    property string question
-    property string answer
-    property int factId
-    property string hash
-    property int cardTypeId
-    property int factViewId
-    property string tags
+#ifndef SAILFISHMAIN_H
+#define SAILFISHMAIN_H
+
+class QString;
+class QCoreApplication;
+
+namespace SailfishMain
+{
+
+int main(int argc, char *argv[], const QString& appName="", const QString& settingsFile="", const QString& localeSetting="locale");
+
+bool installLanguage(const QString& appName, const QString& locale, QCoreApplication* app);
+
 }
+
+#endif // SAILFISHMAIN_H
