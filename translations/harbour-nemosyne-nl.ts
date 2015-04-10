@@ -253,10 +253,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Application Default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Small</source>
         <translation type="unfinished"></translation>
     </message>
@@ -274,6 +270,10 @@
     </message>
     <message>
         <source>Huge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Application Default</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

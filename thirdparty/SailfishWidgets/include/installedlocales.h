@@ -38,6 +38,7 @@ class InstalledLocales : public QQuickItem
     Q_PROPERTY(QQmlListProperty<LocaleItem> locales READ locales NOTIFY localesChanged)
     Q_PROPERTY(bool includeAppDefault READ includeAppDefault WRITE setIncludeAppDefault)
     Q_PROPERTY(QString appName READ appName WRITE setAppName NOTIFY appNameChanged)
+    Q_PROPERTY(QString applicationDefaultText READ applicationDefaultText WRITE setApplicationDefaultText NOTIFY applicationDefaultTextChanged)
 public:
     InstalledLocales(QQuickItem *parent=0);
     bool includeAppDefault() const;
@@ -45,6 +46,9 @@ public:
     QQmlListProperty<LocaleItem> locales();
     QString appName() const;
     void setAppName(const QString& appName);
+    QString applicationDefaultText() const;
+    void setApplicationDefaultText(const QString& applicationDefaultText);
+    Q_INVOKABLE int findLocale(const QString& locale);
 
     static LocaleItem* localeAt(QQmlListProperty<LocaleItem> *property, int index);
     static int localeCount(QQmlListProperty<LocaleItem> *property);
@@ -52,10 +56,12 @@ public:
 signals:
     void localesChanged();
     void appNameChanged();
+    void applicationDefaultTextChanged();
 
 private:
     QList<LocaleItem*> m_availableLocales;
     QString m_appName;
+    QString m_applicationDefaultText;
     bool m_includeAppDefault;
 };
 

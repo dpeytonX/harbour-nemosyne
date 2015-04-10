@@ -7,7 +7,7 @@ Name:       harbour-nemosyne
 
 # >> macros
 %define __provides_exclude_from ^%{_datadir}/.*$
-%define __requires_exclude libapplicationsettings.so
+%define __requires_exclude ^libapplicationsettings|libcore.*$
 # define __requires_exclude ^libFoo|libBar|libFooBar.*$
 # << macros
 

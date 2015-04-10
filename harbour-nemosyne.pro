@@ -18,15 +18,13 @@ QMAKE_CXXFLAGS += "-std=c++0x"
 
 INCLUDEPATH += thirdparty/SailfishWidgets/include
 
-SOURCES += src/harbour-nemosyne.cpp \
-    src/sailfishmain.cpp
+SOURCES += src/harbour-nemosyne.cpp
 
 RESOURCES += \
     images.qrc \
     data.qrc
 
-HEADERS += \
-    src/sailfishmain.h
+HEADERS +=
 
 OTHER_FILES += qml/harbour-nemosyne.qml \
     qml/cover/CoverPage.qml \
@@ -44,17 +42,11 @@ nemosyne.path = /usr/share/$${TARGET}
 INSTALLS += nemosyne
 
 # Deployment folders
-#linux-g++ {
-#  message( armv )
-#  LIBS += -L$$PWD/thirdparty/SailfishWidgets/armv/SailfishWidgets/Settings -lapplicationsettings
-#  nemosynelibs.files = $$PWD/thirdparty/SailfishWidgets/armv/SailfishWidgets/Settings/libapplicationsettings.so
-#  nemosynelibs.path = /usr/share/$${TARGET}/lib
-#  INSTALLS += nemosynelibs
-#}
 linux {
   message( $$(MER_SSH_TARGET_NAME) )
-  LIBS += -L$$PWD/thirdparty/SailfishWidgets/i486/SailfishWidgets/Settings -lapplicationsettings
-  nemosynelibs.files = $$PWD/thirdparty/SailfishWidgets/i486/SailfishWidgets/Settings/libapplicationsettings.so
+  LIBS += -L$$PWD/harbour/nemosyne/SailfishWidgets/Core -L$$PWD/harbour/nemosyne/SailfishWidgets/Settings -lapplicationsettings -lcore
+  nemosynelibs.files = $$PWD/harbour/nemosyne/SailfishWidgets/Settings/libapplicationsettings* \
+                       $$PWD/harbour/nemosyne/SailfishWidgets/Core/libcore*
   nemosynelibs.path = /usr/share/$${TARGET}/lib
   INSTALLS += nemosynelibs
 }

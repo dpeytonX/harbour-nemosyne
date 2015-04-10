@@ -29,12 +29,12 @@ class QString;
 
 class DefaultLocale: public LocaleItem {
     Q_OBJECT
-    Q_PROPERTY(QString applicationDefaultText READ pretty WRITE setApplicationDefaultText)
+    Q_PROPERTY(QString applicationDefaultText READ pretty WRITE setApplicationDefaultText NOTIFY applicationDefaultTextChanged)
     Q_PROPERTY(QString DEFAULT_APPLICATION_LOCALE READ applicationLocale CONSTANT)
 public:
     explicit DefaultLocale(QQuickItem* parent=0);
     void setApplicationDefaultText(const QString& applicationDefaultText);
-    QString pretty() const;
+    virtual QString pretty() const;
     static QString applicationLocale();
     static const char* APPLICATION_LOCALE;
 

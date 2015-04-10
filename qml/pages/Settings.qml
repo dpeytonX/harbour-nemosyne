@@ -26,9 +26,9 @@ import harbour.nemosyne.QmlLogger 2.0
 import harbour.nemosyne.Nemosyne 1.0
 import harbour.nemosyne.SailfishWidgets.Components 1.3
 import harbour.nemosyne.SailfishWidgets.Settings 1.3
+import harbour.nemosyne.SailfishWidgets.Language 1.3
 
 Page {
-    property var languages: [qsTr("Application Default")].concat(ls.getTranslationLocales(UIConstants.appName))
     property variant fontSizes: [
         qsTr("Small"),
         qsTr("Medium"),
@@ -41,7 +41,7 @@ Page {
 
     ApplicationSettings {
         id: settings
-        applicationName: "harbour-nemosyne"
+        applicationName: UIConstants.appName
         fileName: "settings"
 
         property int defaultFontSizeId: 0
@@ -54,16 +54,19 @@ Page {
         property string locale: ""
     }
 
+    InstalledLocales {
+        id: installedLocales
+        includeAppDefault: true
+        appName: UIConstants.appName
+        applicationDefaultText: qsTr("Application Default");
+    }
+
     Binding { target: settings; property: "defaultFontSizeId"; value: fontCombo.currentIndex }
     Binding { target: settings; property: "slideRatings"; value: useSliders.checked }
     Binding { target: settings; property: "autoOpenDb"; value: openDb.checked }
 
     FontHandler {
         id: fh
-    }
-
-    LanguageSelector {
-        id: ls
     }
 
     Component {
@@ -154,14 +157,15 @@ Page {
                 label: qsTr("Language")
                 width: settingsPage.width
 
-                currentIndex: languages.indexOf(settings.locale) == -1 ? 0 : languages.indexOf(settings.locale)
+                currentIndex: installedLocales.findLocale(settings.locale) == -1 ?
+                                  0 : installedLocales.findLocale(settings.locale)
 
                 menu: ContextMenu {
                     Repeater {
-                        model: languages
+                        model: installedLocales.locales
                         StandardMenuItem {
-                            text: index == 0 ? modelData : ls.getPrettyName(modelData)
-                            onClicked: settings.locale = index == 0 ? "" : modelData
+                            text: modelData.pretty
+                            onClicked: settings.locale = modelData.locale
                         }
                     }
                 }

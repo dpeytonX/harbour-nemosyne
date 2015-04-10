@@ -31,9 +31,9 @@ class LocaleItem : public QQuickItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString language READ language)
-    Q_PROPERTY(QString country READ country)
-    Q_PROPERTY(QString pretty READ pretty)
+    Q_PROPERTY(QString language READ language NOTIFY localeChanged)
+    Q_PROPERTY(QString country READ country NOTIFY localeChanged)
+    Q_PROPERTY(QString pretty READ pretty NOTIFY localeChanged)
     Q_PROPERTY(QString locale READ locale WRITE setLocale NOTIFY localeChanged)
 
 public:

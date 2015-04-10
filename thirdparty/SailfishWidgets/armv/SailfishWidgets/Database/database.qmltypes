@@ -26,7 +26,7 @@ Module {
         // QtQuick.
         exports: [
             "Database 1.3",
-            "SailfishWidgets/Database 1.3"
+            "harbour/nemosyne/SailfishWidgets/Database 1.3"
         ]
 
         // The meta object revisions for the exports specified in 'exports'.
@@ -112,7 +112,7 @@ Module {
         // QtQuick.
         exports: [
             "Database 1.3",
-            "SailfishWidgets/Database 1.3"
+            "harbour/nemosyne/SailfishWidgets/Database 1.3"
         ]
 
         // The meta object revisions for the exports specified in 'exports'.
