@@ -1,7 +1,7 @@
 /***************************************************************************
 ** This file is part of SailfishWidgets
 **
-** Copyright (c) 2014 Dametrious Peyton
+** Copyright (c) 2014-2015 Dametrious Peyton
 **
 ** $QT_BEGIN_LICENSE:GPLV3$
 ** SailfishWidgets is free software: you can redistribute it and/or modify
@@ -49,6 +49,8 @@ public:
     explicit ApplicationSettings();
     ApplicationSettings(QQuickItem *parent);
 
+    ApplicationSettings(const QString& appName, const QString& fileName, QQuickItem *parent=0);
+
     ~ApplicationSettings();
 
     QString applicationName() const;
@@ -59,13 +61,13 @@ public:
 
     void componentComplete();
 
-    void setApplicationName(QString appName);
+    void setApplicationName(const QString& appName);
 
-    void setFileName(QString fileName);
+    void setFileName(const QString& fileName);
+
+    bool isValid(const QString& property);
 
     Q_INVOKABLE QVariant value(const QString& setting);
-
-    Q_INVOKABLE bool isValid(const QString& property);
 
 public slots:
     void refresh();
