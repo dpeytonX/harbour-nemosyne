@@ -30,11 +30,13 @@ import harbour.nemosyne.SailfishWidgets.Utilities 1.3
 import harbour.nemosyne.QmlLogger 2.0
 
 Page {
+    readonly property string dataPath: dir.XdgData + "/" + UIConstants.defaultDb
+    property bool openQuickly: false
+    property File currentFile
+
     allowedOrientations: Orientation.All
     id: main
     objectName: "main"
-    readonly property string dataPath: dir.XdgData + "/" + UIConstants.defaultDb
-    property File currentFile
 
     // ------ SQLite Interface -----------------------
 
@@ -68,10 +70,13 @@ Page {
                 }
 
                 // push new card on page stack
-                busy.success()
+                if(openQuickly)
+                    loader.create(busy.acceptDestination, main, busy.acceptDestinationProperties)
+                else
+                    busy.success()
             } else {
                 errorLabel.text = qsTr("database could not be opened")
-                busy.failure()
+                if(!openQuickly) busy.failure()
             }
         }
     }
@@ -327,16 +332,26 @@ Page {
             statusChanged.disconnect(autoRun)
             pageStack.busyChanged.disconnect(autoRun)
             pageStack.currentPageChanged.disconnect(autoRun)
-            process(recentFile)
+            process(recentFile, true)
         }
     }
 
-    function process(file) {
-        currentFile = file
-        busy.open()
+    function process(file, quickly) {
+        if(quickly !== undefined && quickly) {
+            currentFile = file
+            if(!!currentFile) {
+                openDb(currentFile, true)
+            } else {
+                errorLabel.text = qsTr("database was not provided")
+            }
+        } else {
+            currentFile = file
+            busy.open()
+        }
     }
 
-    function openDb(file) {
+    function openDb(file, quickly) {
+        main.openQuickly = quickly !== undefined ? quickly : false
         currentFile = file
 
         var fileName = currentFile.fileName

@@ -96,7 +96,7 @@ Page {
         width: parent.width
         height: parent.height - header.height
         y: header.height
-        // Hackish, but the only way to prevent ratingCol from taking over the screen
+
         contentHeight: Math.max(height - Theme.paddingLarge * 2, contentCol.childrenRect.height)
 
         Column {
@@ -128,6 +128,7 @@ Page {
 
             Row {
                 spacing: Theme.paddingLarge
+                width: parent.width
 
                 InformationalLabel {
                     color: Theme.primaryColor

@@ -237,22 +237,6 @@
         <translation>字卡重設時間</translation>
     </message>
     <message>
-        <source>Automatically open the most recently database at launch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Quick Launch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Switching languages requires an application restart</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Small</source>
         <translation type="unfinished"></translation>
     </message>
@@ -270,6 +254,22 @@
     </message>
     <message>
         <source>Huge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically open the most recently database at launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quick Launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switching languages requires an application restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

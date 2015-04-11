@@ -43,9 +43,6 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-    // As a neat trick, you can have SailfishApp generate the QApp here, and still
-    // bootstrap your QtQuick stuff using SailfishApp::main
-
     return SailfishMain::main(argc, argv, "harbour-nemosyne", "settings", "locale");
 }
 
