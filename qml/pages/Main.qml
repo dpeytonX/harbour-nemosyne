@@ -68,10 +68,10 @@ Page {
                 }
 
                 // push new card on page stack
-                loading.success()
+                busy.success()
             } else {
                 errorLabel.text = qsTr("database could not be opened")
-                loading.failure()
+                busy.failure()
             }
         }
     }
@@ -131,7 +131,7 @@ Page {
             property bool doOpen: false
             signal closed
 
-            acceptDestination: loading
+            acceptDestination: busy
             showNavigationIndicator: status == DialogStatus.Opened
 
 
@@ -161,7 +161,7 @@ Page {
 
     //Not wrapping in Component since it's a pain to use signal connects
     BusyPage {
-        id: loading
+        id: busy
         title: qsTr("opening database")
         acceptDestination: Component{ Question {  } }
         acceptDestinationProperties: {"manager": manager, "settingsPage": settingsPage}
@@ -333,7 +333,7 @@ Page {
 
     function process(file) {
         currentFile = file
-        loading.open()
+        busy.open()
     }
 
     function openDb(file) {
