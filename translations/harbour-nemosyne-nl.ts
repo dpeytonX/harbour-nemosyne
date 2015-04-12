@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="nl_NL">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="nl_NL" version="2.1">
 <context>
     <name>Answer</name>
     <message>
@@ -9,7 +7,7 @@
     </message>
     <message>
         <source>Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Waarderen</translation>
     </message>
 </context>
 <context>
@@ -51,7 +49,7 @@
     </message>
     <message>
         <source>No search results</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen zoekresultaten</translation>
     </message>
 </context>
 <context>
@@ -73,24 +71,24 @@
         <translation>Het starten van een nieuwe database</translation>
     </message>
     <message>
-        <source>New databases will be created at the following path: </source>
-        <translation>Nieuwe databases zullen worden gecreëerd op de volgende locatie:</translation>
+        <source>Score cards by providing a rating from 0 to 5. A rating of 0 indicates that you do not recall ever seeing the card. Whereas, a rating of 5 indicates complete recognition. Your score will determine how frequently a card re-appears in subsequent trainings.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Rating</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Score cards by providing a rating from 0 to 5. A rating of 0 indicates that you do not recall ever seeing the card. Whereas, a rating of 5 indicates complete recognition. Your score will determine how frequently a card re-appears in subsequent trainings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Waardering</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoeken</translation>
     </message>
     <message>
         <source>You may search through your card database by typing the search term in the tool bar. Matching cards will be displayed in a list view. Clicking an entry will bring up the question and answer texts.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>New databases will be created at the following path: </source>
+        <translation>Nieuwe databases zullen worden gecreëerd op de volgende locatie:</translation>
     </message>
 </context>
 <context>
@@ -134,10 +132,6 @@
     <message>
         <source>database was not provided</source>
         <translation>De databaseis niet beschikbaar</translation>
-    </message>
-    <message>
-        <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
-        <translation type="vanished">Kopieer eerst het mnemosyne.db-bestand van uw computer naar dit apparaat. Daarna kunt u uw studiekaarten hier bestuderen. U kunt, indien gewenst, het mnemosyne.db-bestand achteraf terugkopiëren naar uw computer om daar verder te studeren.</translation>
     </message>
     <message>
         <source>About</source>
@@ -204,14 +198,14 @@
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoeken</translation>
     </message>
 </context>
 <context>
     <name>Search</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoeken</translation>
     </message>
 </context>
 <context>
@@ -225,56 +219,56 @@
         <translation>Lettertypegrootte</translation>
     </message>
     <message>
-        <source>Small</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Large</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Extra Large</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Huge</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Rate cards by indicators instead of push-up menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaarten waarderen via indicators i.p.v. het duwmenu</translation>
     </message>
     <message>
         <source>Use Indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicators gebruiken</translation>
     </message>
     <message>
         <source>Card Reset Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaarthersteltijd</translation>
     </message>
     <message>
         <source>Automatically open the most recently database at launch</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch de meest recente database openen bij opstarten</translation>
     </message>
     <message>
         <source>Quick Launch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Switching languages requires an application restart</source>
-        <translation type="unfinished"></translation>
+        <translation>Snelle opstart</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Taal</translation>
+    </message>
+    <message>
+        <source>Switching languages requires an application restart</source>
+        <translation>Het wijzigen van de taal vereist een herstart van de applicatie</translation>
     </message>
     <message>
         <source>Application Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Applicatiestandaard</translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation>Klein</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Gemiddeld</translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation>Groot</translation>
+    </message>
+    <message>
+        <source>Extra Large</source>
+        <translation>Extra groot</translation>
+    </message>
+    <message>
+        <source>Huge</source>
+        <translation>Enorm</translation>
     </message>
 </context>
 <context>

@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ja">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="ja" version="2.1">
 <context>
     <name>Answer</name>
     <message>
@@ -73,10 +71,6 @@
         <translation>新規なデータベースを生成するとは</translation>
     </message>
     <message>
-        <source>New databases will be created at the following path: </source>
-        <translation>新規なデータベースは下記のパースで生成されます。</translation>
-    </message>
-    <message>
         <source>Score cards by providing a rating from 0 to 5. A rating of 0 indicates that you do not recall ever seeing the card. Whereas, a rating of 5 indicates complete recognition. Your score will determine how frequently a card re-appears in subsequent trainings.</source>
         <translation>カードの解答がどれだけ複雑か評価できます。ゼロはカードを見たことがないのを意味する一歩で五はあなたが問題なしで思い出せるのを意味します。評価によってカードがどんなに早く再び現れるのが変わります。</translation>
     </message>
@@ -91,6 +85,10 @@
     <message>
         <source>You may search through your card database by typing the search term in the tool bar. Matching cards will be displayed in a list view. Clicking an entry will bring up the question and answer texts.</source>
         <translation>カードに用語で検索できます。検索の後、合っていたカードの一覧は現れます。項目をクリックされたら、そのカードの情報が表示されます。</translation>
+    </message>
+    <message>
+        <source>New databases will be created at the following path: </source>
+        <translation>新規なデータベースは下記のパースで生成されます。</translation>
     </message>
 </context>
 <context>

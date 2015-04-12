@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_TW">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_TW" version="2.1">
 <context>
     <name>Answer</name>
     <message>
@@ -51,7 +49,7 @@
     </message>
     <message>
         <source>No search results</source>
-        <translation type="unfinished"></translation>
+        <translation>搜尋無結果</translation>
     </message>
 </context>
 <context>
@@ -73,10 +71,6 @@
         <translation>建立一個新資料庫</translation>
     </message>
     <message>
-        <source>New databases will be created at the following path: </source>
-        <translation>可依循後述方式建立新資料庫:</translation>
-    </message>
-    <message>
         <source>Score cards by providing a rating from 0 to 5. A rating of 0 indicates that you do not recall ever seeing the card. Whereas, a rating of 5 indicates complete recognition. Your score will determine how frequently a card re-appears in subsequent trainings.</source>
         <translation>字卡評分由0至5，0代表您從未複習此字卡，而5代表完全了解。您的評分將會決定一張字卡於後續學習中的出現頻率。</translation>
     </message>
@@ -91,6 +85,10 @@
     <message>
         <source>You may search through your card database by typing the search term in the tool bar. Matching cards will be displayed in a list view. Clicking an entry will bring up the question and answer texts.</source>
         <translation>您可以於工具列輸入項目來搜尋您的字卡資料庫，符合的字卡將會以清單模式顯示，點擊後會顯示問題及答案。</translation>
+    </message>
+    <message>
+        <source>New databases will be created at the following path: </source>
+        <translation>可依循後述方式建立新資料庫:</translation>
     </message>
 </context>
 <context>
@@ -134,10 +132,6 @@
     <message>
         <source>database was not provided</source>
         <translation>未提供資料庫</translation>
-    </message>
-    <message>
-        <source>First, copy the mnemosyne.db file from your computer to this device. Then, you may study flash cards here. If you wish, copy the mnemosyne.db back to your computer to resume study there.</source>
-        <translation type="vanished">首先從您的電腦中複製mnemosyne.db檔至裝置，而後您就可以開始字卡學習了。當然也可以將mnemosyne.db檔複製回電腦中複習。</translation>
     </message>
     <message>
         <source>About</source>
@@ -237,44 +231,44 @@
         <translation>字卡重設時間</translation>
     </message>
     <message>
-        <source>Small</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Large</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Extra Large</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Huge</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Automatically open the most recently database at launch</source>
-        <translation type="unfinished"></translation>
+        <translation>啟動時自動開啟最新的資料庫</translation>
     </message>
     <message>
         <source>Quick Launch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Switching languages requires an application restart</source>
-        <translation type="unfinished"></translation>
+        <translation>快速啟動</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>語言</translation>
+    </message>
+    <message>
+        <source>Switching languages requires an application restart</source>
+        <translation>轉換語言需要重新啟動應用程式</translation>
     </message>
     <message>
         <source>Application Default</source>
-        <translation type="unfinished"></translation>
+        <translation>應用程式預設</translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation>小</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>中</translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation>大</translation>
+    </message>
+    <message>
+        <source>Extra Large</source>
+        <translation>很大</translation>
+    </message>
+    <message>
+        <source>Huge</source>
+        <translation>非常大</translation>
     </message>
 </context>
 <context>
