@@ -59,3 +59,6 @@
 
 * Wed Apr  1 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.5.1-1
 - Add Settings for Application Language
+
+* Sun Apr 12 2015 Dametrious Peyton <dametriouspeyton@countermail.com> 1.5.1-1
+- Sped up application launch time
