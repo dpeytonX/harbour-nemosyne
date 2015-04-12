@@ -1,0 +1,3 @@
+#!/bin/bash
+find . -name "qmldir" -exec sed -i "s/module Sail/module harbour.nemosyne.Sail/" \{} \;
+find . -name "*.qmltypes" -exec sed -i "s/SailfishWidgets/harbour\/nemosyne\/SailfishWidgets/" \{} \;

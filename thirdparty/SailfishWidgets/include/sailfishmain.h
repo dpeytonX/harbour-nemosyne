@@ -22,21 +22,17 @@
 #ifndef SAILFISHMAIN_H
 #define SAILFISHMAIN_H
 
-#include <sailfishapp.h>
 #include <sailfishmain_global.h>
 
 #include <QString>
-#include <QCoreApplication>
-#include <QDebug>
+
+class QGuiApplication;
 
 namespace SailfishMain
 {
-SAILFISHMAIN_EXPORT void temp() { qDebug() << "out"; }
-
-
 SAILFISHMAIN_EXPORT int main(int argc, char *argv[], const QString& appName=QString(""), const QString& settingsFile=QString(""), const QString& localeSetting=QString("locale"));
 
-SAILFISHMAIN_EXPORT bool installLanguage(const QString& appName, const QString& locale, QCoreApplication* app);
+SAILFISHMAIN_EXPORT bool installLanguage(const QString& appName, const QString& locale, QGuiApplication* app);
 
 }
 
