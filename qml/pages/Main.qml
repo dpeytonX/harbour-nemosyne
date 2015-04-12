@@ -1,3 +1,25 @@
+/***************************************************************************
+** This file is part of Nemosyne
+**
+** Copyright (c) 2015 Dametrious Peyton
+**
+** $QT_BEGIN_LICENSE:GPLV3$
+** SailfishWidgets is free software: you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation, either version 3 of the License, or
+** (at your option) any later version.
+**
+** SailfishWidgets is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+** GNU General Public License for more details.
+**
+** You should have received a copy of the GNU General Public License
+** along with SailfishWidgets.  If not, see <http://www.gnu.org/licenses/>.
+** $QT_END_LICENSE$
+**
+**************************************************************************/
+
 import QtQuick 2.1
 import Sailfish.Silica 1.0
 import harbour.nemosyne.Nemosyne 1.0
@@ -8,11 +30,13 @@ import harbour.nemosyne.SailfishWidgets.Utilities 1.3
 import harbour.nemosyne.QmlLogger 2.0
 
 Page {
+    readonly property string dataPath: dir.XdgData + "/" + UIConstants.defaultDb
+    property bool openQuickly: false
+    property File currentFile
+
     allowedOrientations: Orientation.All
     id: main
     objectName: "main"
-    readonly property string dataPath: dir.XdgData + "/" + UIConstants.defaultDb
-    property File currentFile
 
     // ------ SQLite Interface -----------------------
 
@@ -46,10 +70,13 @@ Page {
                 }
 
                 // push new card on page stack
-                loading.success()
+                if(openQuickly)
+                    loader.create(busy.acceptDestination, main, busy.acceptDestinationProperties)
+                else
+                    busy.success()
             } else {
                 errorLabel.text = qsTr("database could not be opened")
-                loading.failure()
+                if(!openQuickly) busy.failure()
             }
         }
     }
@@ -109,7 +136,7 @@ Page {
             property bool doOpen: false
             signal closed
 
-            acceptDestination: loading
+            acceptDestination: busy
             showNavigationIndicator: status == DialogStatus.Opened
 
 
@@ -139,7 +166,7 @@ Page {
 
     //Not wrapping in Component since it's a pain to use signal connects
     BusyPage {
-        id: loading
+        id: busy
         title: qsTr("opening database")
         acceptDestination: Component{ Question {  } }
         acceptDestinationProperties: {"manager": manager, "settingsPage": settingsPage}
@@ -305,16 +332,26 @@ Page {
             statusChanged.disconnect(autoRun)
             pageStack.busyChanged.disconnect(autoRun)
             pageStack.currentPageChanged.disconnect(autoRun)
-            process(recentFile)
+            process(recentFile, true)
         }
     }
 
-    function process(file) {
-        currentFile = file
-        loading.open()
+    function process(file, quickly) {
+        if(quickly !== undefined && quickly) {
+            currentFile = file
+            if(!!currentFile) {
+                openDb(currentFile, true)
+            } else {
+                errorLabel.text = qsTr("database was not provided")
+            }
+        } else {
+            currentFile = file
+            busy.open()
+        }
     }
 
-    function openDb(file) {
+    function openDb(file, quickly) {
+        main.openQuickly = quickly !== undefined ? quickly : false
         currentFile = file
 
         var fileName = currentFile.fileName

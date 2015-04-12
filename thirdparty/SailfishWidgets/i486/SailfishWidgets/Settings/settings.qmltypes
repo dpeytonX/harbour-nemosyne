@@ -26,9 +26,9 @@ Module {
         // QtQuick.
         exports: [
             "Settings 1.1",
-            "SailfishWidgets/Settings 1.1",
+            "harbour/nemosyne/SailfishWidgets/Settings 1.1",
             "Settings 1.2",
-            "SailfishWidgets/Settings 1.2"
+            "harbour/nemosyne/SailfishWidgets/Settings 1.2"
         ]
 
         // The meta object revisions for the exports specified in 'exports'.

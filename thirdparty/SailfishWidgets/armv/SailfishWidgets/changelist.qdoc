@@ -26,6 +26,13 @@
 
   SailfishWidgets 1.3.4
   \list
+  \li \l {InstalledLocales}
+  \li \l {LocaleItem}
+  \li \l {DefaultLocale}
+  \li \l {SailfishMain}
+  \li Added \c isValid() method to \l {ApplicationSettings}
+  \li Added new constructor to \l {ApplicationSettings}
+  \li Added \c settings() and \c value() methods to \l {ApplicationSettings}
   \li Added install and make scripts for automated builds
   \li Added debug vs release build command for the make script
   \li Release tarball will include the header files

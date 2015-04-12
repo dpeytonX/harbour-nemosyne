@@ -1,0 +1,4 @@
+module harbour.nemosyne.SailfishWidgets.Language
+versioner 1.3 version.qml
+plugin language
+typeinfo language.qmltypes

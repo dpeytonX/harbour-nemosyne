@@ -1,5 +1,5 @@
 /***************************************************************************
-** This file is part of Nemosyne
+** This file is part of SailfishWidgets
 **
 ** Copyright (c) 2015 Dametrious Peyton
 **
@@ -19,24 +19,30 @@
 ** $QT_END_LICENSE$
 **
 **************************************************************************/
-import QtQuick 2.1
+#ifndef DEFAULTLOCALE_H
+#define DEFAULTLOCALE_H
 
-Item {
-    property int acquisition
-    property int acquisitionRepsSinceLapse
-    property int grade
-    property int lapses
-    property int lastRep
-    property int nextRep
-    property int retentionRep
-    property int retentionRepsSinceLapse
-    property int seq
-    property real easiness
-    property string question
-    property string answer
-    property int factId
-    property string hash
-    property int cardTypeId
-    property int factViewId
-    property string tags
-}
+#include "localeitem.h"
+
+class QQuickItem;
+class QString;
+
+class DefaultLocale: public LocaleItem {
+    Q_OBJECT
+    Q_PROPERTY(QString applicationDefaultText READ pretty WRITE setApplicationDefaultText NOTIFY applicationDefaultTextChanged)
+    Q_PROPERTY(QString DEFAULT_APPLICATION_LOCALE READ applicationLocale CONSTANT)
+public:
+    explicit DefaultLocale(QQuickItem* parent=0);
+    void setApplicationDefaultText(const QString& applicationDefaultText);
+    virtual QString pretty() const;
+    static QString applicationLocale();
+    static const char* APPLICATION_LOCALE;
+
+signals:
+    void applicationDefaultTextChanged();
+
+private:
+    QString m_applicationDefaultText;
+};
+
+#endif // DEFAULTLOCALE_H

@@ -1,7 +1,7 @@
 /***************************************************************************
 ** This file is part of SailfishWidgets
 **
-** Copyright (c) 2014 Dametrious Peyton
+** Copyright (c) 2014-2015 Dametrious Peyton
 **
 ** $QT_BEGIN_LICENSE:GPLV3$
 ** SailfishWidgets is free software: you can redistribute it and/or modify
@@ -23,6 +23,15 @@
 #ifndef APPLICATIONSETTINGS_H
 #define APPLICATIONSETTINGS_H
 
+#include <QtCore/qglobal.h>
+
+#if defined(APPLICATIONSETTINGS_LIBRARY)
+#  define APPLICATIONSETTINGS_EXPORT Q_DECL_EXPORT
+#else
+#  define APPLICATIONSETTINGS_EXPORT Q_DECL_IMPORT
+#endif
+
+
 #include <QEvent>
 #include <QByteArray>
 #include <QList>
@@ -36,7 +45,7 @@
 
 #include "qmlpropertywrapper.h"
 
-class ApplicationSettings : public QQuickItem
+class APPLICATIONSETTINGS_EXPORT ApplicationSettings : public QQuickItem
 {
     Q_OBJECT
     Q_DISABLE_COPY(ApplicationSettings)
@@ -49,6 +58,8 @@ public:
     explicit ApplicationSettings();
     ApplicationSettings(QQuickItem *parent);
 
+    ApplicationSettings(const QString& appName, const QString& fileName, QQuickItem *parent=0);
+
     ~ApplicationSettings();
 
     QString applicationName() const;
@@ -59,9 +70,11 @@ public:
 
     void componentComplete();
 
-    void setApplicationName(QString appName);
+    void setApplicationName(const QString& appName);
 
-    void setFileName(QString fileName);
+    void setFileName(const QString& fileName);
+
+    bool isValid(const QString& property);
 
     Q_INVOKABLE QVariant value(const QString& setting);
 

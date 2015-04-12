@@ -29,14 +29,8 @@
 */
 
 #include <QtQuick>
-#include <QDebug>
-#include <QLocale>
-#include <QTranslator>
 
-#include <applicationsettings.h>
-#include "languageselector.h"
-
-#include <sailfishapp.h>
+#include <sailfishmain.h>
 
 int main(int argc, char *argv[])
 {
@@ -49,26 +43,6 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-    // As a neat trick, you can have SailfishApp generate the QApp here, and still
-    // bootstrap your QtQuick stuff using SailfishApp::main
-
-    ApplicationSettings settings;
-    settings.setApplicationName("harbour-nemosyne");
-    settings.setFileName("settings");
-    settings.refresh();
-    QVariant appLocale = settings.value("locale");
-    qDebug() << "Found locale " << appLocale;
-    if(appLocale != QVariant::Invalid && !appLocale.toString().isEmpty()) {
-        LanguageSelector::installLanguage("harbour-nemosyne", appLocale.toString(), SailfishApp::application(argc, argv));
-    }
-    else {
-        LanguageSelector::installLanguage("harbour-nemosyne", "", SailfishApp::application(argc, argv));
-    }
-
-    qDebug() << "Installed locales " << LanguageSelector(QCoreApplication::instance()).getTranslationLocales("harbour-nemosyne");
-
-    qmlRegisterType<LanguageSelector>("harbour.nemosyne.Nemosyne", 1, 0, "LanguageSelector");
-
-    return SailfishApp::main(argc, argv);
+    return SailfishMain::main(argc, argv, "harbour-nemosyne", "settings", "locale");
 }
 

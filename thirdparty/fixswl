@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm -fr SailfishWidgets
+tar -xvjf ../../sailfish-widgets/release/*.tar.bz2
+find . -name "qmldir" -exec sed -i "s/module Sail/module harbour.nemosyne.Sail/" \{} \;
+find . -name "*.qmltypes" -exec sed -i "s/SailfishWidgets/harbour\/nemosyne\/SailfishWidgets/" \{} \;
+rm -fr SailfishWidgets/Documentation

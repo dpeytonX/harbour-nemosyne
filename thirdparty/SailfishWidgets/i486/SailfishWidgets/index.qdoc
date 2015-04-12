@@ -81,6 +81,18 @@
   \li \l {Query} (Native Plugin)
   \endlist
 
+  Language
+  \list
+  \li \l {InstalledLocales} (Native Plugin)
+  \li \l {LocaleItem} (Native Plugin)
+  \li \l {DefaultLocale} (Native Plugin)
+  \endlist
+
+  Core
+  \list
+  \li \l {SailfishMain} (Native)
+  \endlist
+
   C++ Documentation
   \list
   \li \l {ApplicationSettings}
@@ -89,6 +101,10 @@
   \li \l {File}
   \li \l {SQLiteDatabase}
   \li \l {Query}
+  \li \l {InstalledLocales}
+  \li \l {LocaleItem}
+  \li \l {DefaultLocale}
+  \li \l {SailfishMain}
   \endlist
 
   \l {ChangeList}

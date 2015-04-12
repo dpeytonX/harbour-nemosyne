@@ -225,6 +225,26 @@
         <translation>字体大小</translation>
     </message>
     <message>
+        <source>Small</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extra Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Huge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Rate cards by indicators instead of push-up menu</source>
         <translation type="unfinished"></translation>
     </message>
@@ -245,35 +265,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Switching languages requires an application restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Application Default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Small</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Large</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Extra Large</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Huge</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

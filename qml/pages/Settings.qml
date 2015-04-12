@@ -1,12 +1,34 @@
+/***************************************************************************
+** This file is part of Nemosyne
+**
+** Copyright (c) 2015 Dametrious Peyton
+**
+** $QT_BEGIN_LICENSE:GPLV3$
+** SailfishWidgets is free software: you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation, either version 3 of the License, or
+** (at your option) any later version.
+**
+** SailfishWidgets is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+** GNU General Public License for more details.
+**
+** You should have received a copy of the GNU General Public License
+** along with SailfishWidgets.  If not, see <http://www.gnu.org/licenses/>.
+** $QT_END_LICENSE$
+**
+**************************************************************************/
+
 import QtQuick 2.1
 import Sailfish.Silica 1.0
 import harbour.nemosyne.QmlLogger 2.0
 import harbour.nemosyne.Nemosyne 1.0
 import harbour.nemosyne.SailfishWidgets.Components 1.3
 import harbour.nemosyne.SailfishWidgets.Settings 1.3
+import harbour.nemosyne.SailfishWidgets.Language 1.3
 
 Page {
-    property var languages: [qsTr("Application Default")].concat(ls.getTranslationLocales(UIConstants.appName))
     property variant fontSizes: [
         qsTr("Small"),
         qsTr("Medium"),
@@ -19,7 +41,7 @@ Page {
 
     ApplicationSettings {
         id: settings
-        applicationName: "harbour-nemosyne"
+        applicationName: UIConstants.appName
         fileName: "settings"
 
         property int defaultFontSizeId: 0
@@ -32,16 +54,19 @@ Page {
         property string locale: ""
     }
 
+    InstalledLocales {
+        id: installedLocales
+        includeAppDefault: true
+        appName: UIConstants.appName
+        applicationDefaultText: qsTr("Application Default");
+    }
+
     Binding { target: settings; property: "defaultFontSizeId"; value: fontCombo.currentIndex }
     Binding { target: settings; property: "slideRatings"; value: useSliders.checked }
     Binding { target: settings; property: "autoOpenDb"; value: openDb.checked }
 
     FontHandler {
         id: fh
-    }
-
-    LanguageSelector {
-        id: ls
     }
 
     Component {
@@ -71,7 +96,7 @@ Page {
         width: parent.width
         height: parent.height - header.height
         y: header.height
-        // Hackish, but the only way to prevent ratingCol from taking over the screen
+
         contentHeight: Math.max(height - Theme.paddingLarge * 2, contentCol.childrenRect.height)
 
         Column {
@@ -103,6 +128,7 @@ Page {
 
             Row {
                 spacing: Theme.paddingLarge
+                width: parent.width
 
                 InformationalLabel {
                     color: Theme.primaryColor
@@ -132,14 +158,15 @@ Page {
                 label: qsTr("Language")
                 width: settingsPage.width
 
-                currentIndex: languages.indexOf(settings.locale) == -1 ? 0 : languages.indexOf(settings.locale)
+                currentIndex: installedLocales.findLocale(settings.locale) == -1 ?
+                                  0 : installedLocales.findLocale(settings.locale)
 
                 menu: ContextMenu {
                     Repeater {
-                        model: languages
+                        model: installedLocales.locales
                         StandardMenuItem {
-                            text: index == 0 ? modelData : ls.getPrettyName(modelData)
-                            onClicked: settings.locale = index == 0 ? "" : modelData
+                            text: modelData.pretty
+                            onClicked: settings.locale = modelData.locale
                         }
                     }
                 }

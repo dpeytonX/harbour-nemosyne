@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en">
+<TS version="2.1">
 <context>
     <name>Answer</name>
     <message>
@@ -73,10 +73,6 @@
         <translation>Starting a New Database</translation>
     </message>
     <message>
-        <source>New databases will be created at the following path:</source>
-        <translation type="vanished">New databases will be created at the following path:</translation>
-    </message>
-    <message>
         <source>Score cards by providing a rating from 0 to 5. A rating of 0 indicates that you do not recall ever seeing the card. Whereas, a rating of 5 indicates complete recognition. Your score will determine how frequently a card re-appears in subsequent trainings.</source>
         <translation>Score cards by providing a rating from 0 to 5. A rating of 0 indicates that you do not recall ever seeing the card. Whereas, a rating of 5 indicates complete recognition. Your score will determine how frequently a card re-appears in subsequent trainings.</translation>
     </message>
@@ -94,7 +90,7 @@
     </message>
     <message>
         <source>New databases will be created at the following path: </source>
-        <translation type="unfinished"></translation>
+        <translation>New databases will be created at the following path: </translation>
     </message>
 </context>
 <context>

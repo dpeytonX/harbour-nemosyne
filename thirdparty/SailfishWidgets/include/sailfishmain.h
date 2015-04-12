@@ -1,5 +1,5 @@
 /***************************************************************************
-** This file is part of Nemosyne
+** This file is part of SailfishWidgets
 **
 ** Copyright (c) 2015 Dametrious Peyton
 **
@@ -19,24 +19,27 @@
 ** $QT_END_LICENSE$
 **
 **************************************************************************/
-import QtQuick 2.1
+#ifndef SAILFISHMAIN_H
+#define SAILFISHMAIN_H
 
-Item {
-    property int acquisition
-    property int acquisitionRepsSinceLapse
-    property int grade
-    property int lapses
-    property int lastRep
-    property int nextRep
-    property int retentionRep
-    property int retentionRepsSinceLapse
-    property int seq
-    property real easiness
-    property string question
-    property string answer
-    property int factId
-    property string hash
-    property int cardTypeId
-    property int factViewId
-    property string tags
+#include <sailfishmain_global.h>
+
+// This is the only way the app with launcher w/ booster and not have the
+// end user include this header in addition to the library's.
+#include <sailfishapp.h>
+#include <QString>
+
+class QGuiApplication;
+
+namespace SailfishMain
+{
+SAILFISHMAIN_EXPORT int main(int argc, char *argv[], const QString& appName=QString(""), const QString& settingsFile=QString(""), const QString& localeSetting=QString("locale"));
+
+SAILFISHMAIN_EXPORT bool installLanguage(const QString& appName, const QString& locale, QGuiApplication* app);
+
 }
+
+/* Forward-declare that main() is exportable (needed for booster) */
+Q_DECL_EXPORT int main(int argc, char *argv[]);
+
+#endif // SAILFISHMAIN_H
