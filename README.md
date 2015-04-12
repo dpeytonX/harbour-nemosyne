@@ -17,6 +17,14 @@ To get the latest updates you can always download this project and compile a bin
 <h3>Road Map</h3>
 version 1.5
 <ul>
+  <li>Language Support</li>
+</ul>
+version 1.6
+<ul>
+  <li>tag support</li>
+</ul>
+future
+<ul>
   <li>Anki Support</li>
   <li>Application Interface Language Selection - <strong>DONE</strong></li>
 </ul>
