@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="nl_NL" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl_NL">
 <context>
     <name>Answer</name>
     <message>
@@ -72,7 +74,7 @@
     </message>
     <message>
         <source>Score cards by providing a rating from 0 to 5. A rating of 0 indicates that you do not recall ever seeing the card. Whereas, a rating of 5 indicates complete recognition. Your score will determine how frequently a card re-appears in subsequent trainings.</source>
-        <translation type="unfinished"/>
+        <translation>Waardeer kaarten door een waardering tussen 0 en 5 te geven. Een waardering van 0 geeft de indicatie dat u de kaart nog nooit gezien heeft terwijl een waardering van 5 de indicatie geeft dat u hem volledig herkend. Uw score zal bepalen hoe frequent u een kaart terug zult zien komen in de trainingen.</translation>
     </message>
     <message>
         <source>Rating</source>
@@ -84,7 +86,7 @@
     </message>
     <message>
         <source>You may search through your card database by typing the search term in the tool bar. Matching cards will be displayed in a list view. Clicking an entry will bring up the question and answer texts.</source>
-        <translation type="unfinished"/>
+        <translation>U kunt zoeken in uw kaartdatabase door een zoekterm op te geven in de werkbalk. Overeenkomende kaarten zullen worden weergegeven in een lijstweergave. Het aanklikken van een invoer zal de vraag en het antwoord naar voren halen.</translation>
     </message>
     <message>
         <source>New databases will be created at the following path: </source>
