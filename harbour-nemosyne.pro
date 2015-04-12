@@ -41,11 +41,12 @@ INSTALLS += nemosyne
 
 # Deployment folders
 linux {
-  message( $$(MER_SSH_TARGET_NAME) )
   LIBS += -L$$PWD/harbour/nemosyne/SailfishWidgets/Core -L$$PWD/harbour/nemosyne/SailfishWidgets/Settings -lapplicationsettings -lcore
   nemosynelibs.files = $$PWD/harbour/nemosyne/SailfishWidgets/Settings/libapplicationsettings* \
                        $$PWD/harbour/nemosyne/SailfishWidgets/Core/libcore*
   nemosynelibs.path = /usr/share/$${TARGET}/lib
+  # Delete the private lib for the harbour store RPM validator
+  nemosynelibs.commands = "rm -fr /home/deploy/installroot/usr/share/harbour-nemosyne/harbour/nemosyne/SailfishWidgets/Core"
   INSTALLS += nemosynelibs
 }
 

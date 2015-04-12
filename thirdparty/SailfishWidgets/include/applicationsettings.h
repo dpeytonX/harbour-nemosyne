@@ -23,6 +23,15 @@
 #ifndef APPLICATIONSETTINGS_H
 #define APPLICATIONSETTINGS_H
 
+#include <QtCore/qglobal.h>
+
+#if defined(APPLICATIONSETTINGS_LIBRARY)
+#  define APPLICATIONSETTINGS_EXPORT Q_DECL_EXPORT
+#else
+#  define APPLICATIONSETTINGS_EXPORT Q_DECL_IMPORT
+#endif
+
+
 #include <QEvent>
 #include <QByteArray>
 #include <QList>
@@ -36,7 +45,7 @@
 
 #include "qmlpropertywrapper.h"
 
-class ApplicationSettings : public QQuickItem
+class APPLICATIONSETTINGS_EXPORT ApplicationSettings : public QQuickItem
 {
     Q_OBJECT
     Q_DISABLE_COPY(ApplicationSettings)
