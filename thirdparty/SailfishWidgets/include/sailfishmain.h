@@ -24,6 +24,9 @@
 
 #include <sailfishmain_global.h>
 
+// This is the only way the app with launcher w/ booster and not have the
+// end user include this header in addition to the library's.
+#include <sailfishapp.h>
 #include <QString>
 
 class QGuiApplication;
@@ -35,5 +38,8 @@ SAILFISHMAIN_EXPORT int main(int argc, char *argv[], const QString& appName=QStr
 SAILFISHMAIN_EXPORT bool installLanguage(const QString& appName, const QString& locale, QGuiApplication* app);
 
 }
+
+/* Forward-declare that main() is exportable (needed for booster) */
+Q_DECL_EXPORT int main(int argc, char *argv[]);
 
 #endif // SAILFISHMAIN_H

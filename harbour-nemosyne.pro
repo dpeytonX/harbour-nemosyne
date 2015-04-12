@@ -24,8 +24,6 @@ RESOURCES += \
     images.qrc \
     data.qrc
 
-HEADERS +=
-
 OTHER_FILES += qml/harbour-nemosyne.qml \
     qml/cover/CoverPage.qml \
     qml/pages/* \
