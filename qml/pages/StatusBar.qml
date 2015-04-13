@@ -22,7 +22,7 @@
 
 import QtQuick 2.1
 import Sailfish.Silica 1.0
-import harbour.nemosyne.SailfishWidgets.Components 1.3
+import harbour.nemosyne.SailfishWidgets.Components 1.4
 
 Row{
     property int unmemorized

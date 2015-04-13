@@ -23,8 +23,8 @@
 import QtQuick 2.1
 import Sailfish.Silica 1.0
 import harbour.nemosyne.Nemosyne 1.0
-import harbour.nemosyne.SailfishWidgets.Components 1.3
-import harbour.nemosyne.SailfishWidgets.FileManagement 1.3
+import harbour.nemosyne.SailfishWidgets.Components 1.4
+import harbour.nemosyne.SailfishWidgets.FileManagement 1.4
 
 Page {
     allowedOrientations: Orientation.All
