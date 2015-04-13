@@ -1,7 +1,7 @@
 /***************************************************************************
 ** This file is part of SailfishWidgets
 **
-** Copyright (c) 2014 Dametrious Peyton
+** Copyright (c) 2014-2015 Dametrious Peyton
 **
 ** $QT_BEGIN_LICENSE:GPLV3$
 ** SailfishWidgets is free software: you can redistribute it and/or modify
@@ -39,7 +39,7 @@ import Sailfish.Silica 1.0
   You may also provide an \c acceptDestination to push another page on the stack just like a 
   regular Silica \c Dialog.
   */
-Dialog {
+OrientationDialog {
     /*!
        \qmlsignal BusyPage::success
        Use this to signal the \l {BusyPage} to move to the \c acceptDestination
@@ -75,7 +75,6 @@ Dialog {
     */
     property variant navigatePage: !!pageStack.find(function(p) { return p == this;}) ? pageStack.previousPage(this) : null
 
-    allowedOrientations: Orientation.All
     acceptDestinationReplaceTarget: navigatePage
     acceptDestinationAction: PageStackAction.Replace
     canAccept: false

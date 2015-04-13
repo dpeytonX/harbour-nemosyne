@@ -3,7 +3,7 @@
   \title Sailfish Widgets
   \brief Sailfish Library Extension
 
-  SailfishWidgets 1.3.4
+  SailfishWidgets 1.4.0
 
   This is a library that aims to speed up Sailfish OS Development
 
@@ -36,6 +36,8 @@
   \li \l {BusyPage}
   \li \l {InformationalLabel}
   \li \l {LabelButton}
+  \li \l {OrientationDialog}
+  \li \l {OrientationPage}
   \li \l {PageColumn}
   \li \l {PageIndicator}
   \li \l {Paragraph}
