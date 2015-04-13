@@ -31,8 +31,7 @@ import harbour.nemosyne.SailfishWidgets.Settings 1.4
 
   Presents the user with two editable text areas for the question and answer of a flash card.
   */
-Dialog {
-    allowedOrientations: Orientation.All
+OrientationDialog {
     id: cardDetails
     property alias answerText: answer.text
     property alias questionText: question.text

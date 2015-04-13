@@ -26,8 +26,7 @@ import harbour.nemosyne.Nemosyne 1.0
 import harbour.nemosyne.SailfishWidgets.Components 1.4
 import harbour.nemosyne.SailfishWidgets.FileManagement 1.4
 
-Page {
-    allowedOrientations: Orientation.All
+OrientationPage {
     readonly property string dataPath: dir.XdgData + "/" + UIConstants.defaultDb
 
     Dir {id:dir}

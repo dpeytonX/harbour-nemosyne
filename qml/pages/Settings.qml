@@ -28,7 +28,7 @@ import harbour.nemosyne.SailfishWidgets.Components 1.4
 import harbour.nemosyne.SailfishWidgets.Settings 1.4
 import harbour.nemosyne.SailfishWidgets.Language 1.4
 
-Page {
+OrientationPage {
     property variant fontSizes: [
         qsTr("Small"),
         qsTr("Medium"),
@@ -36,7 +36,6 @@ Page {
         qsTr("Extra Large"),
         qsTr("Huge")
     ]
-    allowedOrientations: Orientation.All
     id: settingsPage
 
     ApplicationSettings {

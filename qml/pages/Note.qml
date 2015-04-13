@@ -22,8 +22,8 @@
 
 import QtQuick 2.1
 import Sailfish.Silica 1.0
+import harbour.nemosyne.SailfishWidgets.Components 1.4
 
-Page {
-    allowedOrientations: Orientation.All
+OrientationPage {
     property bool viewOnly: false
 }

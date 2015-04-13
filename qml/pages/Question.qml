@@ -31,7 +31,7 @@ import harbour.nemosyne.Nemosyne 1.0
 /**
   TODO: Consider breaking Question into a ViewOnly vs Testable hierarchy
   */
-Dialog {
+OreintationDialog {
     property alias question: questionLabel.text
     property alias answer: answerCard.answer
     property bool viewOnly: false
@@ -41,7 +41,6 @@ Dialog {
 
     signal next(int rating)
 
-    allowedOrientations: Orientation.All
     id: questionPage
     objectName: "question"
     canAccept: !!card

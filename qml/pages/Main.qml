@@ -29,12 +29,11 @@ import harbour.nemosyne.SailfishWidgets.Settings 1.4
 import harbour.nemosyne.SailfishWidgets.Utilities 1.4
 import harbour.nemosyne.QmlLogger 2.0
 
-Page {
+OrientationPage {
     readonly property string dataPath: dir.XdgData + "/" + UIConstants.defaultDb
     property bool openQuickly: false
     property File currentFile
 
-    allowedOrientations: Orientation.All
     id: main
     objectName: "main"
 
