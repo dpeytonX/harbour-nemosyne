@@ -173,4 +173,6 @@ OrientationPage {
         }
         VerticalScrollDecorator {}
     }
+
+    OrientationHelper {}
 }
