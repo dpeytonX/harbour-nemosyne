@@ -26,6 +26,7 @@
 
   SailfishWidgets 1.4.0
   \list
+  \li Added \l {OrientationHelper} to force Sailfish Silica components' spawned Pages to inherit allowedOrientation
   \li Added \l {OrientationDialog} and \l {OrientationPage}
   \li \l {BusyPage} \l {FileSelector} and \l {AboutPage} will support orientation switching by default. To preserve old behavior (no switching) then use version 1.3 of those components.
   \endlist

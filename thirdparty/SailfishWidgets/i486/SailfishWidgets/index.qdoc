@@ -36,6 +36,7 @@
   \li \l {BusyPage}
   \li \l {InformationalLabel}
   \li \l {LabelButton}
+  \li \l {OrientationHelper}
   \li \l {OrientationDialog}
   \li \l {OrientationPage}
   \li \l {PageColumn}
