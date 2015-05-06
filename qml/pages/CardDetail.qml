@@ -23,16 +23,15 @@
 import QtQuick 2.1
 import Sailfish.Silica 1.0
 import harbour.nemosyne.Nemosyne 1.0
-import harbour.nemosyne.SailfishWidgets.Components 1.3
-import harbour.nemosyne.SailfishWidgets.Settings 1.3
+import harbour.nemosyne.SailfishWidgets.Components 1.4
+import harbour.nemosyne.SailfishWidgets.Settings 1.4
 
 /*!
   \qmltype AddCard
 
   Presents the user with two editable text areas for the question and answer of a flash card.
   */
-Dialog {
-    allowedOrientations: Orientation.All
+OrientationDialog {
     id: cardDetails
     property alias answerText: answer.text
     property alias questionText: question.text

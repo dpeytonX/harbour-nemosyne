@@ -20,20 +20,19 @@
 **
 **************************************************************************/
 
-import QtQuick 2.0
+import QtQuick 2.1
 import Sailfish.Silica 1.0
 
 /*!
-   \qmltype Spacer
-   \since 5.0
-   \brief Provides padding to separate components
+   \qmltype OrientationDialog
+   \since 5.2
+   \brief A SailfishSilica \c {Dialog} that supports orientation switching.
    \inqmlmodule SailfishWidgets.Components
 
    Back to \l {Sailfish Widgets}
 
-  This takes up a height of \c Theme.paddingLarge in order to provide custom spacing in a Column.
+   This is a \c {Dialog} component that sets \c {allowedOrientations} to \c {Orientation.All}
   */
-Item {
-    width: 1
-    height: Theme.paddingLarge
+Dialog {
+    allowedOrientations: Orientation.All
 }

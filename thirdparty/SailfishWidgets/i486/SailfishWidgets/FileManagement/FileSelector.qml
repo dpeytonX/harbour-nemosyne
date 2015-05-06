@@ -22,9 +22,9 @@
 
 import QtQuick 2.1
 import Sailfish.Silica 1.0
-import "../Components" 1.2
-import "../JS" 1.2
-import "." 1.2
+import "../Components" 1.4
+import "../JS" 1.4
+import "." 1.4
 
 /*!
    \qmltype FileSelector
@@ -52,7 +52,7 @@ import "." 1.2
   \endcode
   */
 
-Dialog {
+OrientationDialog {
     /*!
        \qmlproperty alias FileSelector::fileList
       An alias to the \l {Dir} object.

@@ -23,16 +23,15 @@
 import QtQuick 2.1
 import Sailfish.Silica 1.0
 import harbour.nemosyne.QmlLogger 2.0
-import harbour.nemosyne.SailfishWidgets.Components 1.3
-import harbour.nemosyne.SailfishWidgets.Utilities 1.3
+import harbour.nemosyne.SailfishWidgets.Components 1.4
+import harbour.nemosyne.SailfishWidgets.Utilities 1.4
 import harbour.nemosyne.Nemosyne 1.0
 
-Page {
+OrientationPage {
     property Manager manager
     property int count: 0
     property var results: []
 
-    allowedOrientations: Orientation.All
     objectName: "search"
     id: root
 
