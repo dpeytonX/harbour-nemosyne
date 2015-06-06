@@ -1,3 +1,8 @@
+<h1>Hiatus</h1>
+I'm taking a break from Sailfish development this summer so if anyone wishes to add patches or take over development please let me know.  It pains my heart, but putting this out there will hopefully inspire other people to step up. Thank you for your understanding.
+
+今年の夏季、日本語能力試験の一級の検定をご勉強致して休憩を取らせていただきます。御了知頂いてありがとうございます。
+
 <img src="store/cover.png" />
 
 <h2>About</h2>
