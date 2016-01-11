@@ -29,7 +29,19 @@ import harbour.nemosyne.SailfishWidgets.Utilities 1.4
 import harbour.nemosyne.SailfishWidgets.Settings 1.4
 import harbour.nemosyne.SailfishWidgets.JS 1.4
 
+/*!
+   \qmltype Manager
+   \since 5.1
+   \brief Performs CRUD actions to the currently open database
+   \inqmlmodule org.harbour.nemosyne
+
+   Data access layer between front-end actions and database operations. Uses the SQLiteDatabase QML library plugin which performs the actual SQL operations natively.
+
+   TODO: Could use some reorganization.
+
+  */
 SQLiteDatabase {
+    // True if a new databse is initialized with the default schema. Check this property only after a call to #initialize().
     property bool initialized
     property bool validDb
     property int active
@@ -46,6 +58,7 @@ SQLiteDatabase {
     signal cardAdded()
     signal databaseValid(bool valid)
 
+    // Read in our reset times (when we generate the next day's cards), and some time-related display settings
     ApplicationSettings {
         id: settings
         applicationName: "harbour-nemosyne"
@@ -57,6 +70,7 @@ SQLiteDatabase {
         property string timeText: "00:00"
     }
 
+    // This creates Card objects on demand with error handling.
     DynamicLoader {
         id: cardCreator
         onObjectCompleted: {
@@ -67,17 +81,21 @@ SQLiteDatabase {
         onError: Console.error("Error creating object: " + errorString)
     }
 
+    // Holds the location of the default schema file. It's in a resource bundle.
     File {
         id: sqlFile
         fileName: ":/data/nemosyne.sql"
     }
 
+    /*!
+      Delets cards and fields from associated tables.
+      */
     function deleteCard(card) {
         Console.info("Manager: delete card selected")
 
         if(!opened || !card) return
 
-        var cardIds = _getSiblingCards(card)
+        var cardIds = _getSiblingCards(card) // Gets sibling cards (should be at most one other card, if this is dual sided)
 
         transaction()
         // Delete fact data
@@ -116,9 +134,9 @@ SQLiteDatabase {
             return
         }
 
-        commit()
+        commit() //write to the database
         card = null
-        cardDeleted()
+        cardDeleted() //send signal
     }
 
     function validateDatabase(filePath) {
@@ -144,7 +162,7 @@ SQLiteDatabase {
         if(query.indexOf("value") !== -1) initTrackingValues()
 
         validDb = result
-        databaseValid(result)
+        databaseValid(result) // send signal
     }
 
 
@@ -222,6 +240,9 @@ SQLiteDatabase {
         cardCreator.create(Qt.createComponent("Card.qml"), this, _queryToCard(query))
     }
 
+    /*!
+      Creates the schema of a new sqlite database.
+      */
     function initialize() {
         if(!sqlFile.exists) {
             Console.debug("initialize: resource does not exist!")
@@ -236,6 +257,9 @@ SQLiteDatabase {
         return initialized
     }
 
+    /*!
+      This method will refresh the scheduled, active, and memorized properties of this object.
+      */
     function initTrackingValues() {
         Console.debug("initTrackingValues " + opened)
         if(!opened) return
@@ -277,14 +301,23 @@ SQLiteDatabase {
         unmemorized = query.value("count");
     }
 
+    /*!
+      Saves a card to the database. If it does not exist, a new record is created.
+      */
     function saveCard(myCard) {
         _save(myCard == null ? card : myCard, true)
     }
 
+    /*!
+      Adds a database entry for question and answer which will later become a Card.
+     cardType determines if there needs to be a reverse type created (question becomes answer and answer becomes the question).
+      */
     function addCard(cardType, question, answer) {
         Console.debug("addCard: create fact entry")
         prepare("INSERT INTO facts (id) VALUES (:id)")
 
+        // Creates a random UUID as an id for a "Fact"
+        // I believe a Fact stores metadata on a Card (i.e. if it has a reverse card, card statistics, etc.)
         var factHash = _randUuid()
         bind(":id", factHash)
         if(!exec()) {
@@ -324,7 +357,7 @@ SQLiteDatabase {
         Console.debug("addCard: add card")
         var iter = cardType == CardTypes.FrontToBackAndBackToFront
         var i = 0
-        do {
+        do { // Basically repeat this block if this is a dual sided card.
             var card = {
                 grade: -1,
                 nextRep: -1,
@@ -356,6 +389,10 @@ SQLiteDatabase {
         cardAdded()
     }
 
+    /*!
+      \internal
+      Searches for a specific text block within a card's question/answer sections.
+      */
     function search(text) {
         text = "%" + text + "%"
         Console.debug("Searching for " + text)
@@ -416,6 +453,7 @@ SQLiteDatabase {
 
     /*!
       \internal
+      Copied from Mnemosyne. Calculates the next rep interval given information on the card.
     */
     function _calculateInitialInterval(rating, timing, actualInterval, scheduledInterval) {
         var day = 60*60*24
@@ -468,7 +506,7 @@ SQLiteDatabase {
 
          Mnemosyne 2.3 keeps track of "facts" which seem to be a table that contains
          memorized cards. One purpose is to avoid pulling in sister cards in the schedule.
-         This class will ignore facts for simplicity; although, I'm not sure how this
+         This class will ignore facts for simplicity; although, I'm not sure how this affect
          will Mnemosyne proper when shuffling the database.
     */
     function _grade(rating) {
@@ -643,10 +681,20 @@ SQLiteDatabase {
         return uuid
     }
 
+    /*!
+      \internal
+      Switches card types FrontToBack and FrontToBack-BackToFront.
+      */
     function _convertCardType(cardType) {
         return cardType == CardTypes.FrontToBackAndBackToFront ? "2" : "1"
     }
 
+    /*!
+      \internal
+      Tries to determine the date/time to reset the flash card stack.
+
+      TODO: I think there is a bug in this logic.
+      */
     function _getResetDateUTC() {
         // Current time + utc offset
         var curDate = new Date(Date.now() + new Date().getTimezoneOffset() * 60 * 1000)//Date.now())// - 1000*60*60*24)
@@ -672,6 +720,10 @@ SQLiteDatabase {
         return utcDate
     }
 
+    /*!
+      \internal
+      Turns an SQL query into a JS object which can be used to populate a qml Card.
+      */
     function _queryToCard(query) {
         return {
             "seq" : Number(query.value("_id")),
@@ -690,6 +742,10 @@ SQLiteDatabase {
         }
     }
 
+    /*!
+      \internal
+      Rolls back the last database query.
+      */
     function _rollback() {
         Console.error(lastError)
         rollback()

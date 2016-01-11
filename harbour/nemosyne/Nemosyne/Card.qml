@@ -21,6 +21,14 @@
 **************************************************************************/
 import QtQuick 2.1
 
+/*!
+   \qmltype Card
+   \since 5.1
+   \brief Respresents qualities of a flash card
+   \inqmlmodule org.harbour.nemosyne
+
+   Represents fields of a flash card. Used primarily as a data bean.
+  */
 Item {
     property int acquisition
     property int acquisitionRepsSinceLapse
