@@ -1,0 +1,4 @@
+[submodule "thirdparty/sailfish-widgets"]
+	path = thirdparty/sailfish-widgets
+	url = https://github.com/prplmnky/sailfish-widgets
+	branch = beta7

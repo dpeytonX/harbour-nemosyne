@@ -55,15 +55,10 @@ You can contribute in any of the following ways:
 <p>
 You can add translations on at <a href="https://www.transifex.com/projects/p/harbour-nemosyne/">Transifex</a>. I will incorporate translations into the application and give contributors an honorable mention within the application!
 
-<p>
-<img src="bitcoinaddy.png" />
-<p>
-<code>1PFqgHeGrtXLYvMge2mTT1FohKuuoKmUN5</code>
-
 <img src="store/snapshot2.png" />
 
 <img src="store/snapshot3.png" />
 
 
 <br>
-Copyright ©2014-2015 Dametrious Peyton. All Rights Reserved
+Copyright ©2014-2016 Dametrious Peyton. All Rights Reserved

@@ -7,6 +7,8 @@
 
 # * date Author's Name <author's email> version-release
 # - Summary of changes
+* Mon Jan 11 2014 Dametrious Peyton <dametriouspeyton@countermail.com> 1.5.1-2
+- Update project organization so that sailfish widgets can be included in build.
 
 * Sun Dec 14 2014 Dametrious Peyton <dametriouspeyton@countermail.com> 1.0.1-1
 - Read Only Mnemosyne Database
