@@ -1,8 +1,0 @@
-module harbour.nemosyne.SailfishWidgets.JS
-versioner 1.1 version.qml
-versioner 1.2 version.qml
-versioner 1.3 version.qml
-versioner 1.4 version.qml
-MathHelper 1.1 MathHelper.js
-IconThemes 1.1 IconThemes.js
-Variant 1.1 Variant.js
