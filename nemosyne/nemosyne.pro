@@ -20,9 +20,8 @@ INCLUDEPATH += ../thirdparty/sailfish-widgets/src/lib/core
 
 SOURCES += src/harbour-nemosyne.cpp
 
-RESOURCES += \
-    images.qrc \
-    data.qrc
+RESOURCES += images.qrc \
+             data.qrc
 
 OTHER_FILES += qml/harbour-nemosyne.qml \
     qml/cover/CoverPage.qml \
@@ -45,6 +44,7 @@ swl.files = ../thirdparty/sailfish-widgets/src/qml/SailfishWidgets
 swl.path = /usr/share/$${TARGET}/harbour/nemosyne
 INSTALLS += swl
 
+### Rename QML modules for Harbour store
 swlc.path = /usr/share/$${TARGET}/harbour/nemosyne
 swlc.commands = find /home/deploy/installroot$$swl.path -name 'qmldir' -exec sed -i \"s/module Sail/module harbour.nemosyne.Sail/\" \\{} \;;
 swlc.commands += find /home/deploy/installroot$$swl.path -name '*.qmltypes' -exec sed -i \"s/SailfishWidgets/harbour\/nemosyne\/SailfishWidgets/\" \\{} \;
@@ -54,19 +54,14 @@ qmllogger.files = ../thirdparty/QmlLogger/qmldir ../thirdparty/QmlLogger/qmllogg
 qmllogger.path = /usr/share/$${TARGET}/harbour/nemosyne/QmlLogger
 INSTALLS += qmllogger
 
-nemosynelibs.files = $$OUT_PWD/../thirdparty/sailfish-widgets/src/lib/applicationsettings/libapplicationsettings* \
-                     $$OUT_PWD/../thirdparty/sailfish-widgets/src/lib/core/libcore* \
-                     $$OUT_PWD/../thirdparty/sailfish-widgets/src/lib/language/liblanguage* \
-                     $$OUT_PWD/../thirdparty/sailfish-widgets/src/lib/filemanagement/libfilemanagement* \
-                     $$OUT_PWD/../thirdparty/sailfish-widgets/src/lib/database/libdatabase*
+#nemosynelibs.files = ../thirdparty/sailfish-widgets/src/qml/SailfishWidgets/Settings/libapplicationsettings* \
+nemosynelibs.files = $$OUT_PWD/../thirdparty/sailfish-widgets/src/lib/core/libcore.so.1
 nemosynelibs.path = /usr/share/$${TARGET}/lib
-# Delete the private lib for the harbour store RPM validator
-#nemosynelibs.commands = "rm -fr /home/deploy/installroot/usr/share/harbour-nemosyne/harbour/nemosyne/SailfishWidgets/Core"
+nemosynelibs.commands = "pushd /home/deploy/installroot/usr/share/$${TARGET}/lib; ln -s ../harbour/nemosyne/SailfishWidgets/Settings/libapplicationsettings.so ."
 INSTALLS += nemosynelibs
 
-# Linker instructions
-# The order of -L and -l is important
-LIBS += -L$$OUT_PWD/../thirdparty/sailfish-widgets/src/lib/applicationsettings \
+# Linker instructions--The order of -L and -l is important
+LIBS += -L$$_PRO_FILE_PWD_/../thirdparty/sailfish-widgets/src/qml/SailfishWidgets/Settings \
         -lapplicationsettings \
         -L$$OUT_PWD/../thirdparty/sailfish-widgets/src/lib/core \
         -lcore

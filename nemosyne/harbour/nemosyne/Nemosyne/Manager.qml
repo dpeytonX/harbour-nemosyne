@@ -56,6 +56,7 @@ SQLiteDatabase {
     signal initializedDone()
     signal cardDeleted()
     signal cardAdded()
+    /* Emitted when validateDatabase is called to alert listeners to the status of the check */
     signal databaseValid(bool valid)
 
     // Read in our reset times (when we generate the next day's cards), and some time-related display settings

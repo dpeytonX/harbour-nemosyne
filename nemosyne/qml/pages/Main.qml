@@ -29,6 +29,17 @@ import harbour.nemosyne.SailfishWidgets.Settings 1.4
 import harbour.nemosyne.SailfishWidgets.Utilities 1.4
 import harbour.nemosyne.QmlLogger 2.0
 
+/**
+  The standard workflow of this dialog is as follows.
+
+  User clicks on a database.
+  The database has file system checks performed in the process method.
+  The process method opens the BusyPage busy component.
+  The onOpened signal calls the openDb method which uses Manager.validateDatabase() to perform more checks.
+  Manager performs SQL validation on the database.
+  Once complete manager.onDatabaseValid is called with the final validation status
+  Lastly, the busy component is then proceeds to the first Question or is popped of the stack to return to Main.
+ */
 OrientationPage {
     readonly property string dataPath: dir.XdgData + "/" + UIConstants.defaultDb
     property bool openQuickly: false
@@ -68,7 +79,7 @@ OrientationPage {
                     Console.info("Main::openDb: reset history took " + (Date.now() - t) + "ms")
                 }
 
-                // push new card on page stack
+                // --------> This will eventually open a Question/Answer component and push it into the view
                 if(openQuickly)
                     loader.create(busy.acceptDestination, main, busy.acceptDestinationProperties)
                 else
@@ -163,7 +174,15 @@ OrientationPage {
         id: settingsPage
     }
 
-    //Not wrapping in Component since it's a pain to use signal connects
+    /*
+      This is the work horse of Main.qml. This will create the Question component in the property
+      "acceptDestination" and pass the manager (the database access layer) and Settings page to it.
+
+      The success() signal, see manager.onDatabaseValid, when called will open the Question component
+      which shows the next card to be reviewed on the stack.
+
+      The failure() signal will close the BusyPage and return to Main.
+    */
     BusyPage {
         id: busy
         title: qsTr("opening database")
@@ -234,11 +253,10 @@ OrientationPage {
                 id: newDb
                 text: qsTr("new db")
                 onClicked: {
-                    if(newFile.exists) {
+                    if(newFile.exists) // Open the "overwrite existing DB?" remorse dialog
                         loader.create(newDbDialog, main, {})
-                    } else {
+                    else // Otherwise, create the new database file
                         create()
-                    }
                 }
             }
 
@@ -321,6 +339,14 @@ OrientationPage {
 
     //----------Internal Functions---------------
 
+    /*!
+      \internal
+
+      This function forces the last used database into view provided the correct settings are enabled
+      and the Page Stack is idle.
+
+      See Component.onCompleted and process()
+      */
     function autoRun() {
         Console.debug("pagestack animating: " + pageStack.acceptAnimationRunning)
         Console.debug("pagestack busy: " + pageStack.busy)
@@ -335,6 +361,11 @@ OrientationPage {
         }
     }
 
+    /*!
+      \internal
+
+      Determines whether to open the last used database or to hand off the database to the Busy page
+      */
     function process(file, quickly) {
         if(quickly !== undefined && quickly) {
             currentFile = file
@@ -349,6 +380,13 @@ OrientationPage {
         }
     }
 
+    /*!
+      \internal
+
+      Gets the path to the database and uses Manager to validate it.
+
+      See manager.onDatabaseValid property change listener
+      */
     function openDb(file, quickly) {
         main.openQuickly = quickly !== undefined ? quickly : false
         currentFile = file
@@ -374,6 +412,11 @@ OrientationPage {
         }
     }
 
+    /*!
+      \internal
+
+      This cleans up duplicate history items from a previous version of Nemosyne. May be deleted in the future.
+      */
     function _cleanHistory() {
         //Cleanup settings from V 1.0
         var t = Date.now()
