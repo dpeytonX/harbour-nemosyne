@@ -48,4 +48,20 @@ You can add translations on at <a href="https://www.transifex.com/projects/p/har
 
 <img src="store/snapshot3.png" />
 
-$$FOOTER$$
+<h2>Contribute</h2>
+
+This application is open source,  but please do contribute to active development!
+<p>
+You can contribute in one of two ways:
+<ul>
+<li>Fork this branch and make pull request! (Please create an issue ticket first, though)
+<li>Donate Bitcoins
+</ul>
+<p>
+<img src="bitcoinaddy.png" />
+<p>
+<code>3NeDGutmC7hc5Dv2cUX8YcvPWaUXZm3KAF</code>
+
+
+<br>
+Copyright ©220 Dametrious Peyton. All Rights Reserved
